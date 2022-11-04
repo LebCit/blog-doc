@@ -1,0 +1,34 @@
+<%- include('../components/head') %>
+<div id="layout">
+	<%#
+	<!-- Menu -->
+	%> <%- include('../components/menu') %> <%#
+	<!-- Main container -->
+	%>
+	<div id="main">
+		<%# Page header %>
+		<div class="header">
+			<h1><%= titles.title %></h1>
+			<h2><%= titles.subTitle %></h2>
+		</div>
+
+		<%# Page content %>
+		<div class="content">
+			<ol class="tags">
+				<% for (const property in postsByTagCount) {%> <%#
+				<!-- To avoid displaying a null tag in the list of tags if one or more post have no tag(s) -->
+				%> <% if (property !== "null") { %>
+				<li class="tag">
+					<a class="tag-link" href="/tags/<%= property %>"><%= property %></a>
+					<% if (postsByTagCount[property] == 1) { %>
+					<span>(1 post)</span>
+					<% } else { %>
+					<span>(<%= postsByTagCount[property] %> posts)</span>
+					<% } %>
+				</li>
+				<% } %> <%} %>
+			</ol>
+		</div>
+	</div>
+</div>
+<%- include('../components/footer') %>

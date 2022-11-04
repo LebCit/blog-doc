@@ -1,0 +1,27 @@
+{
+  "name": "blog-doc",
+  "version": "1.0.0",
+  "description": "A tiny blog and documentation SSG app",
+  "main": "index.js",
+  "scripts": {
+    "watch": "nodemon -e ejs,css,js,md"
+  },
+  "keywords": [],
+  "author": "LebCit",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "glob": "^8.0.3",
+    "gray-matter": "^4.0.3",
+    "helmet": "^6.0.0",
+    "markdown-it": "^13.0.1",
+    "markdown-it-highlightjs": "^4.0.1"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "livereload": "^0.9.3",
+    "nodemon": "^2.0.20",
+    "strip-comments": "^2.0.1"
+  }
+}

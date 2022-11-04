@@ -1,0 +1,13 @@
+{
+	"blogDocPageFrontMatter": {
+		"prefix": "Blog-Doc Page Frontmatter",
+		"body": [
+			"---",
+			"title: $1",
+			"subTitle: $2",
+			"---",
+			""
+		],
+		"description": "blogDocPostFrontMatter"
+	}
+}

@@ -1,0 +1,63 @@
+<%- include('../components/head') %> <%#
+<!-- Featured image -->
+%> <% if (featuredImage) { %>
+<style>
+	.post-header {
+		background-image: url("<%=featuredImage%>");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+	.post-header .overlay {
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	.post-header .overlay h1,
+	.post-header .overlay h2 {
+		color: #fff;
+	}
+	@media (min-width: 48em) {
+		.post-header .overlay {
+			display: inline-block;
+			width: 50%;
+		}
+	}
+</style>
+<% } %>
+
+<div id="layout">
+	<%- include('../components/menu') %> <%#
+	<!-- Main container -->
+	%>
+	<div id="main">
+		<!-- Post header -->
+		<% if (featuredImage) { %>
+		<div class="header post-header">
+			<div class="overlay">
+				<h1><%= title %></h1>
+				<h2><%= description %></h2>
+			</div>
+		</div>
+		<% } else { %>
+		<div class="header">
+			<h1><%= title %></h1>
+			<h2><%= description %></h2>
+		</div>
+		<% } %> <%#
+		<!-- Post content -->
+		%>
+		<div class="content">
+			<p class="post-meta">
+				<span>Posted on</span>
+				<span class="posted-on"><time class="post-date"><%= date %></time></span>
+				<% if (tags) { %>
+				<br />
+				<span>Tagged</span>
+				<% tags.forEach(tag => { %>
+				<a href="/tags/<%=tag%>" class="post-tag"><%= tag %></a>
+				<% }) %> <% } %>
+			</p>
+			<div><%- postContent %></div>
+		</div>
+	</div>
+</div>
+<%- include('../components/footer') %>

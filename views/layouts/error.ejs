@@ -1,0 +1,25 @@
+<%- include('../components/head') %>
+<div id="layout">
+	<%#
+	<!-- Menu -->
+	%> <%- include('../components/menu') %> <%#
+	<!-- Main container -->
+	%>
+	<div id="main">
+		<%# Page header %>
+		<div class="header">
+			<h1><%= headerTitle %></h1>
+			<h2><%= headerSubtitle %></h2>
+		</div>
+
+		<%# Page content %>
+		<div class="content">
+			<img class="pure-img-responsive" src="<%= imageSrc %>" alt="<%= imageAlt %>" />
+
+			<%#
+			<!-- Back to home link -->
+			%> <%- include('../components/backToHome') %>
+		</div>
+	</div>
+</div>
+<%- include('../components/footer') %>

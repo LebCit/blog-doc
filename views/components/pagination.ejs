@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="/css/pagination.css">
+
+<%#
+<!-- First page pagination -->
+%> <% if (firstPage && lastPage > 0) { %>
+<nav aria-label="pagination">
+	<ul class="pagination">
+		<li>
+			<a href="/page/<%= lastPage %>" title="Last page" aria-label="Go to the last page of the blog">
+				<span aria-hidden="true">
+					<img src="/icons/chevron-left.svg" alt="Last page" />
+				</span>
+				<span class="hidden">Go to the last page of the blog</span>
+			</a>
+		</li>
+		<li>
+			<a class="btn default prev" role="button" href="/page/1" aria-label="Go to the previous set of posts">
+				<span aria-hidden="true">Older Posts</span>
+				<span class="hidden">Go to the previous set of posts</span>
+			</a>
+		</li>
+	</ul>
+</nav>
+<% } %> <%#
+<!-- Other pages pagination -->
+%> <% if (!firstPage) { %>
+<nav aria-label="pagination">
+	<ul class="pagination">
+		<%#
+		<!-- Older posts -->
+		%> <% if (paginatedPostsList.next_page) { %>
+		<li>
+			<a href="/page/<%= lastPage %>" title="Last page" aria-label="Go to the last page of the blog">
+				<span aria-hidden="true">
+					<img src="/icons/chevron-left.svg" alt="Last page" />
+				</span>
+				<span class="hidden">Go to the last page of the blog</span>
+			</a>
+		</li>
+		<li>
+			<a
+				class="btn default prev"
+				role="button"
+				href="/page/<%=paginatedPostsList.next_page%>"
+				aria-label="Go to the previous set of posts"
+			>
+				<span aria-hidden="true">Older Posts</span>
+				<span class="hidden">Go to the previous set of posts</span>
+			</a>
+		</li>
+		<% } %> <%#
+		<!-- Newer posts -->
+		%> <% if (paginatedPostsList.prev_page) { %>
+		<li>
+			<a
+				class="btn default next"
+				role="button"
+				href="/page/<%=paginatedPostsList.prev_page%>"
+				aria-label="Go to the next set of posts"
+			>
+				<span aria-hidden="true">Newer Posts</span>
+				<span class="hidden">Go to the next set of posts</span>
+			</a>
+		</li>
+		<li>
+			<a href="/" title="First page" aria-label="Go to the first page of the blog">
+				<span aria-hidden="true">
+					<img src="/icons/chevron-right.svg" alt="First page" />
+				</span>
+				<span class="hidden">Go to the first page of the blog</span>
+			</a>
+		</li>
+		<% } else { %>
+		<li>
+			<a class="btn default next" role="button" href="/" aria-label="Go to the next set of posts">
+				<span aria-hidden="true">Newer Posts</span>
+				<span class="hidden">Go to the next set of posts</span>
+			</a>
+		</li>
+		<li>
+			<a href="/" title="First page" aria-label="Go to the first page of the blog">
+				<span aria-hidden="true">
+					<img src="/icons/chevron-right.svg" alt="First page" />
+				</span>
+				<span class="hidden">Go to the first page of the blog</span>
+			</a>
+		</li>
+		<% } %>
+	</ul>
+</nav>
+<% } %>
