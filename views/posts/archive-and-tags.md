@@ -25,7 +25,7 @@ To modify the route on which the list of all the posts is displayed, you just ha
 
 > _Nota Bene : whenever you make a change, always check through the whole app for changes to be made according to the one you're making !_
 
-Let's say you changed `/archive` to `/posts` in **archiveRoute.js**, you'll have to make the same modification in **postsList.ejs** on line 20, as well as in **menu.ejs** if you have their a link for that.
+Let's say you changed `/archive` to `/posts` in **archiveRoute.js**, you'll have to make the same modification in **postsList.ejs** on line 20, as well as in **menu.ejs** if you have there a link for that.
 
 ## Tags route
 
@@ -47,8 +47,62 @@ This constant is passed to the `/tags` route, `postsByTagCount: postsByTagCount(
 for (const property in postsByTagCount)
 ```
 
-then we check inside the loop, on line 20, if each tag exists to avoid displaying a null tag in the list of tags if one or more post have no tag(s) :
+Then we check inside the loop, on line 20, if each tag exists and it's value is greater than 0, to avoid displaying a null tag in the list of tags if one or more post have no tag(s) :
 
 ```js
 if (property !== "null")
 ```
+
+### Tag route
+
+The second task, leading to the display of all the posts for a particular tag, begins with a simple function living in the **postsByTagList.js** file under the **functions** folder. This function, with a `(tag)` parameter, filters the posts to retrieve an array of post(s) including the requested tag, otherwise it returns an empty array.  
+The function is parsed to a constant, `postsByTagList`, in **tagsRoute.js** on line 4 :
+
+```js
+const postsByTagList = require("../functions/postsByTagList")
+```
+
+This constant, combined with the requested parameter (the requested tag) is parsed to another constant on line 24 inside the dynamic route `"/tags/:tag"` :
+
+```js
+const tag = req.params.tag
+const postsByTag = postsByTagList(tag)
+```
+
+This final constant, `postsByTag`, is passed through the dynamic route as a data object :
+
+```js
+posts: postsByTag
+```
+
+This data object, the array of post(s) related to a single tag, is sent to the **postsList.ejs** file in the **layout** folder under the **views** folder, where it will be used by the **singlePostPreview.ejs** file in the **components** folder under the **views** folder :
+
+```js
+// postsList.ejs | line 17
+<%- include('../components/singlePostPreview') %>
+```
+
+As it's name suggests, **singlePostPreview.ejs** is responsible of the look and feel of each and every post's preview. I'll be talking later on about this file in details.
+
+A last thing to mention in the dynamic route is that if the returned array is empty, not even one post is related to the requested tag, the 404 error page is rendered.  
+Try to hit a tag route that doesn't exists, as an example : [inexistent tag](/tags/INEXISTENTTAG).
+
+### Modifying the tags route
+
+Modifying the tags route is quite simple, all you have to do is to change the path `/tags` in **tagsRoute.js** on line 7 to whatever you desire.  
+If you change it to `/hashtags`, the list of all available tags will now be displayed on this route instead of the previous one. If a link to the old path is present in **menu.ejs**, the same modification should be made.
+
+### Modifying tags' dynamic route
+
+The route of each individual tag is defined by a parameter `/:tag` in the dynamic route `"/tags/:tag"`. There is absolutely no need to change the parameter by itself !  
+Let's say you changed previously `/tags` to `/hashtags`. To keep some logic, you'll have to make the same modification in the dynamic route to `"/hashtags/:tag"`.
+
+> _Nota Bene : whenever you make a change, always check through the whole app for changes to be made according to the one you're making !_
+
+In this case, the changes to be made are in the following files :
+
+1. **singlePostPreview.ejs**, in the **components** folder under the **views** folder, on line 41
+2. **postsByTagCount.ejs**, in the **layouts** folder under the **views** folder, on line 22
+3. **postsTemplate.ejs**, in the **layouts** folder under the **views** folder, on line 56
+
+That's all for archive and tags, see you in the next one.
