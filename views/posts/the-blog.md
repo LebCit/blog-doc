@@ -53,7 +53,7 @@ Like explained previously, the pagination will only work if your blog contains m
 
 The homepage will have a pagination to the **Older Posts**, page 1 of the blog, as well as a left chevron icon linking to the last page of the blog.  
 The last page of the blog will have a pagination to the **Newer Posts**, as well as a right chevron icon linking to the first page of the blog.  
-In between, every other page of the blog will gave a pagination to the **Older Posts**, the **Newer Posts**, a left chevron icon linking to the last page of the blog and a right chevron icon linking to the first page of the blog.
+In between, every other page of the blog will have a pagination to the **Older Posts**, the **Newer Posts**, a left chevron icon linking to the last page of the blog and a right chevron icon linking to the first page of the blog.
 
 This one ends here, I'll be talking more about the pagination later on.
 
