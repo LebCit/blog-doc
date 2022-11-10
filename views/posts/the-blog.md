@@ -2,6 +2,7 @@
 title: The blog
 date: 2022/10/05
 description: How the blog works ?
+featuredImage: /images/the-blog.webp
 tags: [Blog-Doc, Blog]
 ---
 
