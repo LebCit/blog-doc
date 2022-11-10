@@ -2,6 +2,7 @@
 title: Archive and tags
 date: 2022/10/20
 description: Archive and tags pages
+featuredImage: /images/archive-and-tags.webp
 tags: [Archive, Tags, Blog-Doc]
 ---
 
