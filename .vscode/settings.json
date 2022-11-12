@@ -9,6 +9,7 @@
     "liveSassCompile.settings.generateMap": false,
     "liveSassCompile.settings.autoprefix": [],
     "cSpell.words": [
-        "Chyno"
+        "Chyno",
+        "Frontmatter"
     ],
 }
