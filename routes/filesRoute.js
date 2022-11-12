@@ -45,7 +45,7 @@ glob("views/**/*(*.ejs|*.md)", { ignore: ["views/components/*", "views/layouts/*
 				docDescription: file.data.subTitle ? file.data.subTitle : file.data.description,
 			}
 
-			if (path.includes("pages")) {
+			if (path.startsWith("views/pages/")) {
 				// Render the pagesTemplate for each page and pass it's front matter as a data object into pagesTemplate
 				res.render("layouts/pagesTemplate", {
 					titles: titles,
@@ -66,7 +66,7 @@ glob("views/**/*(*.ejs|*.md)", { ignore: ["views/components/*", "views/layouts/*
 					postContent: html,
 				})
 			}
-		} else if (path?.includes("templates")) {
+		} else if (path?.startsWith("views/templates/")) {
 			// Render the EJS template
 			res.render(`templates/${fileWithExtension}`)
 		} else {
