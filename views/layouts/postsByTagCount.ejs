@@ -16,8 +16,8 @@
 		<div class="content">
 			<ol class="tags">
 				<% for (const property in postsByTagCount) {%> <%#
-				<!-- To avoid displaying a null tag in the list of tags if one or more post have no tag(s) -->
-				%> <% if (property !== "null") { %>
+				<!-- To avoid displaying a null or undefined tag in the list of tags if one or more post have no tag(s) -->
+				%> <% if (property !== "null" && property !== "undefined") { %>
 				<li class="tag">
 					<a class="tag-link" href="/tags/<%= property %>"><%= property %></a>
 					<% if (postsByTagCount[property] == 1) { %>
