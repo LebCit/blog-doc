@@ -22,7 +22,7 @@ tags: []
 ---
 ```
 
-Type the title of your post, the date is automatically generated, give it a short description, put it's featured image in the **images** folder under the **public** folder and add the filename after `/images/` like `/images/an_image.png`, and finally tag it with the appropriate keywords in the array of `tags` like `[Development, Node.js, Markdown]`.  
+Type the title of your post, the date is automatically generated, give it a short description, put it's featured image in the **images** folder under the **public** folder and add the filename after `/images/` like `/images/an_image.png` or simply link to any image out there like `featuredImage: https://link_to_an_image.com`, and finally tag it with the appropriate keywords in the array of `tags` like `[Development, Node.js, Markdown]`.  
 You should now be able to see your post on the blog and click on it's title or it's _Read the post_ button to access it !
 
 > _Nota Bene : it's always a good idea to give your post the same file name as it's title for SEO !_
