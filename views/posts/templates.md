@@ -36,8 +36,12 @@ Now paste the following block of code and write your content under the `<content
 		<link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon" />
 
 
-		<link rel="stylesheet" href="/css/pure-min.min.css" />
-		<link rel="stylesheet" href="/css/grids-responsive-min.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+			integrity="sha256-AXV9/14XTNljCQp7u3n02VIiYAICq8ocXkc11rvMlSw="
+			crossorigin="anonymous"
+		/>
 		<link rel="stylesheet" href="/css/styles.min.css" />
 	</head>
 	<body>
@@ -70,7 +74,7 @@ After creating your content with a template, you'll be able to add a link to it 
 
 ## Conclusion
 
-If you followed the articles related to [Blog-Doc](/tags/Blog-Doc) from the beginning till this one, you now have a solid understanding of how everything works under the hood, how the components are displayed on the frontend, how the posts, pages and templates files are rendered on the frontend, and how to use them.  
+If you followed the articles related to [Blog-Doc](/tags/Blog-Doc) from the beginning till this one, you now have a solid understanding of how everything works under the hood, how the components are displayed on the frontend, how the posts, pages and templates files are rendered on the frontend, and how to use them.
 
 You can take Blog-Doc as a prototype and modify it totally to use it with another design and/or another template language.
 
