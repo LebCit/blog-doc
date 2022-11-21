@@ -4,6 +4,7 @@
   "description": "A tiny blog and documentation SSG app",
   "main": "index.js",
   "scripts": {
+    "build": "node functions/build.js",
     "watch": "nodemon -e ejs,css,js,md"
   },
   "keywords": [],

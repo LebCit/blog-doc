@@ -10,15 +10,37 @@
 		<a href="/" class="pure-menu-heading">BLOG-DOC</a>
 
 		<ul class="pure-menu-list">
-			<li class="pure-menu-item"><a href="/archive" class="pure-menu-link">Archive</a></li>
-
-			<li class="pure-menu-item"><a href="/tags" class="pure-menu-link">Tags</a></li>
-
 			<li class="pure-menu-item">
-				<a href="/install-blog-doc" class="pure-menu-link">Install</a>
+				<a <% if (locals.build || locals.dynamic) { %>
+					href="/archive.html" <% } else { %> href="/archive" <% } %> class="pure-menu-link">Archive
+				</a>
 			</li>
 
-			<li class="pure-menu-item"><a href="/license" class="pure-menu-link">License</a></li>
+			<li class="pure-menu-item">
+				<a <% if (locals.build || locals.dynamic) { %>
+					href="/tags.html" <% } else { %> href="/tags" <% } %> class="pure-menu-link">Tags
+				</a>
+			</li>
+
+			<li class="pure-menu-item">
+				<a <% if (locals.build || locals.dynamic) { %>
+					href="/install-blog-doc.html" <% } else { %> href="/install-blog-doc" <% } %>
+					class="pure-menu-link">Install
+				</a>
+			</li>
+
+			<li class="pure-menu-item">
+				<a <% if (locals.build || locals.dynamic) { %>
+					href="/go-static.html" <% } else { %> href="/go-static" <% } %>
+					class="pure-menu-link">Go Static !
+				</a>
+			</li>
+
+			<li class="pure-menu-item">
+				<a <% if (locals.build || locals.dynamic) { %>
+					href="/license.html" <% } else { %> href="/license" <% } %> class="pure-menu-link">License
+				</a>
+			</li>
 		</ul>
 	</div>
 </div>

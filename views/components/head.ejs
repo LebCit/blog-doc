@@ -6,6 +6,28 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="<%= titles.docDescription %>" />
 		<title>Blog-Doc | <%= titles.docTitle %></title>
+		<% if (locals.build) { %>
+		<link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+			integrity="sha256-AXV9/14XTNljCQp7u3n02VIiYAICq8ocXkc11rvMlSw="
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="css/styles.min.css" />
+		<link rel="stylesheet" href="css/code-theme.min.css" />
+		<% } else if (locals.dynamic) { %>
+		<link rel="shortcut icon" href="../icons/favicon.ico" type="image/x-icon" />
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+			integrity="sha256-AXV9/14XTNljCQp7u3n02VIiYAICq8ocXkc11rvMlSw="
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="../css/styles.min.css" />
+		<link rel="stylesheet" href="../css/code-theme.min.css" />
+		<% } else { %>
 		<link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon" />
 
 		<link
@@ -16,5 +38,6 @@
 		/>
 		<link rel="stylesheet" href="/css/styles.min.css" />
 		<link rel="stylesheet" href="/css/code-theme.min.css" />
+		<% } %>
 	</head>
 	<body>

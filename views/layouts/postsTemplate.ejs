@@ -1,9 +1,22 @@
 <%- include('../components/head') %> <%#
 <!-- Featured image -->
-%> <% if (featuredImage) { %>
+%> <% if (featuredImage) { %> <%#
+<!-- Added comment for readability -->
+%> <% if (featuredImage.startsWith("/")) { %>
+<style>
+	.post-header {
+		background-image: url(".<%=featuredImage%>");
+	}
+</style>
+<% } else { %>
 <style>
 	.post-header {
 		background-image: url("<%=featuredImage%>");
+	}
+</style>
+<% } %>
+<style>
+	.post-header {
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;

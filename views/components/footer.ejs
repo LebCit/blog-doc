@@ -8,6 +8,12 @@
 		</div>
 	</div>
 </div>
-<script src="/js/main.js"></script>
+<% if (locals.build) { %>
+	<script src="js/main.js"></script>
+<% } else if (locals.dynamic) { %>
+	<script src="../js/main.js"></script>
+<% } else { %>
+	<script src="/js/main.js"></script>
+<% } %>
 	</body>
 </html>
