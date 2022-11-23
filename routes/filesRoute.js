@@ -2,6 +2,7 @@ const router = global.router
 
 const matter = require("gray-matter")
 const glob = require("glob")
+const getPosts = require("../functions/getPosts")
 
 // Find files ending with `.ejs` and `.md` in sub-directories of `views` and ignore `components` and `layouts` sub-directories.
 glob("views/**/*(*.ejs|*.md)", { ignore: ["views/components/*", "views/layouts/*"] }, (err, files) => {
@@ -54,6 +55,23 @@ glob("views/**/*(*.ejs|*.md)", { ignore: ["views/components/*", "views/layouts/*
 					pageContent: html,
 				})
 			} else {
+				// Get the index of each post in the posts array by it's filename
+				const actualPostIndex = getPosts().findIndex((post) => post[0] === `${req.params.filename}.md`)
+				// Get the previous post index while the actual post index is smaller than the posts array length - 1 (posts array length - 1 is the index of the last post)
+				const previousPostIndex = actualPostIndex < getPosts().length - 1 ? actualPostIndex + 1 : null
+				// Get the next post index while the actual post index is greater than 0 (0 is the index of the first post)
+				const nextPostIndex = actualPostIndex > 0 ? actualPostIndex - 1 : null
+				// Get the previous post by it's index while it's not the last post or return null
+				const previousPost =
+					previousPostIndex !== null ? getPosts()[previousPostIndex][0].replace(".md", "") : null
+				// Get the next post by it's index while it's not the first post or return null
+				const nextPost = nextPostIndex !== null ? getPosts()[nextPostIndex][0].replace(".md", "") : null
+				// Get the previous post title by it's index while it's not the last post or return null
+				const previousPostTitle =
+					previousPostIndex !== null ? getPosts()[previousPostIndex][1].data.title : null
+				// Get the next post title while it's not the first post or return null
+				const nextPostTitle = nextPostIndex !== null ? getPosts()[nextPostIndex][1].data.title : null
+
 				// Render the postsTemplate for each post and pass it's front matter as a data object into postsTemplate
 				res.render("layouts/postsTemplate", {
 					titles: titles,
@@ -64,6 +82,10 @@ glob("views/**/*(*.ejs|*.md)", { ignore: ["views/components/*", "views/layouts/*
 					featuredImageAltText: file.data.featuredImageAltText,
 					tags: file.data.tags,
 					postContent: html,
+					previousPost: previousPost,
+					nextPost: nextPost,
+					previousPostTitle: previousPostTitle,
+					nextPostTitle: nextPostTitle,
 				})
 			}
 		} else if (path?.startsWith("views/templates/")) {

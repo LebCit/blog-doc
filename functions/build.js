@@ -83,6 +83,16 @@ async function build() {
 						// Create html file out of each Markdown page.
 						await writeFile(`_site/${fileWithoutExtension}.html`, pageHTML, "utf8")
 					} else {
+						const actualPostIndex = getPosts().findIndex((post) => post[0] === `${fileWithoutExtension}.md`)
+						const previousPostIndex = actualPostIndex < getPosts().length - 1 ? actualPostIndex + 1 : null
+						const nextPostIndex = actualPostIndex > 0 ? actualPostIndex - 1 : null
+						const previousPost =
+							previousPostIndex !== null ? getPosts()[previousPostIndex][0].replace(".md", "") : null
+						const nextPost = nextPostIndex !== null ? getPosts()[nextPostIndex][0].replace(".md", "") : null
+						const previousPostTitle =
+							previousPostIndex !== null ? getPosts()[previousPostIndex][1].data.title : null
+						const nextPostTitle = nextPostIndex !== null ? getPosts()[nextPostIndex][1].data.title : null
+
 						const postHTML = await ejs.renderFile("views/layouts/postsTemplate.ejs", {
 							titles: titles,
 							title: mdFile.data.title,
@@ -92,6 +102,10 @@ async function build() {
 							featuredImageAltText: mdFile.data.featuredImageAltText,
 							tags: mdFile.data.tags,
 							postContent: html,
+							previousPost: previousPost,
+							nextPost: nextPost,
+							previousPostTitle: previousPostTitle,
+							nextPostTitle: nextPostTitle,
 							build: true,
 						})
 						// Create html file out of each Markdown post.

@@ -1,0 +1,86 @@
+<style>
+	nav {
+		display: flex;
+		justify-content: center;
+		margin-top: 50px;
+	}
+
+	.pagination {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+	}
+
+	.pagination li {
+		margin: 10px;
+	}
+
+	.default {
+		border-color: #e7e7e7;
+		color: black;
+		text-decoration: none;
+	}
+
+	.default:hover,
+	.default:focus {
+		background: #e7e7e7;
+		text-decoration: underline;
+	}
+
+	.post-link {
+		background-color: #ffc10d;
+		color: #000000;
+		padding: 0.5rem 1rem 0.75rem;
+		border: 5px solid #000000;
+		border-radius: 5px;
+		font-size: 1em;
+		text-decoration: none;
+		display: inline-grid;
+		font-family: "Open Sans", sans-serif;
+	}
+
+	.post-link:hover,
+	.post-link:focus,
+	.post-link:active {
+		text-decoration: underline;
+		background: #000000;
+		color: #ffffff;
+		cursor: pointer;
+	}
+
+	@media (max-width: 48em) {
+		.pagination {
+			flex-direction: column-reverse;
+		}
+		.pagination li {
+			margin: 5px;
+		}
+	}
+</style>
+
+<nav aria-label="pagination">
+	<ul class="pagination">
+		<% if (previousPost !== null) { %>
+		<li>
+			<a class="post-link prev" role="button" <% if (locals.build) { %>
+				href="/<%=previousPost%>.html" <% } else { %> href="/<%=previousPost%>" <% } %> aria-label="Go to the
+				previous post" >
+				<span aria-hidden="true">Previous: <%=previousPostTitle%></span>
+				<span class="hidden">Go to the previous post</span>
+			</a>
+		</li>
+		<% } %> <%#
+		<!-- Added comment for readability -->
+		%> <% if (nextPost !== null) { %>
+		<li>
+			<a class="post-link next" role="button" <% if (locals.build) { %>
+				href="/<%=nextPost%>.html" <% } else { %> href="/<%=nextPost%>" <% } %> aria-label="Go to the next post"
+				>
+				<span aria-hidden="true">Next: <%=nextPostTitle%></span>
+				<span class="hidden">Go to the next post</span>
+			</a>
+		</li>
+		<% } %>
+	</ul>
+</nav>
