@@ -1,6 +1,11 @@
-# Blog-Doc
+---
+title: Install Blog-Doc
+subTitle: Installing and using the app
+---
 
-A tiny blog and documentation SSG app
+## Blog-Doc
+
+A tiny blog and documentation SSG app.
 
 ## How to install Blog-Doc ?
 
@@ -17,7 +22,7 @@ Then type in the terminal :
 npm install
 ```
 
-After the install, you'll see that Blog-Doc comes with some posts, a page and a template. Those files are located under the **views** folder in the **pages**, **posts** and **templates** folders. You can begin by removing those existing files and create your own [Posts and Pages](https://blog-doc.deta.dev/posts-and-pages) and also [Templates](https://blog-doc.deta.dev/templates).
+After the install, you'll see that Blog-Doc comes with some posts, a page and a template. Those files are located under the **views** folder in the **pages**, **posts** and **templates** folders. You can begin by removing those existing files and create your own [Posts and Pages](/posts-and-pages) and also [Templates](/templates).
 
 To see what you content looks like, type in your terminal the following command :
 
@@ -35,7 +40,7 @@ When you try to reproduce an idea like an SSG, you learn a lot and especially to
 
 Rendering a static file out of a template is an easy task, but turning different routes working together to produce a Node.js app into some folders and a lot of files to generate a static site is not an easy one !
 
-The file behind this trick in Blog-Doc is **build.js**. You can find this file under the **functions** folder. It's very similar to the [filesRoute.js](https://blog-doc.deta.dev/the-files-route). The difference between the two is that **filesRoute.js** renders the posts, pages and templates in the Node.js app while **build.js** generates out of those posts, pages and templates a ready to use static site.
+The file behind this trick in Blog-Doc is **build.js**. You can find this file under the **functions** folder. It's very similar to the [filesRoute.js](/the-files-route). The difference between the two is that **filesRoute.js** renders the posts, pages and templates in the Node.js app while **build.js** generates out of those posts, pages and templates a ready to use static site.
 
 ### How does it work ?
 
@@ -90,5 +95,3 @@ Ideas, comments and suggestions are most welcome.
 
 SYA,
 LebCit
-
-Built with ❤️ by [LebCit](https://lebcit.github.io/)
