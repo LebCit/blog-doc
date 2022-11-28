@@ -65,9 +65,15 @@
 				<% if (tags) { %>
 				<br />
 				<span>Tagged</span>
-				<% tags.forEach(tag => { %>
+				<% tags.forEach(tag => { %> <%#
+				<!-- Added comment for readability -->
+				%> <% if (locals.build) { %>
+				<a href="/tags/<%=tag%>.html" class="post-tag"><%= tag %></a>
+				<% } else { %>
 				<a href="/tags/<%=tag%>" class="post-tag"><%= tag %></a>
-				<% }) %> <% } %>
+				<% } %> <%#
+				<!-- Added comment for readability -->
+				%> <% }) %> <% } %>
 			</p>
 			<div><%- postContent %></div>
 			<%- include('../components/postsPagination') %>
