@@ -15,6 +15,7 @@ const getPosts = require("./getPosts")
 const paginator = require("./paginator")
 const postsByTagCount = require("./postsByTagCount")
 const postsByTagList = require("./postsByTagList")
+const newHTML = require("./newHTML")
 
 async function build() {
 	if (fs.existsSync("_site")) {
@@ -77,7 +78,7 @@ async function build() {
 							titles: titles,
 							title: mdFile.data.title,
 							subTitle: mdFile.data.subTitle,
-							pageContent: html,
+							pageContent: newHTML(html),
 							build: true,
 						})
 						// Create html file out of each Markdown page.
@@ -101,7 +102,7 @@ async function build() {
 							featuredImage: mdFile.data.featuredImage,
 							featuredImageAltText: mdFile.data.featuredImageAltText,
 							tags: mdFile.data.tags,
-							postContent: html,
+							postContent: newHTML(html),
 							previousPost: previousPost,
 							nextPost: nextPost,
 							previousPostTitle: previousPostTitle,
@@ -116,8 +117,9 @@ async function build() {
 					const templateHTML = await ejs.renderFile(file, {
 						build: true,
 					})
+					const newTemplateHTML = newHTML(templateHTML)
 					// Create html file out of each EJS template.
-					await writeFile(`_site/${fileWithoutExtension}.html`, templateHTML, "utf8")
+					await writeFile(`_site/${fileWithoutExtension}.html`, newTemplateHTML, "utf8")
 				}
 			})
 		})
