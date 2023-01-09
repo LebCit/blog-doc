@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+	<channel>
+		<title>Bloc-Doc</title>
+		<link><%= siteURL %></link>
+		<description>A tiny blog and documentation SSG app</description>
+		<language>en-us</language>
+		<copyright>Copyright (c) 2022 - Present, LebCit under the MIT License</copyright>
+		<pubDate><%= posts[0].date.toUTCString() %></pubDate>
+		<lastBuildDate><%= posts[0].date.toUTCString() %></lastBuildDate>
+		<docs>https://www.rssboard.org/rss-specification</docs>
+		<% posts.forEach(post => { %>
+			<item>
+				<title><%= post[1].data.title %></title>
+				<% if (locals.build) { %>
+				<link><%= siteURL + post[0].replace(/\.[^/.]+$/, "") + ".html" %></link>
+				<% } else { %>
+				<link><%= siteURL + post[0].replace(/\.[^/.]+$/, "") %></link>
+				<% } %>
+				<% if (post[1].data.description) { %>
+				<description><%= post[1].data.description %></description>
+				<% } %>
+				<% if (post[1].data.tags) { %>
+				<% post[1].data.tags.forEach(tag => { %>
+				<% if (locals.build) { %>
+				<category domain="<%= siteURL + "tags/" + tag + ".html" %>"><%= tag %></category>
+				<% } else { %>
+				<category domain="<%= siteURL + "tags/" + tag %>"><%= tag %></category>
+				<% } %>
+				<% }) %>
+				<% } %>
+				<pubDate><%= post.date.toUTCString() %></pubDate>
+			</item>
+		<% }) %>
+	</channel>
+</rss>

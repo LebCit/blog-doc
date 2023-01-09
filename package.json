@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node functions/build.js",
-    "watch": "nodemon -e ejs,css,js,md"
+    "watch": "nodemon -e ejs,css,js,json,md"
   },
   "keywords": [],
   "author": "LebCit",

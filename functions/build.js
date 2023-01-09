@@ -17,6 +17,9 @@ const postsByTagCount = require("./postsByTagCount")
 const postsByTagList = require("./postsByTagList")
 const newHTML = require("./newHTML")
 
+// Settings
+const { siteURL } = require("../config/settings.json")
+
 async function build() {
 	if (fs.existsSync("_site")) {
 		await delDir("_site", { recursive: true })
@@ -243,6 +246,18 @@ async function build() {
 			})
 		}
 		tagRoute()
+
+		// RSS ROUTE
+		async function rssRoute() {
+			const rssXML = await ejs.renderFile("views/layouts/rss.ejs", {
+				siteURL: siteURL,
+				posts: getPosts(),
+				build: true,
+			})
+			// Create html file for the archive route.
+			await writeFile(`_site/rss.xml`, rssXML, "utf8")
+		}
+		rssRoute()
 	} catch (error) {
 		console.log(error)
 	}
