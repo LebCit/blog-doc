@@ -23,6 +23,7 @@ A tiny blog and documentation SSG app.
 -   Individual route for each tag 🏷️
 -   Titles & Meta Descriptions 🤯
 -   RSS feed 💐
+-   Sitemap 🗺️
 -   Hot reloading in development mode 🔥
 
 ### Solid stack of technologies 🪨
@@ -159,6 +160,13 @@ Bellow is a screenshot of the RSS feed of Blog-Doc in [Vivaldi browser](https://
     }
 </style>
 <img class="pure-img-responsive" src="/images/bloc-doc-rss.xml.png">
+
+## Sitemap
+
+Like the RSS feed, you **MUST** provide the **live URL** of your site in the **settings.json** file under the **config** folder to generate the correct links for each page, post, tag and template as well as for the blog routes.
+
+You can check the sitemap of your site under the `/sitemap` route.  
+At build time, a `sitemap.xml` is generated in the **\_site** folder.
 
 ## What's next ?
 
