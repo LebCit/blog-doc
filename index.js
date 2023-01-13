@@ -16,6 +16,7 @@ app.use("/", require("./routes/filesRoute"))
 app.use("/", require("./routes/archiveRoute"))
 app.use("/", require("./routes/tagsRoute"))
 app.use("/", require("./routes/rssRoute"))
+app.use("/", require("./routes/sitemapRoute"))
 
 // 404 route
 app.use((req, res, next) => {

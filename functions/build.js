@@ -16,6 +16,7 @@ const paginator = require("./paginator")
 const postsByTagCount = require("./postsByTagCount")
 const postsByTagList = require("./postsByTagList")
 const newHTML = require("./newHTML")
+const sitemap = require("./sitemap")
 
 // Settings
 const { siteURL } = require("../config/settings.json")
@@ -254,10 +255,21 @@ async function build() {
 				posts: getPosts(),
 				build: true,
 			})
-			// Create html file for the archive route.
+			// Create xml file for the RSS feed.
 			await writeFile(`_site/rss.xml`, rssXML, "utf8")
 		}
 		rssRoute()
+
+		// SITEMAP ROUTE
+		async function sitemapRoute() {
+			const sitemapXML = await ejs.renderFile("views/layouts/sitemap.ejs", {
+				urls: sitemap(),
+				build: true,
+			})
+			// Create xml file for the sitemap.
+			await writeFile(`_site/sitemap.xml`, sitemapXML, "utf8")
+		}
+		sitemapRoute()
 	} catch (error) {
 		console.log(error)
 	}
