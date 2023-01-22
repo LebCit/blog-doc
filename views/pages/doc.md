@@ -24,6 +24,7 @@ A tiny blog and documentation SSG app.
 -   Titles & Meta Descriptions 🤯
 -   RSS feed 💐
 -   Sitemap 🗺️
+-   Search 🔍
 -   Hot reloading in development mode 🔥
 
 ### Solid stack of technologies 🪨
@@ -167,6 +168,22 @@ Like the RSS feed, you **MUST** provide the **live URL** of your site in the **s
 
 You can check the sitemap of your site under the `/sitemap` route.  
 At build time, a `sitemap.xml` is generated in the **\_site** folder.
+
+## Search
+
+Blog-Doc has a built-in search feature.  
+The search functionality allows a user to make a research on **the titles** and **the contents** of the posts.
+
+You can check the search of your site under the `/search` route.  
+At build time, a `posts.json` and a `search.js` are generated in **\_site/js**.  
+Also, at build time, a `search.html` is generated in the **\_site** folder.
+
+You can disable the search in the Node.js app as well as for the generated static site by giving `searchFeature` a value of `false` in the **settings.json** file under the **config** folder.
+
+To see it in action, take a look at :
+
+-   [Search in Node.js app](https://blog-doc.deta.dev/search)
+-   [Search in static site](https://blog-doc-static-express.deta.dev/search.html)
 
 ## What's next ?
 
