@@ -1,3 +1,4 @@
 {
-    "siteURL": "https://blog-doc.deta.dev/"
+    "siteURL": "https://blog-doc.deta.dev/",
+    "searchFeature": true
 }

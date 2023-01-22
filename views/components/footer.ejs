@@ -8,6 +8,9 @@
 		</div>
 	</div>
 </div>
+<% if (locals.build && locals.searchJs) { %>
+	<script src="js/search.js"></script>
+<% } %>
 <% if (locals.build) { %>
 	<script src="js/main.js"></script>
 <% } else if (locals.dynamic) { %>

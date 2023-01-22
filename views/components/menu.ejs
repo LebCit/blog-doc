@@ -37,6 +37,12 @@
 					href="/license.html" <% } else { %> href="/license" <% } %> class="pure-menu-link">License
 				</a>
 			</li>
+
+			<li class="pure-menu-item">
+				<a <% if (locals.build || locals.dynamic) { %>
+					href="/search.html" <% } else { %> href="/search" <% } %> class="pure-menu-link">Search
+				</a>
+			</li>
 		</ul>
 	</div>
 </div>

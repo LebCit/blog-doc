@@ -1,0 +1,85 @@
+<%- include('../components/head') %>
+
+<div id="layout">
+	<%- include('../components/menu') %> <%#
+	<!-- Main container -->
+	%>
+	<div id="main">
+		<%# Page header %>
+		<div class="header">
+			<h1><%= titles.title %></h1>
+			<h2><%= titles.subTitle %></h2>
+		</div>
+		<%# Page content %>
+		<div <% if (locals.build) { %>
+			id="content" <% } %> class="content">
+			<style>
+				form#searchForm {
+					justify-content: center;
+				}
+				.archive-link {
+					text-decoration: none;
+				}
+
+				.archive-link:hover,
+				.archive-link:focus {
+					text-decoration: underline;
+				}
+			</style>
+			<form id="searchForm" class="pure-form pure-g" <% if (locals.build) { %>
+				action="/search.html" method="GET" <% } else { %> action="/search" method="POST" <% } %> >
+				<div class="pure-u-1">
+					<label for="searchInput">Searchbox at your service :</label>
+					<input
+						id="searchInput"
+						name="searchString"
+						type="search"
+						class="pure-input-1"
+						placeholder="Type your search's keyword(s) here..."
+					/>
+				</div>
+				<button type="submit" class="pure-button">CLICK ME TO LAUNCH YOUR SEARCH !</button>
+			</form>
+
+			<div id="searchResult">
+				<% if (!locals.build) { %><%#
+				<!-- Added comment for readability -->
+				%><% if (locals.resultLength > 0) { %><%#
+				<!-- Added comment for readability -->
+				%><% if (locals.resultLength >= 2) { %>
+				<h3>Your search returned <%= locals.resultLength %> posts</h3>
+				<% } else { %>
+				<h3>Your search returned 1 post</h3>
+				<% } %> <% } %> <% } %>
+			</div>
+
+			<% if (locals.results) { %> <%#
+			<!-- Added comment for readability -->
+			%> <%- include('../components/singlePostPreview') %> <%#
+			<!-- Added comment for readability -->
+			%> <% } %> <%#
+			<!-- Added comment for readability -->
+			%> <% if (locals.noResults) { %>
+			<p>
+				Sorry, your search didn't return any result.
+				<br />
+				Please try some other keyword(s) or,
+				<br />
+				browse the posts in the
+				<a class="archive-link" href="/archive">archive</a>
+				.
+			</p>
+			<% } %> <%#
+			<!-- Added comment for readability -->
+			%> %> <% if (locals.build) { %> <% } %>
+		</div>
+	</div>
+</div>
+<% if (!locals.build) { %>
+<script>
+	const searchInput = document.getElementById("searchInput")
+	searchInput.focus()
+</script>
+<% } %> <%#
+<!-- Added comment for readability -->
+%> %> <%- include('../components/footer') %>

@@ -9,6 +9,7 @@ const mkdir = util.promisify(fs.mkdir)
 const delDir = util.promisify(fs.rm)
 const copyDir = util.promisify(fs.cp)
 const writeFile = util.promisify(fs.writeFile)
+const readFile = util.promisify(fs.readFile)
 
 // Functions
 const getPosts = require("./getPosts")
@@ -19,7 +20,7 @@ const newHTML = require("./newHTML")
 const sitemap = require("./sitemap")
 
 // Settings
-const { siteURL } = require("../config/settings.json")
+const { siteURL, searchFeature } = require("../config/settings.json")
 
 async function build() {
 	if (fs.existsSync("_site")) {
@@ -270,6 +271,40 @@ async function build() {
 			await writeFile(`_site/sitemap.xml`, sitemapXML, "utf8")
 		}
 		sitemapRoute()
+
+		// SEARCH ROUTE
+		async function search() {
+			let posts = getPosts()
+			posts.forEach((post) => {
+				delete post.date
+				delete post[1].excerpt
+				delete post[1].isEmpty
+				delete post[1].path
+				delete post[1].orig
+			})
+			const postsJSON = JSON.stringify(posts)
+			await writeFile(`_site/js/posts.json`, postsJSON, "utf8")
+
+			const searchFile = await readFile("functions/search.js")
+			const searchString = searchFile.toString()
+			await writeFile("_site/js/search.js", searchString, "utf8")
+
+			const titles = {
+				docTitle: "Search",
+				docDescription: "Make a research in the site's posts",
+				title: "Search",
+				subTitle: "Make a research in the site's posts",
+			}
+
+			const searchHTML = await ejs.renderFile("views/layouts/search.ejs", {
+				titles: titles,
+				searchJs: true,
+				build: true,
+			})
+			// Create html file for the search route.
+			await writeFile(`_site/search.html`, searchHTML, "utf8")
+		}
+		if (searchFeature) search()
 	} catch (error) {
 		console.log(error)
 	}
