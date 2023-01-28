@@ -9,40 +9,20 @@
 	<div class="pure-menu">
 		<a href="/" class="pure-menu-heading">BLOG-DOC</a>
 
+		<% let links = {archive: "Archive" , tags: "Tags", doc: "Documentation", license: "License", search: "Search"}
+		%>
 		<ul class="pure-menu-list">
+			<% for (let link in links) { %><%#
+			<!-- Get each menu link value -->
+			%><% let linkValue = links[link] %>
 			<li class="pure-menu-item">
 				<a <% if (locals.build || locals.dynamic) { %>
-					href="/archive.html" <% } else { %> href="/archive" <% } %> class="pure-menu-link">Archive
+					href="/<%= link %>.html" <% } else { %> href="/<%= link %>" <% } %> class="pure-menu-link"><%#
+					<!-- Added comment for readability -->
+					%><%= linkValue %>
 				</a>
 			</li>
-
-			<li class="pure-menu-item">
-				<a <% if (locals.build || locals.dynamic) { %>
-					href="/tags.html" <% } else { %> href="/tags" <% } %> class="pure-menu-link">Tags
-				</a>
-			</li>
-
-			<li class="pure-menu-item">
-				<a <% if (locals.build || locals.dynamic) { %>
-					href="/doc.html" <% } else { %> href="/doc" <% } %> class="pure-menu-link">Documentation
-				</a>
-			</li>
-
-			<li class="pure-menu-item">
-				<a href="https://github.com/LebCit/blog-doc" class="pure-menu-link">GitHub Repo</a>
-			</li>
-
-			<li class="pure-menu-item">
-				<a <% if (locals.build || locals.dynamic) { %>
-					href="/license.html" <% } else { %> href="/license" <% } %> class="pure-menu-link">License
-				</a>
-			</li>
-
-			<li class="pure-menu-item">
-				<a <% if (locals.build || locals.dynamic) { %>
-					href="/search.html" <% } else { %> href="/search" <% } %> class="pure-menu-link">Search
-				</a>
-			</li>
+			<% } %>
 		</ul>
 	</div>
 </div>
