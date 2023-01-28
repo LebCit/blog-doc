@@ -258,6 +258,10 @@ As an example :
 The HTML output will be : <h2 id="honey-amp-bees">Honey & Bees</h2>
 ```
 
+At build time, predefined ids will be generated into the HTML of the static site.
+
+If you wish to disable this feature, set the `addIdsToHeadings` value to `false` in the **settings.json** file under the **config** folder.
+
 ## What's next ?
 
 I intend to make a lot of improvements to this app in my short free time.
