@@ -1,4 +1,5 @@
 {
     "siteURL": "https://blog-doc.deta.dev/",
-    "searchFeature": true
+    "searchFeature": true,
+    "addIdsToHeadings": true
 }

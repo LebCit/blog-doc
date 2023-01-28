@@ -3,6 +3,10 @@ const router = global.router
 const matter = require("gray-matter")
 const glob = require("glob")
 const getPosts = require("../functions/getPosts")
+const idsInHeadings = require("../functions/addIdsToHeadings")
+
+// Settings
+const { addIdsToHeadings } = require("../config/settings.json")
 
 // Find files ending with `.ejs` and `.md` in sub-directories of `views` and ignore `components` and `layouts` sub-directories.
 glob("views/**/*(*.ejs|*.md)", { ignore: ["views/components/*", "views/layouts/*"] }, (err, files) => {
@@ -52,7 +56,7 @@ glob("views/**/*(*.ejs|*.md)", { ignore: ["views/components/*", "views/layouts/*
 					titles: titles,
 					title: file.data.title,
 					subTitle: file.data.subTitle,
-					pageContent: html,
+					pageContent: addIdsToHeadings ? idsInHeadings(html) : html,
 				})
 			} else {
 				// Get the index of each post in the posts array by it's filename
@@ -81,7 +85,7 @@ glob("views/**/*(*.ejs|*.md)", { ignore: ["views/components/*", "views/layouts/*
 					featuredImage: file.data.featuredImage,
 					featuredImageAltText: file.data.featuredImageAltText,
 					tags: file.data.tags,
-					postContent: html,
+					postContent: addIdsToHeadings ? idsInHeadings(html) : html,
 					previousPost: previousPost,
 					nextPost: nextPost,
 					previousPostTitle: previousPostTitle,

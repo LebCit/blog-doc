@@ -18,9 +18,10 @@ const postsByTagCount = require("./postsByTagCount")
 const postsByTagList = require("./postsByTagList")
 const newHTML = require("./newHTML")
 const sitemap = require("./sitemap")
+const idsInHeadings = require("./addIdsToHeadings")
 
 // Settings
-const { siteURL, searchFeature } = require("../config/settings.json")
+const { siteURL, searchFeature, addIdsToHeadings } = require("../config/settings.json")
 
 async function build() {
 	if (fs.existsSync("_site")) {
@@ -83,7 +84,7 @@ async function build() {
 							titles: titles,
 							title: mdFile.data.title,
 							subTitle: mdFile.data.subTitle,
-							pageContent: newHTML(html),
+							pageContent: addIdsToHeadings ? idsInHeadings(newHTML(html)) : newHTML(html),
 							build: true,
 						})
 						// Create html file out of each Markdown page.
@@ -107,7 +108,7 @@ async function build() {
 							featuredImage: mdFile.data.featuredImage,
 							featuredImageAltText: mdFile.data.featuredImageAltText,
 							tags: mdFile.data.tags,
-							postContent: newHTML(html),
+							postContent: addIdsToHeadings ? idsInHeadings(newHTML(html)) : newHTML(html),
 							previousPost: previousPost,
 							nextPost: nextPost,
 							previousPostTitle: previousPostTitle,
