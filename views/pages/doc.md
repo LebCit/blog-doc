@@ -3,13 +3,13 @@ title: Install Blog-Doc
 subTitle: Installing and using the app
 ---
 
-## Blog-Doc
+## Blog-Doc {# Blog-Doc}
 
 A tiny blog and documentation SSG app.
 
-## Features
+## Features {# Features}
 
-### Functionalities ⚡
+### Functionalities ⚡{# Functionalities}
 
 -   Paginated blog ↔️
 -   Posts pagination ↔️
@@ -22,24 +22,25 @@ A tiny blog and documentation SSG app.
 -   Tags list route 🔖
 -   Individual route for each tag 🏷️
 -   Titles & Meta Descriptions 🤯
--   RSS feed 💐
--   Sitemap 🗺️
--   Search 🔍
+-   [RSS feed](#rss) 💐
+-   [Sitemap](#sitemap) 🗺️
+-   [Search](#search-feature) 🔍
+-   [Ids for H2 till H4 in Markdown](#ids-in-markdown) #️⃣
 -   Hot reloading in development mode 🔥
 
-### Solid stack of technologies 🪨
+### Solid stack of technologies 🪨 {# stack of technologies}
 
-#### Backend (input)
+#### Backend (input) {# Backend}
 
 -   Node.js 14.x or higher.
 -   EJS is 100% JavaScript.
 -   Markdown to focus on your content.
 
-#### Frontend (output)
+#### Frontend (output) {# Frontend}
 
 -   HTML, CSS and a tiny JS file.
 
-### Blazing fast and simple 🚀
+### Blazing fast and simple 🚀 {# fast and simple}
 
 -   A zero configuration static site generator.
 -   Ready to use on your Node.js server as a Node.js app.
@@ -47,13 +48,13 @@ A tiny blog and documentation SSG app.
 -   Without any unnecessary functionalities, loads in a blink of an eye.
 -   Easy to install and use.
 
-### Design 🎨
+### Design 🎨 {# design}
 
 -   Responsive, elegant and simple layout.
 -   Ready to use template for blog and/or documentation.
 -   Easy to modify if you opt for another design.
 
-## How to install Blog-Doc ?
+## How to install Blog-Doc ? {# installing Blog-Doc}
 
 Blog-Doc is a `Node.js` app. You should have [Node.js](https://nodejs.org/en/) on your machine.  
 Always go for the **LTS** version. At the time of writing those lines it's 18.12.1 !
@@ -78,7 +79,7 @@ npm run watch
 
 This command will allow you to explore the app in the browser of your choice by visiting [localhost on port 3000](http://localhost:3000).
 
-## Generate a static site
+## Generate a static site {# Generate a static site}
 
 ### How is it done ?!
 
@@ -98,7 +99,7 @@ npm run build
 
 This command will create a **\_site** folder in which all the necessary folders and files are created. You can now copy the entire content of the **\_site** folder to the server of your choice or just test it locally.
 
-## How to use it ?
+## How to use it ? {# using Blog-Doc}
 
 ### Test it locally
 
@@ -129,7 +130,7 @@ Deta's [documentation](https://docs.deta.sh/docs/micros/about) is great and stra
 You can take a look at the result by visiting [Blog-Doc static with Express](https://blog-doc-static-express.deta.dev/).  
 The implementation can be found on the following [GitHub repository](https://github.com/LebCit/blog-doc-static-express).
 
-## RSS !
+## RSS ! {# RSS}
 
 ⚠️ You **MUST** provide the **live URL** of your site in the **settings.json** file under the **config** folder before deploying the application.
 
@@ -162,14 +163,14 @@ Bellow is a screenshot of the RSS feed of Blog-Doc in [Vivaldi browser](https://
 </style>
 <img class="pure-img-responsive" src="/images/bloc-doc-rss.xml.png">
 
-## Sitemap
+## Sitemap {# sitemap}
 
 Like the RSS feed, you **MUST** provide the **live URL** of your site in the **settings.json** file under the **config** folder to generate the correct links for each page, post, tag and template as well as for the blog routes.
 
 You can check the sitemap of your site under the `/sitemap` route.  
 At build time, a `sitemap.xml` is generated in the **\_site** folder.
 
-## Search
+## Search {# search feature}
 
 Blog-Doc has a built-in search feature.  
 The search functionality allows a user to make a research on **the titles** and **the contents** of the posts.
@@ -184,6 +185,78 @@ To see it in action, take a look at :
 
 -   [Search in Node.js app](https://blog-doc.deta.dev/search)
 -   [Search in static site](https://blog-doc-static-express.deta.dev/search.html)
+
+## Ids for H2 till H4 in Markdown {# ids in markdown}
+
+Adding an `id` attribute to a heading tag, H2 till H4 only, is an optional activated feature by default.
+
+This feature was built with edge cases and typing typos in mind :
+
+-   Regex to match curly braces ignoring everything before the last hashtag
+-   Replace accented characters, by their non accented letter
+-   Replace upper case letters by lower case one
+-   Remove special characters except hyphen and underscore
+-   Replace any number of underscore by one hyphen
+-   Replace any number of space by one hyphen
+-   Remove any number of hyphen at the beginning
+-   Replace any number of hyphen by one hyphen only
+-   Remove any number of hyphen at the end
+
+To add an `id`, add a curly braces with a hashtag followed by the id's text.  
+The following examples will give you a better idea :
+
+```markdown
+<!-- Heading tags with an id property -->
+
+## My awesome H2 title {# my-awesome-h2-title}
+
+The HTML output will be : <h2 id="my-awesome-h2-title">My awesome H2 title</h2>
+
+### My awesome H3 title {# my awesome h3 title}
+
+The HTML output will be : <h3 id="my-awesome-h3-title">My awesome H3 title</h3>
+
+#### My awesome H4 title {# My awesome H4 title}
+
+The HTML output will be : <h4 id="my-awesome-h4-title">My awesome H4 title</h4>
+```
+
+Every Whitespace is automatically replaced by a hyphen and any number of consecutive hyphens are replaced by one hyphen only.  
+Any number of hyphen at the beginning or the end of the id's text are removed so the following is also valid :
+
+```markdown
+## My awesome H2 title { # ----- My ----- aWEsOMe ----- h2 ----- tITlE ----- }
+
+Whatever the number of whitespace characters / hyphens is at the beginning,
+between the words or at the end, the HTML output will still be :
+
+<h2 id="my-awesome-h2-title">My awesome H2 title</h2>
+```
+
+Anything before the **last** hashtag is ignored and special characters in the id's text are ignored too :
+
+```markdown
+## My awesome H2 title { /!@# a comment ?%^& # -my= awesome+ h2 \ ( title ) | }
+
+The HTML output will be : <h2 id="my-awesome-h2-title">My awesome H2 title</h2>
+```
+
+⚠️ Please be aware that the following special characters, if used **inside the id's text** after the **last** hashtag, will not be deleted :
+
+```txt
+& will be parsed to amp (ampersand)
+" will be parsed to quot (quotation)
+> will be parsed to gt (greater then)
+< will be parsed to lt (less then)
+```
+
+As an example :
+
+```markdown
+## Honey & Bees {#Honey & Bees}
+
+The HTML output will be : <h2 id="honey-amp-bees">Honey & Bees</h2>
+```
 
 ## What's next ?
 
