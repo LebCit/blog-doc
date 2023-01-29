@@ -19,6 +19,8 @@ A tiny blog and documentation SSG app
 -   Titles & Meta Descriptions 🤯
 -   RSS feed 💐
 -   Sitemap 🗺️
+-   Search 🔍
+-   Ids for H2 till H4 in Markdown #️⃣
 -   Hot reloading in development mode 🔥
 
 ### Solid stack of technologies 🪨
@@ -173,6 +175,82 @@ To see it in action, take a look at :
 
 -   [Search in Node.js app](https://blog-doc.deta.dev/search)
 -   [Search in static site](https://blog-doc-static-express.deta.dev/search.html)
+
+## Ids for H2 till H4 in Markdown
+
+Adding an `id` attribute to a heading tag, H2 till H4 only, is an optional activated feature by default.
+
+This feature was built with edge cases and typing typos in mind :
+
+-   Regex to match curly braces ignoring everything before the last hashtag
+-   Replace accented characters, by their non accented letter
+-   Replace upper case letters by lower case one
+-   Remove special characters except hyphen and underscore
+-   Replace any number of underscore by one hyphen
+-   Replace any number of space by one hyphen
+-   Remove any number of hyphen at the beginning
+-   Replace any number of hyphen by one hyphen only
+-   Remove any number of hyphen at the end
+
+To add an `id`, add a curly braces with a hashtag followed by the id's text.  
+The following examples will give you a better idea :
+
+```markdown
+<!-- Heading tags with an id property -->
+
+## My awesome H2 title {# my-awesome-h2-title}
+
+The HTML output will be : <h2 id="my-awesome-h2-title">My awesome H2 title</h2>
+
+### My awesome H3 title {# my awesome h3 title}
+
+The HTML output will be : <h3 id="my-awesome-h3-title">My awesome H3 title</h3>
+
+#### My awesome H4 title {# My awesome H4 title}
+
+The HTML output will be : <h4 id="my-awesome-h4-title">My awesome H4 title</h4>
+```
+
+Every Whitespace is automatically replaced by a hyphen and any number of consecutive hyphens are replaced by one hyphen only.  
+Any number of hyphen at the beginning or the end of the id's text are removed so the following is also valid :
+
+```markdown
+## My awesome H2 title { # ----- My ----- aWEsOMe ----- h2 ----- tITlE ----- }
+
+Whatever the number of whitespace characters / hyphens is at the beginning,
+between the words or at the end, the HTML output will still be :
+
+<h2 id="my-awesome-h2-title">My awesome H2 title</h2>
+```
+
+Anything before the **last** hashtag is ignored and special characters in the id's text are ignored too :
+
+```markdown
+## My awesome H2 title { /!@# a comment ?%^& # -my= awesome+ h2 \ ( title ) | }
+
+The HTML output will be : <h2 id="my-awesome-h2-title">My awesome H2 title</h2>
+```
+
+⚠️ Please be aware that the following special characters, if used **inside the id's text** after the **last** hashtag, will not be deleted :
+
+```txt
+& will be parsed to amp (ampersand)
+" will be parsed to quot (quotation)
+> will be parsed to gt (greater then)
+< will be parsed to lt (less then)
+```
+
+As an example :
+
+```markdown
+## Honey & Bees {#Honey & Bees}
+
+The HTML output will be : <h2 id="honey-amp-bees">Honey & Bees</h2>
+```
+
+At build time, predefined ids will be generated into the HTML of the static site.
+
+If you wish to disable this feature, set the `addIdsToHeadings` value to `false` in the **settings.json** file under the **config** folder.
 
 ## What's next ?
 
