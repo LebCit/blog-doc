@@ -9,20 +9,29 @@
 	<div class="pure-menu">
 		<a href="/" class="pure-menu-heading">BLOG-DOC</a>
 
-		<% let links = {archive: "Archive" , tags: "Tags", doc: "Documentation", license: "License", search: "Search"}
-		%>
+		<% let links = {archive: "Archive" , tags: "Tags", search: "Search", doc: "Documentation", license: "License",
+		"https://github.com/LebCit/blog-doc": "GitHub Repo"} %>
+
 		<ul class="pure-menu-list">
 			<% for (let link in links) { %><%#
 			<!-- Get each menu link value -->
-			%><% let linkValue = links[link] %>
+			%><% let linkValue = links[link] %><%#
+			<!-- If a link refers to an external URL -->
+			%><% if (link.startsWith('http')) { %>
 			<li class="pure-menu-item">
-				<a <% if (locals.build || locals.dynamic) { %>
-					href="/<%= link %>.html" <% } else { %> href="/<%= link %>" <% } %> class="pure-menu-link"><%#
-					<!-- Added comment for readability -->
-					%><%= linkValue %>
-				</a>
+				<a href="<%= link %>" class="pure-menu-link"><%= linkValue %></a>
 			</li>
-			<% } %>
+			<% } else if (locals.build || locals.dynamic) { %>
+			<li class="pure-menu-item">
+				<a href="/<%= link %>.html" class="pure-menu-link"><%= linkValue %></a>
+			</li>
+			<% } else { %>
+			<li class="pure-menu-item">
+				<a href="/<%= link %>" class="pure-menu-link"><%= linkValue %></a>
+			</li>
+			<% } %><%#
+			<!-- End of for loop -->
+			%><% } %>
 		</ul>
 	</div>
 </div>
