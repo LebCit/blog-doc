@@ -2,14 +2,15 @@
 title: What is Blog-Doc ?
 date: 2022/09/30
 description: A brief introduction to Blog-Doc.
+featuredImage: 
 tags: [Blog-Doc]
 ---
-
-Blog-Doc is a tiny and dead simple static site generator written in JavaScript, using EJS as a templating language and Markdown to write and format the markup of the generated posts and pages.
+Blog-Doc is **The Simplest Node.js CMS & SSG**. The CMS (Content Management System) allows the user to CRUD (Create, Read, Update, Delete) and control every aspect of the application **from the front-end** while the SSG (Static Site Generator) build a static site out of the created content !  
+Blog-Doc is written in JavaScript ES6, using EJS as a templating language and Markdown to write and format the markup of the generated posts and pages.
 
 ## Motivation
 
-In July of this year (2022), I've written some posts on [my personal blog](https://lebcit.github.io/) showing how to create a Node.js app using EJS as a templating language and how to improve it. Then, taking the code a step further, I've showed how to use Markdown to write the app's content, and finally how to turn it into a simple SSG. So I've decided to leverage my own tutorials one more step by creating a super simple SSG out of them.
+In July of this year (2022), I've written some posts on [my personal blog](https://lebcit.github.io/) showing how to create a Node.js app using EJS as a templating language and how to improve it. Then, taking the code a step further, I've showed how to use Markdown to write the app's content, and finally how to turn it into a simple SSG. So I've decided to leverage my own tutorials one more step by creating a super simple CMS & SSG out of them.
 
 ## Name, design & architecture
 
@@ -17,7 +18,7 @@ I wanted from the beginning something extremely easy to maintain, modify and imp
 With this in mind, I asked myself two questions :
 
 -   what would be the purpose of this application ?
--   how it could be useful in the sea of SSG ?
+-   how it could be useful in the sea of CMS and SSG ?
 
 The answer to both came by responding to a third one :
 

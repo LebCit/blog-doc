@@ -2,11 +2,10 @@
 title: The files route
 date: 2022/11/11
 description: Rendering posts, pages and templates
-featuredImage: /images/files-route.avif
-tags: [Blog-Doc, Server-Side]
+featuredImage: /static/images/files-route.avif
+tags: [Blog-Doc,Server-Side]
 ---
-
-Under the routes folder lives the filesRoute.js file, it's the most important file of the app, the heart and soul of this tiny SSG. This file looks at three folders sitting under the **views** folder at the same time :
+Under the routes folder lives the `filesRoute.js` file, it's the most important file of the app, the heart and soul of [Blog-Doc](/posts/what-is-blog-doc). This file looks at three folders sitting under the **views** folder at the same time :
 
 1. The **posts** folder 
 2. The **pages** folder
@@ -22,4 +21,4 @@ You can also read more about it on my personal blog :
 
 Since everything is explained inside the file itself and in the two articles mentioned above, I'm not going to elaborate further more about it here.
 
-That will be all for the rendering of MarkDown and EJS files from one end to another, see you in the next one.
+That will be all for the rendering of Markdown and EJS files from one end to another, see you in the next one.
