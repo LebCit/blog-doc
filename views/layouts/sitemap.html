@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<% it.urls.forEach(url => { %>
+	<url>
+		<loc><%= url.urlLocation %></loc>
+		<lastmod><%= url.urlLastMod %></lastmod>
+	</url>
+	<% }) %>
+</urlset>

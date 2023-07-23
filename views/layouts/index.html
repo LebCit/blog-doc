@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="/static/styles/single-post-preview.css" />
+
+<% it.posts.forEach((post, index) => { %> <%/*
+<!-- Get the Markdown filename without it's extension -->
+*/%> <% const postFilename = post[0].replace(/\.[^/.]+$/, "") %> <%/*
+<!-- Get the Markdown post title from it's front matter -->
+*/%> <% const postTitle = post[1].frontmatter.title %> <%/*
+<!-- Get the post featured image from it's front matter -->
+*/%> <% const postFeaturedImage = post[1].frontmatter.featuredImage %> <%/*
+<!-- Get the post date from it's front matter -->
+*/%> <% const postDate = post[1].frontmatter.date %> <%/*
+<!-- Get the post description from it's front matter -->
+*/%> <% const postDescription = post[1].frontmatter.description %> <%/*
+<!-- Get the post tags from it's front matter -->
+*/%> <% const postTags = post[1].frontmatter.tags %> <%/*
+<!-- Get the post content -->
+*/%> <% const postContent = post[1].content %> <%/*
+<!-- Create an excerpt from the post content -->
+*/%> <% const postExcerpt = postContent.substring(0, 180)+"..." %> <%/*
+<!-- Single post preview -->
+*/%>
+<div class="<%= index % 2 === 0 ? 'blog-card' : 'blog-card alt' %>">
+	<div class="meta">
+		<%/* Display the featured image if any, otherwise fallback to a default one */%>
+		<div
+			class="photo"
+			style="background-image: url('<%= postFeaturedImage ? postFeaturedImage : it.postPreviewFallbackImage %>')"
+		></div>
+
+		<ul class="details">
+			<li class="date"><span><%= postDate %></span></li>
+			<% if (postTags) { %>
+			<li class="tags">
+				<ul>
+					<% postTags.forEach(tag => { %>
+					<li>
+						<a href="/tags/<%= tag %>"><span><%= tag %></span></a>
+					</li>
+					<% }) %>
+				</ul>
+			</li>
+			<% } %>
+		</ul>
+	</div>
+
+	<div class="description">
+		<h1>
+			<a href="/posts/<%= postFilename %>" rel="bookmark"><%= postTitle %></a>
+		</h1>
+		<h2><%= postDescription %></h2>
+		<p><%= postExcerpt %></p>
+		<p class="read-more">
+			<a
+				href="/posts/<%= postFilename %>"
+				aria-label="Read more about <%= postTitle %>"
+				tabindex="0"
+				role="button"
+				class="btn info"
+			>
+				Read the post
+				<span class="arrow arrow-right"></span>
+			</a>
+		</p>
+	</div>
+</div>
+
+<hr />
+
+<% }) %>
+
+<!--Start Pagination-->
+<% if (it.paginated) { %>
+<!--Pagination-->
+<%~ include('../components/pagination.html', it) %>
+<!--Note-->
+<p class="archive-link">
+	All the posts can be found in the
+	<a href="/posts">archive</a>
+	📦
+</p>
+<% } %>
+<!--End Pagination-->

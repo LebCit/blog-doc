@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+	<channel>
+		<title><%= it.siteTitle %></title>
+		<link><%= it.siteURL %></link>
+		<description><%= it.siteDescription %></description>
+		<language><%= it.rssSiteLanguage %></language>
+		<copyright><%= it.rssCopyright %></copyright>
+		<pubDate><%= it.posts[0].date.toUTCString() %></pubDate>
+		<lastBuildDate><%= it.posts[0].date.toUTCString() %></lastBuildDate>
+		<docs>https://www.rssboard.org/rss-specification</docs>
+		<% it.posts.forEach(post => { %>
+			<item>
+				<title><%= post[1].frontmatter.title %></title>
+				<link><%= it.siteURL + post[0].replace(/\.[^/.]+$/, "") %></link>
+				<% if (post[1].frontmatter.description) { %>
+				<description><%= post[1].frontmatter.description %></description>
+				<% } %>
+				<% if (post[1].frontmatter.tags) { %>
+				<% post[1].frontmatter.tags.forEach(tag => { %>
+				<category domain="<%= it.siteURL + "tags/" + tag %>"><%= tag %></category>
+				<% }) %>
+				<% } %>
+				<pubDate><%= post.date.toUTCString() %></pubDate>
+			</item>
+		<% }) %>
+	</channel>
+</rss>

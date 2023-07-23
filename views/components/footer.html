@@ -1,0 +1,17 @@
+<div class="footer">
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<p class="copyright"><%~ it.footerCopyright %></p>
+		</div>
+	</div>
+</div>
+
+<% if (it.build) { %>
+<script src="/static/scripts/search.js"></script>
+<% } %> <%/*
+<!-- Comment added for readability -->
+*/%> <% if (it.mdRoute) { %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<% } %>
+
+<script src="/static/scripts/main.js"></script>

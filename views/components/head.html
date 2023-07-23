@@ -1,0 +1,19 @@
+<head>
+	<% /* Metadata */ %>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="<%= it.data.description %>" />
+
+	<% /* Favicon */ %>
+	<link rel="shortcut icon" href="/static/icons/favicon.ico" type="image/x-icon" />
+
+	<% /* Title */ %>
+	<title><%= it.siteTitle %> | <%= it.data.title %></title>
+
+	<% /* Stylesheets*/ %>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css" />
+	<link rel="stylesheet" href="/static/styles/styles.min.css" />
+	<% if (it.mdRoute) { %>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/atom-one-dark.min.css" />
+	<% } %>
+</head>

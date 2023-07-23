@@ -1,0 +1,21 @@
+<% if (!it.data.date) { %>
+<div><%~ it.content %></div>
+<% } else { %>
+<p class="post-meta">
+	<span>Posted on</span>
+	<span class="posted-on"><time class="post-date"><%= it.data.date %></time></span>
+	<% if (it.data.tags && it.data.tags.length) { /* If the post has a non empty `tags` key in his front-matter */ %>
+	<br />
+	<span>Tagged</span>
+	<!--Start tag(s)-->
+	<% it.data.tags.forEach(tag => { %>
+	<a href="/tags/<%=tag%>" class="post-tag"><%= tag %></a>
+	<% }) %>
+	<!--End tag(s)-->
+	<% } /* End If */ %>
+</p>
+<div><%~ it.content %></div>
+<!--Start posts pagination-->
+<%~ include('../components/postsPagination.html', it.prevNext) %>
+<!--End posts pagination-->
+<% } %>

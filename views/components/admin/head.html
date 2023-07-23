@@ -1,0 +1,42 @@
+<head>
+	<%/* Metadata */%>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="<%= it.data.description %>" />
+
+	<%/* Favicon */%>
+	<link rel="shortcut icon" href="/static/icons/favicon.ico" type="image/x-icon" />
+
+	<%/* Title */%>
+	<title>Blog-Doc | <%= it.data.title %></title>
+
+	<%/* Tabler styles */%>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" />
+
+	<% if (it.admin || it.adminTable || it.adminCreate || it.adminUpdate || it.adminConfig ||
+	it.adminGallery) { %>
+	<script src=" https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.all.min.js "></script>
+	<link href=" https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.min.css " rel="stylesheet" />
+	<% } %> <%/*
+	<!-- Comment added for readability -->
+	*/%> <% if (it.adminCreate || it.adminUpdate) { %>
+	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+	<% } %> <%/*
+	<!-- Comment added for readability -->
+	*/%> <% if (it.adminTable) { %>
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/tabulator-tables@5/dist/css/tabulator_bootstrap5.min.css"
+	/>
+	<script src="https://cdn.jsdelivr.net/npm/tabulator-tables/dist/js/tabulator.min.js"></script>
+	<% } %> <%/*
+	<!-- Comment added for readability -->
+	*/%> <% if (it.adminGallery) { %>
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css"
+	/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/filepond/dist/filepond.min.css" />
+	<% } %>
+</head>

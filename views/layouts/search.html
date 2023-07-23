@@ -1,0 +1,62 @@
+<style>
+	form#searchForm {
+		justify-content: center;
+	}
+	.archive-link {
+		text-decoration: none;
+	}
+
+	.archive-link:hover,
+	.archive-link:focus {
+		text-decoration: underline;
+	}
+</style>
+<form id="searchForm" class="pure-form pure-g" <% if (it.build) { %>
+	action="/search/index.html" method="GET" <% } else { %> action="/search" method="POST" <% } %> >
+	<div class="pure-u-1">
+		<label for="searchInput">Searchbox at your service :</label>
+		<input
+			id="searchInput"
+			name="searchString"
+			type="search"
+			class="pure-input-1"
+			placeholder="Type your search's keyword(s) here..."
+		/>
+	</div>
+	<button type="submit" class="pure-button">CLICK ME TO LAUNCH YOUR SEARCH !</button>
+</form>
+
+<div id="searchResult">
+	<% if (!it.build) { %>
+	<script>
+		const searchInput = document.getElementById("searchInput")
+		searchInput.focus()
+	</script>
+	<% if (it.resultLength > 0) { %><%/*
+	<!-- Added comment for readability -->
+	*/%><% if (it.resultLength >= 2) { %>
+	<h3>Your search returned <%= it.resultLength %> posts</h3>
+	<% } else { %>
+	<h3>Your search returned 1 post</h3>
+	<% } %> <% } %> <% } else {%>
+	<span id="post-preview-fallback-image" hidden><%= JSON.stringify(it.postPreviewFallbackImage) %></span>
+	<%} %>
+</div>
+
+<% if (it.results) { %> <%/*
+<!-- Added comment for readability -->
+*/%> <%~ include('./index.html', it) %> <%/*
+<!-- Added comment for readability -->
+*/%> <% } %> <%/*
+<!-- Added comment for readability -->
+*/%> <% if (it.noResults) { %>
+<p>
+	Sorry, your search didn't return any result.
+	<br />
+	Please try some other keyword(s) or,
+	<br />
+	browse the posts in the
+	<a class="archive-link" href="/posts">archive</a>
+	📦
+</p>
+<% } %>

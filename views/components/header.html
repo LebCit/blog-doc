@@ -1,0 +1,39 @@
+<% if (it.data.featuredImage) { %>
+<style>
+	.post-header {
+		background-image: url("<%=it.data.featuredImage%>");
+	}
+</style>
+<style>
+	.post-header {
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+	.post-header .overlay {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	.post-header .overlay h1,
+	.post-header .overlay h2 {
+		color: #fff;
+	}
+	@media (min-width: 48em) {
+		.post-header .overlay {
+			display: inline-block;
+			width: 50%;
+		}
+	}
+</style>
+
+<div class="header post-header">
+	<div class="overlay">
+		<h1><%= it.mainRoute ? it.siteTitle : it.data.title %></h1>
+		<h2><%= it.tagRoute || it.errorRoute ? it.data.subTitle : it.data.description %></h2>
+	</div>
+</div>
+<% } else { %>
+<div class="header">
+	<h1><%= it.mainRoute ? it.siteTitle : it.data.title %></h1>
+	<h2><%= it.tagRoute || it.errorRoute ? it.data.subTitle : it.data.description %></h2>
+</div>
+<% } %>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%~ include('../../components/admin/head.html', it) %>
+	<body class="theme-light">
+		<div class="page">
+			<%~ include('../../components/admin/menu.html', it) %>
+
+			<div class="page-wrapper">
+				<%~ include('../../components/admin/page-header.html', it) %>
+				<div class="page-body">
+					<form id="menu-config-form" action="/admin-config-menu" method="post">
+						<div class="container-xl">
+							<%/* Get menu links from settings */%>
+							<span id="menuLinks" hidden><%= JSON.stringify(it.settings.menuLinks) %></span>
+
+							<div class="card col-md-5 m-auto">
+								<div class="card-body">
+									<div class="accordion" id="menu-links-accordion-container"></div>
+									<button type="button" id="add-new-menu-item" class="btn btn-vk">
+										Add a new menu item
+									</button>
+								</div>
+								<div class="card-footer">
+									<button id="submit-config-button" type="button" class="btn btn-primary mt-3">
+										Update Site's Menu
+									</button>
+								</div>
+							</div>
+
+							<template id="template">
+								<div class="link accordion-item mb-3 bg-body border border-dark">
+									<h2 class="accordion-header" id="heading">
+										<button
+											class="accordion-button collapsed"
+											type="button"
+											data-bs-toggle="collapse"
+											data-bs-target="#collapse"
+											aria-expanded="false"
+										>
+											<%/* Icon */%>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												class="icon icon-tabler icon-tabler-drag-drop"
+												width="24"
+												height="24"
+												viewBox="0 0 24 24"
+												stroke-width="2"
+												stroke="currentColor"
+												fill="none"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+												<path
+													d="M19 11v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"
+												></path>
+												<path d="M13 13l9 3l-4 2l-2 4l-3 -9"></path>
+												<path d="M3 3l0 .01"></path>
+												<path d="M7 3l0 .01"></path>
+												<path d="M11 3l0 .01"></path>
+												<path d="M15 3l0 .01"></path>
+												<path d="M3 7l0 .01"></path>
+												<path d="M3 11l0 .01"></path>
+												<path d="M3 15l0 .01"></path>
+											</svg>
+										</button>
+									</h2>
+									<div
+										id="collapse"
+										class="accordion-collapse collapse"
+										data-bs-parent="#menu-links-accordion-container"
+									>
+										<div class="accordion-body pt-0">
+											<div class="mb-3">
+												<label for="link-target" class="form-label">
+													<b>Link target* - REQUIRED</b>
+												</label>
+												<input
+													type="text"
+													id="link-target"
+													name="linkTarget"
+													class="form-control"
+													placeholder="Target/destination of the link"
+													required
+												/>
+												<div class="invalid-tooltip position-relative">
+													Link target cannot be empty !
+												</div>
+											</div>
+
+											<div>
+												<label for="link-title" class="form-label">
+													<b>Link title* - REQUIRED</b>
+												</label>
+												<input
+													type="text"
+													id="link-title"
+													name="linkTitle"
+													class="form-control"
+													placeholder="Title of the link"
+													required
+												/>
+												<div class="invalid-tooltip position-relative">
+													Link title cannot be empty !
+												</div>
+											</div>
+
+											<button type="button" id="remove-link" class="btn btn-danger mt-3">
+												Remove this link
+											</button>
+										</div>
+									</div>
+								</div>
+							</template>
+						</div>
+					</form>
+				</div>
+				<%~ include('../../components/admin/footer.html') %>
+			</div>
+		</div>
+		<%~ include('../../components/admin/adminScripts.html', it) %>
+	</body>
+</html>

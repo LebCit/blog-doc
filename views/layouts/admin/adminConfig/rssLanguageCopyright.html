@@ -1,0 +1,44 @@
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title"><b>RSS Settings</b></h3>
+	</div>
+
+	<div class="card-body">
+		<%/* RSS Site Language */%>
+		<div class="mb-3">
+			<label for="rss-site-language" class="form-label">
+				<b>RSS site language* - REQUIRED !</b>
+			</label>
+			<input
+				type="text"
+				id="rss-site-language"
+				name="rssSiteLanguage"
+				class="form-control"
+				value="<%= it.settings.rssSiteLanguage %>"
+				placeholder="en-US"
+				required
+			/>
+			<div class="invalid-tooltip">RSS site language cannot be empty !</div>
+			<span>
+				<a href="https://www.rssboard.org/rss-language-codes">RSS language codes page</a>
+			</span>
+		</div>
+
+		<%/* RSS Copyright */%>
+		<div class="mb-3">
+			<label for="rss-copyright" class="form-label">
+				<b>RSS copyright* - REQUIRED !</b>
+			</label>
+			<input
+				type="text"
+				id="rss-copyright"
+				name="rssCopyright"
+				class="form-control"
+				value="<%= it.settings.rssCopyright %>"
+				placeholder="Copyright (c) 2022 - Present, LebCit under the MIT License"
+				required
+			/>
+			<div class="invalid-tooltip">RSS copyright cannot be empty !</div>
+		</div>
+	</div>
+</div>

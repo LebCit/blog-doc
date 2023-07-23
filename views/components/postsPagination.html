@@ -61,23 +61,24 @@
 
 <nav aria-label="pagination">
 	<ul class="pagination">
-		<% if (previousPost !== null) { %>
+		<% if (it.previousPost !== null) { %>
 		<li>
-			<a class="post-link prev" role="button" <% if (locals.build) { %>
-				href="/<%=previousPost%>.html" <% } else { %> href="/<%=previousPost%>" <% } %> aria-label="Go to the
-				previous post" >
-				<span aria-hidden="true">Previous: <%=previousPostTitle%></span>
+			<a
+				class="post-link prev"
+				role="button"
+				href="/posts/<%=it.previousPost%>"
+				aria-label="Go to the previous post"
+			>
+				<span aria-hidden="true">Previous: <%=it.previousPostTitle%></span>
 				<span class="hidden">Go to the previous post</span>
 			</a>
 		</li>
-		<% } %> <%#
+		<% } %> <%/*
 		<!-- Added comment for readability -->
-		%> <% if (nextPost !== null) { %>
+		*/%> <% if (it.nextPost !== null) { %>
 		<li>
-			<a class="post-link next" role="button" <% if (locals.build) { %>
-				href="/<%=nextPost%>.html" <% } else { %> href="/<%=nextPost%>" <% } %> aria-label="Go to the next post"
-				>
-				<span aria-hidden="true">Next: <%=nextPostTitle%></span>
+			<a class="post-link next" role="button" href="/posts/<%=it.nextPost%>" aria-label="Go to the next post">
+				<span aria-hidden="true">Next: <%=it.nextPostTitle%></span>
 				<span class="hidden">Go to the next post</span>
 			</a>
 		</li>

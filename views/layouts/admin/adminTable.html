@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%~ include('../../components/admin/head.html', it) %>
+	<body class="theme-light">
+		<div class="page">
+			<%~ include('../../components/admin/menu.html', it) %>
+
+			<div class="page-wrapper">
+				<%~ include('../../components/admin/page-header.html', it) %>
+				<div class="page-body">
+					<div class="container-xl">
+						<div class="row">
+							<div class="col-12">
+								<div class="card">
+									<% if (it.pagesTable) { %>
+									<span id="pages-data" class="d-none"><%= JSON.stringify(it.pages) %></span>
+									<% } else { %>
+									<span id="posts-data" class="d-none"><%= JSON.stringify(it.posts) %></span>
+									<% } %>
+
+									<div id="admin-table"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<%~ include('../../components/admin/footer.html') %>
+			</div>
+		</div>
+		<%~ include('../../components/admin/adminScripts.html', it) %>
+	</body>
+</html>

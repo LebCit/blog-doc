@@ -1,0 +1,27 @@
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title"><b>Footer Copyright</b></h3>
+	</div>
+
+	<div class="card-body">
+		<%/* Footer Copyright */%>
+		<div class="mb-3">
+			<label for="footer-copyright" class="form-label">
+				<b>Footer copyright* - REQUIRED !</b>
+			</label>
+			<input
+				type="text"
+				id="footer-copyright"
+				name="footerCopyright"
+				class="form-control"
+				value="<%= it.settings.footerCopyright %>"
+				placeholder="App built with ❤️ by <a href='https://lebcit.github.io/'>LebCit</a>"
+				required
+			/>
+			<div class="invalid-tooltip">Footer copyright cannot be empty !</div>
+		</div>
+	</div>
+	<div class="card-footer text-instagram text-center">
+		IF YOU USE HTML IN THE FOOTER COPYRIGHT, ATTRIBUTES MUST BE SINGLE QUOTED !
+	</div>
+</div>

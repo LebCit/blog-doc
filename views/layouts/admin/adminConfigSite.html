@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%~ include('../../components/admin/head.html', it) %>
+	<body class="theme-light">
+		<div class="page">
+			<%~ include('../../components/admin/menu.html', it) %>
+
+			<div class="page-wrapper">
+				<%~ include('../../components/admin/page-header.html', it) %>
+				<div class="page-body">
+					<form id="site-config-form" action="/admin-config-site" method="post">
+						<div class="container-xl">
+							<div class="row row-cards">
+								<style>
+									.invalid-tooltip {
+										position: relative;
+									}
+								</style>
+								<div class="col-lg-4">
+									<div class="row row-cards">
+										<%/* Site Title, Site Description, Site URL */%>
+										<div class="col-12">
+											<%~ include('./adminConfig/titleDescriptionURL.html', it) %>
+										</div>
+
+										<%/* RSS Site Language, RSS Copyright */%>
+										<div class="col-12">
+											<%~ include('./adminConfig/rssLanguageCopyright.html', it) %>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-4">
+									<div class="row row-cards">
+										<%/* Routes Images */%>
+										<div class="col-12"><%~ include('./adminConfig/routesImages.html', it) %></div>
+
+										<%/* Footer Copyright */%>
+										<div class="col-12">
+											<%~ include('./adminConfig/footerCopyright.html', it) %>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-4">
+									<div class="row row-cards">
+										<%/* Posts per page. Post Preview Fallback Image */%>
+										<div class="col-12"><%~ include('./adminConfig/postsSettings.html', it) %></div>
+
+										<%/* Search feature, Ids for headings */%>
+										<div class="col-12">
+											<%~ include('./adminConfig/searchIdsFeatures.html', it) %>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-4">
+									<button id="submit-config-button" type="button" class="btn btn-primary mt-3">
+										Update Site's Data
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<%~ include('../../components/admin/footer.html') %>
+			</div>
+		</div>
+		<%~ include('../../components/admin/adminScripts.html', it) %>
+	</body>
+</html>
