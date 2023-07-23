@@ -1,8 +1,12 @@
-const util = require("util")
-const fs = require("fs")
-const ejs = require("ejs")
-const matter = require("gray-matter")
-const glob = require("glob")
+// Internal modules
+import util from "util"
+import * as fs from "node:fs"
+import { join } from "path"
+// External modules
+import { Eta } from "eta"
+import { marked } from "marked"
+import { markedHighlight } from "marked-highlight"
+import hljs from "highlight.js"
 
 // Promisify
 const mkdir = util.promisify(fs.mkdir)
@@ -11,215 +15,187 @@ const copyDir = util.promisify(fs.cp)
 const writeFile = util.promisify(fs.writeFile)
 const readFile = util.promisify(fs.readFile)
 
-// Functions
-const getPosts = require("./getPosts")
-const paginator = require("./paginator")
-const postsByTagCount = require("./postsByTagCount")
-const postsByTagList = require("./postsByTagList")
-const newHTML = require("./newHTML")
-const sitemap = require("./sitemap")
-const idsInHeadings = require("./addIdsToHeadings")
+// Internal Functions
+import { getPages, getPosts, prevNext, postsByTagCount, postsByTagList } from "./blog-doc.js"
+import { idsInHeadings, paginator } from "./helpers.js"
+import { sitemap } from "./sitemap.js"
 
 // Settings
-const { siteURL, searchFeature, addIdsToHeadings } = require("../config/settings.json")
+import { settings } from "../config/settings.js"
+
+// Global Variables
+const eta = new Eta({ views: join(process.cwd(), "views") })
+const posts = await getPosts()
+
+// Remove admin link from menu
+delete settings.menuLinks.admin
 
 async function build() {
 	if (fs.existsSync("_site")) {
 		await delDir("_site", { recursive: true })
-	}
-	if (fs.existsSync("_site/page")) {
-		await delDir("_site/page", { recursive: true })
-	}
-	if (fs.existsSync("_site/tags")) {
-		await delDir("_site/tags", { recursive: true })
 	}
 
 	try {
 		// Create output directory
 		await mkdir("_site", { recursive: true })
 		await mkdir("_site/page", { recursive: true })
+		await mkdir("_site/pages", { recursive: true })
+		await mkdir("_site/posts", { recursive: true })
+		await mkdir("_site/templates", { recursive: true })
 		await mkdir("_site/tags", { recursive: true })
+		await mkdir("_site/search", { recursive: true })
+		await mkdir("_site/static", { recursive: true })
 
-		// Copy public folder to _site
-		await copyDir("public", "_site", { recursive: true })
+		// Copy static folder to _site/static
+		await copyDir("static", "_site/static", { recursive: true })
 
-		// FILES ROUTE
-		glob("views/**/*(*.ejs|*.md)", { ignore: ["views/components/*", "views/layouts/*"] }, (err, files) => {
-			/**
-			 * Find files ending with `.ejs` and `.md` in sub-directories of `views` and ignore `components` and `layouts` sub-directories.
-			 * Glob returns an array of the full path for each file starting from `views` like the following example :
-			 * ['views/pages/myPage.md',...,'views/posts/myPost.md',...,'views/templates/myTemplate.ejs'...].
-			 */
-			if (err) {
-				console.log(err)
-				return
-			}
+		// Delete the admin folder in _site/static
+		await delDir("_site/static/admin", { recursive: true })
 
-			files.forEach(async (file) => {
-				// Get each file name
-				const fileWithoutExtension = file
-					.split("/")
-					.pop()
-					.replace(/\.[^/.]+$/, "")
-				// Markdown Files Logic
-				if (file?.endsWith(".md")) {
-					// Read the Markdown file and parse it's front matter
-					const mdFile = matter.read(file)
+		// MARKDOWN ROUTE
+		async function markdownRoute() {
+			// USe marked-highlight to highlight code blocks
+			marked.use(
+				markedHighlight({
+					langPrefix: "hljs language-",
+					highlight(code, lang) {
+						const language = hljs.getLanguage(lang) ? lang : "plaintext"
+						return hljs.highlight(code, { language }).value
+					},
+				})
+			)
+			// Merge the pages and the posts arrays into a single array named mdFiles
+			const pages = await getPages()
+			const mdFiles = pages.concat(posts)
 
-					// Convert the Markdown file content to HTML with markdown-it
-					// Allows HTML tags inside the Markdown file, use highlight.js with markdown-it and highlight inline code
-					const md = require("markdown-it")({ html: true }).use(require("markdown-it-highlightjs"), {
-						inline: true,
-					})
-					const content = mdFile.content // Read the Markdown file content
-					const html = md.render(content) // Convert the Markdown file content to HTML
+			mdFiles.forEach(async (file) => {
+				const fileName = file[0].replace(".md", "")
+				const fileData = file[1].frontmatter
+				const fileContent = marked.parse(file[1].content, { mangle: false, headerIds: false })
 
-					const titles = {
-						docTitle: mdFile.data.title,
-						docDescription: mdFile.data.subTitle ? mdFile.data.subTitle : mdFile.data.description,
-					}
+				// Create a folder for each file
+				await mkdir(`_site/${file.dir}/${fileName}`, { recursive: true })
 
-					if (file?.startsWith("views/pages/")) {
-						const pageHTML = await ejs.renderFile("views/layouts/pagesTemplate.ejs", {
-							titles: titles,
-							title: mdFile.data.title,
-							subTitle: mdFile.data.subTitle,
-							pageContent: addIdsToHeadings ? idsInHeadings(newHTML(html)) : newHTML(html),
-							build: true,
-						})
-						// Create html file out of each Markdown page.
-						await writeFile(`_site/${fileWithoutExtension}.html`, pageHTML, "utf8")
-					} else {
-						const actualPostIndex = getPosts().findIndex((post) => post[0] === `${fileWithoutExtension}.md`)
-						const previousPostIndex = actualPostIndex < getPosts().length - 1 ? actualPostIndex + 1 : null
-						const nextPostIndex = actualPostIndex > 0 ? actualPostIndex - 1 : null
-						const previousPost =
-							previousPostIndex !== null ? getPosts()[previousPostIndex][0].replace(".md", "") : null
-						const nextPost = nextPostIndex !== null ? getPosts()[nextPostIndex][0].replace(".md", "") : null
-						const previousPostTitle =
-							previousPostIndex !== null ? getPosts()[previousPostIndex][1].data.title : null
-						const nextPostTitle = nextPostIndex !== null ? getPosts()[nextPostIndex][1].data.title : null
-
-						const postHTML = await ejs.renderFile("views/layouts/postsTemplate.ejs", {
-							titles: titles,
-							title: mdFile.data.title,
-							date: mdFile.data.date,
-							description: mdFile.data.description,
-							featuredImage: mdFile.data.featuredImage,
-							featuredImageAltText: mdFile.data.featuredImageAltText,
-							tags: mdFile.data.tags,
-							postContent: addIdsToHeadings ? idsInHeadings(newHTML(html)) : newHTML(html),
-							previousPost: previousPost,
-							nextPost: nextPost,
-							previousPostTitle: previousPostTitle,
-							nextPostTitle: nextPostTitle,
-							build: true,
-						})
-						// Create html file out of each Markdown post.
-						await writeFile(`_site/${fileWithoutExtension}.html`, postHTML, "utf8")
-					}
-				} else if (file.startsWith("views/templates/")) {
-					// EJS Files Logic
-					const templateHTML = await ejs.renderFile(file, {
-						build: true,
-					})
-					const newTemplateHTML = newHTML(templateHTML)
-					// Create html file out of each EJS template.
-					await writeFile(`_site/${fileWithoutExtension}.html`, newTemplateHTML, "utf8")
-				}
+				const fileHTML = eta.render("layouts/base.html", {
+					// Passing Route data
+					mdRoute: true,
+					data: fileData,
+					content: settings.addIdsToHeadings ? idsInHeadings(fileContent) : fileContent,
+					prevNext: file.dir === "posts" ? await prevNext(file[0]) : null,
+					filename: fileName,
+					siteTitle: settings.siteTitle,
+					menuLinks: settings.menuLinks,
+					footerCopyright: settings.footerCopyright,
+				})
+				// Create HTML file out of each Markdown file.
+				await writeFile(`_site/${file.dir}/${fileName}/index.html`, fileHTML, "utf8")
 			})
-		})
+		}
+		markdownRoute()
 
 		// MAIN ROUTE
 		async function mainRoute() {
-			const paginatedPosts = paginator(getPosts(), 1, 5) // Paginate all the posts
-			const lastPage = paginatedPosts.total_pages - 1 // Get the last page
+			const paginatedPosts = paginator(posts, 1, settings.postsPerPage)
+			const newestPosts = paginatedPosts.data
+			const lastPage = paginatedPosts.total_pages - 1
+			const postsLength = paginatedPosts.total
 
-			const titles = {
-				docTitle: "Home",
-				docDescription: "A tiny blog and documentation SSG app",
-				title: "Bloc-Doc",
-				subTitle: "A tiny blog and documentation SSG app",
+			const data = {
+				title: "Home",
+				description: settings.siteDescription,
+				featuredImage: settings.blogImage,
 			}
 
-			const newestFivePosts = getPosts().slice(0, 5) // Array of, at most, the newest five posts
-			const postsLength = getPosts().length
-
-			const indexHTML = await ejs.renderFile("views/layouts/postsList.ejs", {
-				titles: titles,
-				posts: newestFivePosts,
+			const indexHTML = eta.render("layouts/base.html", {
+				mainRoute: true,
 				firstPage: true,
+				data: data,
+				posts: newestPosts,
 				lastPage: lastPage,
-				paginated: postsLength > 5 ? true : false, // To display or not the pagination component on the main route
-				build: true,
+				paginated: postsLength > settings.postsPerPage ? true : false,
+				postPreviewFallbackImage: settings.postPreviewFallbackImage,
+				siteTitle: settings.siteTitle,
+				menuLinks: settings.menuLinks,
+				footerCopyright: settings.footerCopyright,
 			})
 			// Create html file for the main route.
 			await writeFile(`_site/index.html`, indexHTML, "utf8")
 
 			// DYNAMIC MAIN ROUTE
 			for (let i = 1; i <= lastPage; i++) {
-				// Paginated array from the list of posts without the newest five posts
-				const paginatedPostsList = paginator(getPosts().slice(5), i, 5)
+				// Create a folder for each page of the blog
+				await mkdir(`_site/page/${i}`, { recursive: true })
 
-				const dynamicIndexHTML = await ejs.renderFile("views/layouts/postsList.ejs", {
-					titles: titles,
+				// Paginated array from the list of posts without the newest X posts
+				const paginatedPostsList = paginator(posts.slice(settings.postsPerPage), i, settings.postsPerPage)
+
+				const dynamicIndexHTML = eta.render("layouts/base.html", {
+					// Passing Route data
+					mainRoute: true,
+					firstPage: false,
+					data: data,
 					posts: paginatedPostsList.data,
 					paginatedPostsList: paginatedPostsList,
-					firstPage: false,
 					lastPage: lastPage,
-					paginated: true, // To display the pagination component on each blog page route
-					dynamic: true,
+					paginated: true,
+					postPreviewFallbackImage: settings.postPreviewFallbackImage,
+					siteTitle: settings.siteTitle,
+					menuLinks: settings.menuLinks,
+					footerCopyright: settings.footerCopyright,
 				})
 				// Create html file for each page after the main route.
-				await writeFile(`_site/page/${i}.html`, dynamicIndexHTML, "utf8")
+				await writeFile(`_site/page/${i}/index.html`, dynamicIndexHTML, "utf8")
 			}
 		}
 		mainRoute()
 
 		// ARCHIVE ROUTE
 		async function archiveRoute() {
-			const titles = {
-				docTitle: "Archive",
-				docDescription: "A list of all the posts",
+			const data = {
 				title: "Archive",
-				subTitle: "A list of all the posts",
+				description: "A list of all the posts",
+				featuredImage: settings.archiveImage,
 			}
 
-			const archiveHTML = await ejs.renderFile("views/layouts/postsList.ejs", {
-				titles: titles,
-				posts: getPosts(),
-				paginated: false, // To hide the pagination component on the archive route
-				build: true,
+			const archiveHTML = eta.render("layouts/base.html", {
+				archiveRoute: true,
+				data: data,
+				posts: posts,
+				paginated: false,
+				postPreviewFallbackImage: settings.postPreviewFallbackImage,
+				siteTitle: settings.siteTitle,
+				menuLinks: settings.menuLinks,
+				footerCopyright: settings.footerCopyright,
 			})
 			// Create html file for the archive route.
-			await writeFile(`_site/archive.html`, archiveHTML, "utf8")
+			await writeFile(`_site/posts/index.html`, archiveHTML, "utf8")
 		}
 		archiveRoute()
 
 		// TAGS ROUTE
 		async function tagsRoute() {
-			const titles = {
-				docTitle: "Tags",
-				docDescription: "A list of all the tags",
+			const data = {
 				title: "Tags",
-				subTitle: "A list of all the tags",
+				description: "A list of all the tags",
+				featuredImage: settings.tagsImage,
 			}
 
-			const tagsHTML = await ejs.renderFile("views/layouts/postsByTagCount.ejs", {
-				titles: titles,
-				postsByTagCount: postsByTagCount(),
-				build: true,
+			const tagsHTML = eta.render("layouts/base.html", {
+				tagsRoute: true,
+				data: data,
+				posts: await postsByTagCount(),
+				siteTitle: settings.siteTitle,
+				menuLinks: settings.menuLinks,
+				footerCopyright: settings.footerCopyright,
 			})
 			// Create html file for the tags route.
-			await writeFile(`_site/tags.html`, tagsHTML, "utf8")
+			await writeFile(`_site/tags/index.html`, tagsHTML, "utf8")
 		}
 		tagsRoute()
 
 		// DYNAMIC ROUTE FOR EACH TAG
 		async function tagRoute() {
-			const allTagsArray = getPosts()
-				.flatMap((post) => post[1].data.tags)
-				.sort()
+			const allTagsArray = posts.flatMap((post) => post[1].frontmatter.tags).sort()
 
 			// Remove duplicates from tagsArray using a Set
 			const tagsArray = [...new Set(allTagsArray)]
@@ -227,24 +203,32 @@ async function build() {
 			tagsArray.forEach(async (tag) => {
 				// If tag is not undefined
 				if (tag) {
-					const postsByTag = postsByTagList(tag)
+					// Create a folder for each tag
+					await mkdir(`_site/tags/${tag}`, { recursive: true })
 
-					const titles = {
-						docTitle: `Posts Tagged "${tag}"`,
-						docDescription: `List of posts tagged ${tag}`,
+					const postsByTag = await postsByTagList(tag)
+
+					const data = {
 						title: postsByTag.length > 1 ? `Posts Tagged "${tag}"` : `Post Tagged "${tag}"`,
+						description: `List of posts tagged ${tag}`,
+						featuredImage: settings.tagImage,
 						subTitle:
-							postsByTag.length > 1 ? `${postsByTag.length} posts with this tag` : "1 post with this tag",
+							postsByTag.length > 1 ? `${postsByTag.length} posts with this tag` : `1 post with this tag`,
 					}
 
-					const tagHTML = await ejs.renderFile("views/layouts/postsList.ejs", {
-						titles: titles,
+					const tagHTML = eta.render("layouts/base.html", {
+						// Passing Route data
+						tagRoute: true,
+						data: data,
 						posts: postsByTag,
-						paginated: false, // To hide the pagination component on any requested tag route
-						dynamic: true,
+						paginated: false,
+						postPreviewFallbackImage: settings.postPreviewFallbackImage,
+						siteTitle: settings.siteTitle,
+						menuLinks: settings.menuLinks,
+						footerCopyright: settings.footerCopyright,
 					})
 					// Create html file for each tag.
-					await writeFile(`_site/tags/${tag}.html`, tagHTML, "utf8")
+					await writeFile(`_site/tags/${tag}/index.html`, tagHTML, "utf8")
 				}
 			})
 		}
@@ -252,10 +236,13 @@ async function build() {
 
 		// RSS ROUTE
 		async function rssRoute() {
-			const rssXML = await ejs.renderFile("views/layouts/rss.ejs", {
-				siteURL: siteURL,
-				posts: getPosts(),
-				build: true,
+			const rssXML = eta.render("layouts/rss.html", {
+				siteTitle: settings.siteTitle,
+				siteDescription: settings.siteDescription,
+				siteURL: settings.siteURL,
+				rssSiteLanguage: settings.rssSiteLanguage,
+				rssCopyright: settings.rssCopyright,
+				posts: posts,
 			})
 			// Create xml file for the RSS feed.
 			await writeFile(`_site/rss.xml`, rssXML, "utf8")
@@ -264,9 +251,8 @@ async function build() {
 
 		// SITEMAP ROUTE
 		async function sitemapRoute() {
-			const sitemapXML = await ejs.renderFile("views/layouts/sitemap.ejs", {
+			const sitemapXML = eta.render("layouts/sitemap.html", {
 				urls: sitemap(),
-				build: true,
 			})
 			// Create xml file for the sitemap.
 			await writeFile(`_site/sitemap.xml`, sitemapXML, "utf8")
@@ -275,37 +261,38 @@ async function build() {
 
 		// SEARCH ROUTE
 		async function search() {
-			let posts = getPosts()
-			posts.forEach((post) => {
+			let allPosts = JSON.parse(JSON.stringify(posts))
+			allPosts.forEach((post) => {
 				delete post.date
-				delete post[1].excerpt
-				delete post[1].isEmpty
-				delete post[1].path
-				delete post[1].orig
+				delete post.dir
+				delete post.path
 			})
-			const postsJSON = JSON.stringify(posts)
-			await writeFile(`_site/js/posts.json`, postsJSON, "utf8")
+			const postsJSON = JSON.stringify(allPosts)
+			await writeFile(`_site/static/scripts/posts.json`, postsJSON, "utf8")
 
 			const searchFile = await readFile("functions/search.js")
 			const searchString = searchFile.toString()
-			await writeFile("_site/js/search.js", searchString, "utf8")
+			await writeFile("_site/static/scripts/search.js", searchString, "utf8")
 
-			const titles = {
-				docTitle: "Search",
-				docDescription: "Make a research in the site's posts",
+			const data = {
 				title: "Search",
-				subTitle: "Make a research in the site's posts",
+				description: "Make a research in the site's posts",
+				featuredImage: settings.searchImage,
 			}
 
-			const searchHTML = await ejs.renderFile("views/layouts/search.ejs", {
-				titles: titles,
-				searchJs: true,
+			const searchHTML = eta.render("layouts/base.html", {
 				build: true,
+				searchRoute: true,
+				data: data,
+				postPreviewFallbackImage: settings.postPreviewFallbackImage,
+				siteTitle: settings.siteTitle,
+				menuLinks: settings.menuLinks,
+				footerCopyright: settings.footerCopyright,
 			})
 			// Create html file for the search route.
-			await writeFile(`_site/search.html`, searchHTML, "utf8")
+			await writeFile(`_site/search/index.html`, searchHTML, "utf8")
 		}
-		if (searchFeature) search()
+		if (settings.searchFeature) search()
 	} catch (error) {
 		console.log(error)
 	}

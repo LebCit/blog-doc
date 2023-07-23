@@ -1,14 +1,16 @@
-const fs = require("fs")
-const glob = require("glob")
+import { statSync } from "fs"
 
-// Functions
-const getPosts = require("./getPosts")
-const postsByTagList = require("./postsByTagList")
+// Internal Functions
+import { getFiles, getPosts, postsByTagList } from "../functions/blog-doc.js"
+
+const viewsFiles = await getFiles("views")
+const posts = await getPosts()
 
 // Settings
-const { siteURL } = require("../config/settings.json")
+import { readFile } from "node:fs/promises"
+const { siteURL } = JSON.parse(await readFile(new URL("../config/settings.json", import.meta.url)))
 
-module.exports = () => {
+export function sitemap() {
 	let urlsData = []
 
 	/**
@@ -24,7 +26,7 @@ module.exports = () => {
 
 		array.forEach((post) => {
 			const postTitle = post[0]
-			const postLastMod = fs.statSync(`views/posts/${postTitle}`).mtimeMs
+			const postLastMod = statSync(`views/posts/${postTitle}`).mtimeMs
 			// Add the last modification date of each post into the empty array.
 			arr.push(postLastMod)
 		})
@@ -50,16 +52,16 @@ module.exports = () => {
 	}
 
 	// MAIN ROUTE
-	const newestFivePosts = getPosts().slice(0, 5) // Array of, at most, the newest five posts
+	const newestFivePosts = posts.slice(0, 5) // Array of, at most, the newest five posts
 	postsObj(newestFivePosts, siteURL)
 
 	// ARCHIVE ROUTE
 	const archiveURL = siteURL + "archive"
-	postsObj(getPosts(), archiveURL)
+	postsObj(posts, archiveURL)
 
 	// TAGS ROUTE
 	const tagsURL = siteURL + "tags"
-	postsObj(getPosts(), tagsURL)
+	postsObj(posts, tagsURL)
 
 	// BLOG ROUTES
 	/**
@@ -68,7 +70,7 @@ module.exports = () => {
 	 * 3- Remove the first chunk corresponding to the main route.
 	 * 4- For each other chunk apply the postsObj() function.
 	 */
-	if (getPosts().length > 5) {
+	if (posts.length > 5) {
 		function sliceIntoChunks(arr, chunkSize) {
 			const res = []
 			for (let i = 0; i < arr.length; i += chunkSize) {
@@ -78,7 +80,7 @@ module.exports = () => {
 			return res
 		}
 
-		let slicedArray = sliceIntoChunks(getPosts(), 5)
+		let slicedArray = sliceIntoChunks(posts, 5)
 		slicedArray.shift()
 
 		slicedArray.forEach((arr, idx) => {
@@ -93,16 +95,16 @@ module.exports = () => {
 	 * This function is used for all the pages, posts and templates.
 	 */
 	function filesObj() {
-		let files = glob.sync("views/**/*(*.ejs|*.md)", {
-			ignore: ["views/components/*", "views/layouts/*"],
-		})
+		let files = viewsFiles.filter(
+			(path) => !path.startsWith("views/components") && !path.startsWith("views/layouts")
+		)
 		files.forEach((file) => {
 			const fileTitle = file
 				.split("/")
 				.pop()
 				.replace(/\.[^/.]+$/, "")
 
-			let fileLastMod = fs.statSync(file).mtimeMs
+			let fileLastMod = statSync(file).mtimeMs
 			let fileLastModDate = new Date(fileLastMod).toLocaleDateString().split("/").reverse().join("-")
 
 			let fileObj = {
@@ -117,23 +119,21 @@ module.exports = () => {
 
 	// EACH TAG ROUTE
 	function tagObj() {
-		const allTagsArray = getPosts()
-			.flatMap((post) => post[1].data.tags)
-			.sort()
+		const allTagsArray = posts.flatMap((post) => post[1].frontmatter.tags).sort()
 
 		// Remove duplicates from tagsArray using a Set
 		const tagsArray = [...new Set(allTagsArray)]
 
-		tagsArray.forEach((tag) => {
+		tagsArray.forEach(async (tag) => {
 			// If tag is not undefined
 			if (tag) {
 				let tagLastMod
 
-				const postsByTag = postsByTagList(tag)
+				const postsByTag = await postsByTagList(tag)
 
 				postsByTag.forEach((post) => {
 					const postTitle = post[0]
-					const postLastMod = fs.statSync(`views/posts/${postTitle}`).mtimeMs
+					const postLastMod = statSync(`views/posts/${postTitle}`).mtimeMs
 
 					tagLastMod = new Date(postLastMod).toLocaleDateString().split("/").reverse().join("-")
 				})

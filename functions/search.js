@@ -2,8 +2,12 @@
 const searchInput = document.getElementById("searchInput")
 searchInput.focus()
 
+const postPreviewFallbackImageSpan = document.getElementById("post-preview-fallback-image")
+const postPreviewFallbackImage = JSON.parse(postPreviewFallbackImageSpan.textContent)
+postPreviewFallbackImageSpan.remove()
+
 // Fetch the posts from posts.json
-fetch("/js/posts.json")
+fetch("/static/scripts/posts.json")
 	.then((response) => response.json())
 	.then((posts) => {
 		// Get the searched string and assign it to a query constant
@@ -14,7 +18,7 @@ fetch("/js/posts.json")
 		const reg = new RegExp(query, "gi")
 
 		// Filter the posts by title and content depending on the regex
-		const titleSearch = posts.filter((post) => post[1].data.title.match(reg))
+		const titleSearch = posts.filter((post) => post[1].frontmatter.title.match(reg))
 		const contentSearch = posts.filter((post) => post[1].content.match(reg))
 
 		// Concatenate the results of titleSearch and contentSearch
@@ -23,10 +27,10 @@ fetch("/js/posts.json")
 		// Get the unique result(s) by removing duplicates from concat array
 		const uniqueProps = []
 		const result = concat.filter((post) => {
-			const isDuplicate = uniqueProps.includes(post[1].data.title)
+			const isDuplicate = uniqueProps.includes(post[1].frontmatter.title)
 
 			if (!isDuplicate) {
-				uniqueProps.push(post[1].data.title)
+				uniqueProps.push(post[1].frontmatter.title)
 
 				return true
 			}
@@ -39,7 +43,7 @@ fetch("/js/posts.json")
 			// Insert the single-post-preview.css at the end of the head tag
 			document.head.insertAdjacentHTML(
 				"beforeend",
-				'<link rel="stylesheet" href="css/single-post-preview.css" />'
+				'<link rel="stylesheet" href="/static/styles/single-post-preview.css" />'
 			)
 
 			// Define an empty string that will hold the search result(s)
@@ -47,22 +51,20 @@ fetch("/js/posts.json")
 			// Define the markup for each post of the result array
 			result.forEach((post, index) => {
 				const postFilename = post[0].replace(/\.[^/.]+$/, "")
-				const postTitle = post[1].data.title
-				const postFeaturedImage = post[1].data.featuredImage
-				const postDate = post[1].data.date
-				const postDescription = post[1].data.description
-				const postTags = post[1].data.tags
+				const postTitle = post[1].frontmatter.title
+				const postFeaturedImage = post[1].frontmatter.featuredImage
+				const postDate = post[1].frontmatter.date
+				const postDescription = post[1].frontmatter.description
+				const postTags = post[1].frontmatter.tags
 				const postContent = post[1].content
 				const postExcerpt = postContent.substring(0, 180) + "..."
 
 				// Define the image path depending on the postFeaturedImage
 				let imagePath
 				if (!postFeaturedImage) {
-					imagePath = "./images/graphic-of-white-camera-on-black-background-no-image-available.webp"
-				} else if (postFeaturedImage && postFeaturedImage.startsWith("/")) {
-					imagePath = `.${postFeaturedImage}`
+					imagePath = postPreviewFallbackImage
 				} else {
-					imagePath = `${postFeaturedImage}`
+					imagePath = postFeaturedImage
 				}
 
 				// Define an empty string that will hold the tag(s) if any
@@ -72,7 +74,7 @@ fetch("/js/posts.json")
 				if (postTags) {
 					// Define the markup of each tag
 					postTags.forEach((tag) => {
-						tagLink = `<li><a href="tags/${tag}.html"><span>${tag}</span></a></li> `
+						tagLink = `<li class="post-tag"><a href="/tags/${tag}">${tag}</a></li> `
 						// Add each tag markup to the tagsLinks
 						tagsLinks += tagLink
 					})
@@ -89,11 +91,11 @@ fetch("/js/posts.json")
 						</ul>
 					</div>
 					<div class="description">
-						<h1><a href="/${postFilename}.html" rel="bookmark">${postTitle}</a></h1>
+						<h1><a href="/posts/${postFilename}" rel="bookmark">${postTitle}</a></h1>
 						${postDescription ? `<h2>${postDescription}</h2>` : ""}
 						<p>${postExcerpt}</p>
 						<p class="read-more">
-							<a href="/${postFilename}.html" aria-label="Read more about ${postTitle}" tabindex="0" role="button" class="btn info" > Read the post
+							<a href="/posts/${postFilename}" aria-label="Read more about ${postTitle}" tabindex="0" role="button" class="btn info" > Read the post
 								<span class="arrow arrow-right"></span>
 							</a>
 						</p>
@@ -106,9 +108,9 @@ fetch("/js/posts.json")
 			// Count the number of matching post(s)
 			let searchResultCount
 			if (result.length >= 2) {
-				searchResultCount = `<h3>Your search returned ${result.length} posts</h3>`
+				searchResultCount = `<p>Your search returned ${result.length} posts</p>`
 			} else {
-				searchResultCount = `<h3>Your search returned 1 post</h3>`
+				searchResultCount = `<p>Your search returned 1 post</p>`
 			}
 			// Insert searchResultCount at the beginning of searchResult
 			const searchResult = document.getElementById("searchResult")
@@ -125,8 +127,8 @@ fetch("/js/posts.json")
 				Please try some other keyword(s) or,
 				<br />
 				browse the posts in the
-				<a class="archive-link" href="/archive.html">archive</a>
-				.
+				<a class="archive-link" href="/posts">archive</a>
+				📦
 			</p>
 			`
 			// Insert searchResultCount at the beginning of searchResult
