@@ -65,7 +65,7 @@ _I offer my sincerest apologies in advance to each one of these developers, but 
 -   [Ids for H2 till H4 in Markdown](#ids-for-h2-till-h4-in-markdown) ![Hash icon](/static/icons/hash.svg)
 -   No need for hot reloading in development mode ![Flame icon](/static/icons/flame-off.svg)
 
-## How to install Blog-Doc ?
+## How to install Blog-Doc?
 
 Blog-Doc is a `Node.js` app. You should have [Node.js](https://nodejs.org/en/) on your machine.<br />
 Always go for the **LTS** version.
@@ -119,7 +119,7 @@ This command will create a **\_site** folder in which all the necessary folders 
 
 _**Nota Bene: In both cases, the administration part and all of it's components will be removed from the generated static site !**_
 
-## How to use it ?
+## How to use it?
 
 ### Test it locally
 
@@ -174,7 +174,7 @@ Blog-Doc has a built-in search feature.<br />
 The search functionality allows a user to make a research on **the titles** and **the contents** of the posts.
 
 You can check the search of your site under the `/search` route.<br />
-At build time, a `posts.json` and a `search.js` are generated in **\_site/js**.<br />
+At build time, a `posts.json` and a `search.js` are generated in **\_site/static/scripts**.<br />
 Also, at build time, an `index.html` is generated under the `search` folder in the **\_site** folder.
 
 You can disable the search in the Node.js app as well as for the generated static site by giving `searchFeature` a value of `false` in the Settings page.
@@ -191,7 +191,9 @@ An example to highlight a block of CSS:
 
 <pre><code>
 ```css
-p { color: red }
+p { 
+    color: red
+}
 ```
 </code></pre>
 
@@ -297,7 +299,7 @@ You can also delete an image from the gallery by clicking on it's **&#10008; DEL
 
 Finally, to assign an image to a page or a post, you can, while creating or updating, choose an image from the gallery by selecting it directly from the page or post.
 
-## What's next ?
+## What's next?
 
 I intend to make a lot of improvements to this app in my short free time.
 
