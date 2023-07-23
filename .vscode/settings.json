@@ -1,15 +1,14 @@
 {
+    "cSpell.words": [
+        "Hono"
+    ],
     "liveSassCompile.settings.formats": [
         {
             "format": "compressed",
             "extensionName": ".min.css",
-            "savePath": "/public/css"
+            "savePath": "/static/styles"
         }
     ],
     "liveSassCompile.settings.generateMap": false,
     "liveSassCompile.settings.autoprefix": [],
-    "cSpell.words": [
-        "Chyno",
-        "Frontmatter"
-    ],
 }
