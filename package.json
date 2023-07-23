@@ -1,26 +1,23 @@
 {
   "name": "blog-doc",
   "version": "1.0.0",
-  "description": "A tiny blog and documentation SSG app",
+  "description": "The simplest Node.js CMS and SSG!",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "node functions/build.js",
-    "watch": "nodemon -e ejs,css,js,json,md"
+    "fire": "node index.js"
   },
   "keywords": [],
   "author": "LebCit",
   "license": "MIT",
   "dependencies": {
-    "ejs": "^3.1.8",
-    "express": "^4.18.2",
-    "glob": "^8.0.3",
-    "gray-matter": "^4.0.3",
-    "markdown-it": "^13.0.1",
-    "markdown-it-highlightjs": "^4.0.1"
-  },
-  "devDependencies": {
-    "connect-livereload": "^0.6.1",
-    "livereload": "^0.9.3",
-    "nodemon": "^2.0.20"
+    "@hono/node-server": "^1.1.0",
+    "adm-zip": "^0.5.10",
+    "eta": "^3.0.3",
+    "highlight.js": "^11.8.0",
+    "hono": "^3.3.2",
+    "marked": "^5.1.1",
+    "marked-highlight": "^2.0.1"
   }
 }
