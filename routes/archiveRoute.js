@@ -1,21 +1,32 @@
-const router = global.router
+// Internal Functions
+import { getPosts } from "../functions/blog-doc.js"
+const posts = await getPosts()
+import { initializeApp } from "../functions/initialize.js"
+const { app, eta } = initializeApp()
 
-const getPosts = require("../functions/getPosts")
+// Settings
+import { settings } from "../config/settings.js"
 
-const titles = {
-	docTitle: "Archive",
-	docDescription: "A list of all the posts",
-	title: "Archive",
-	subTitle: "A list of all the posts",
-}
-
-// Render all the posts from the list of posts on the archive route
-router.get("/archive", (req, res) => {
-	res.render("layouts/postsList", {
-		titles: titles,
-		posts: getPosts(),
-		paginated: false, // To hide the pagination component on the archive route
+// Render all the posts from the list of posts on the Archive Route.
+export const archiveRoute = app.get("/posts", (c) => {
+	const data = {
+		title: "Archive",
+		description: "A list of all the posts",
+		featuredImage: settings.archiveImage,
+	}
+	const res = eta.render("layouts/base.html", {
+		// Passing Route data
+		archiveRoute: true,
+		// Passing document data
+		data: data,
+		posts: posts,
+		paginated: false, // To hide the pagination component on the archive route.
+		// Passing document image data
+		postPreviewFallbackImage: settings.postPreviewFallbackImage,
+		// Passing needed settings for the template
+		siteTitle: settings.siteTitle,
+		menuLinks: settings.menuLinks,
+		footerCopyright: settings.footerCopyright,
 	})
+	return c.html(res)
 })
-
-module.exports = router

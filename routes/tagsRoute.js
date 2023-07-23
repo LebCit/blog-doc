@@ -1,55 +1,63 @@
-const router = global.router
+// Internal Functions
+import { postsByTagCount, postsByTagList } from "../functions/blog-doc.js"
+import { initializeApp } from "../functions/initialize.js"
+const { app, eta } = initializeApp()
 
-const postsByTagCount = require("../functions/postsByTagCount")
-const postsByTagList = require("../functions/postsByTagList")
+// Settings
+import { settings } from "../config/settings.js"
 
-// Render all the tags from the list of posts on the postsByTagCount route
-router.get("/tags", (req, res) => {
-	// Define the titles for the tags route
-	const titles = {
-		docTitle: "Tags",
-		docDescription: "A list of all the tags",
-		title: "Tags",
-		subTitle: "A list of all the tags",
-	}
-	res.render("layouts/postsByTagCount", {
-		titles: titles,
-		postsByTagCount: postsByTagCount(),
-	})
-})
-
-// Dynamic route to render the list of posts matching the `:tag` request parameter
-router.get("/tags/:tag", (req, res) => {
-	const tag = req.params.tag
-	const postsByTag = postsByTagList(tag)
-	// Define the titles for any requested tag route
-	const titles = {
-		docTitle: `Posts Tagged "${tag}"`,
-		docDescription: `List of posts tagged ${tag}`,
-		title: postsByTag.length > 1 ? `Posts Tagged "${tag}"` : `Post Tagged "${tag}"`,
-		subTitle: postsByTag.length > 1 ? `${postsByTag.length} posts with this tag` : "1 post with this tag",
-	}
-	if (postsByTag != 0) {
-		// If the postsByTagArray is not empty, render the list of post(s) for the requested tag
-		res.render("layouts/postsList", {
-			titles: titles,
-			posts: postsByTag,
-			paginated: false, // To hide the pagination component on any requested tag route
-		})
-	} else {
-		// If no tag matches the requested tag, render the 404 page
-		const titles = {
-			docTitle: "Page Not Found",
-			docDescription: "The server cannot find the requested resource",
+// TAGS ROUTE
+export const tagsRoute = app
+	.get("/tags", async (c) => {
+		// Tags Route data
+		const data = {
+			title: "Tags",
+			description: "A list of all the tags",
+			featuredImage: settings.tagsImage,
 		}
-		res.status(404).render("layouts/error", {
-			titles: titles,
-			headerTitle: "Page Not Found",
-			headerSubtitle: "Nothing to land on here !",
-			imageSrc: "/images/404-not-found-error.png",
-			imageAlt: "Sailor on a 404 mast looking out to sea",
+		const res = eta.render("layouts/base.html", {
+			// Passing Route data
+			tagsRoute: true,
+			// Passing document data
+			data: data,
+			posts: await postsByTagCount(),
+			// Passing needed settings for the template
+			siteTitle: settings.siteTitle,
+			menuLinks: settings.menuLinks,
+			footerCopyright: settings.footerCopyright,
 		})
-	}
-})
+		return c.html(res)
+	})
+	.get("/tags/:tag", async (c, next) => {
+		const tag = c.req.param("tag")
+		// List of posts matching the `:tag` request parameter
+		const postsByTag = await postsByTagList(tag)
 
-module.exports = router
+		if (postsByTag.length) {
+			// Tag Route data
+			const data = {
+				title: postsByTag.length > 1 ? `Posts Tagged "${tag}"` : `Post Tagged "${tag}"`,
+				description: `List of posts tagged ${tag}`,
+				featuredImage: settings.tagImage,
+				subTitle: postsByTag.length > 1 ? `${postsByTag.length} posts with this tag` : `1 post with this tag`,
+			}
+			const res = eta.render("layouts/base.html", {
+				// Passing Route data
+				tagRoute: true,
+				// Passing document data
+				data: data,
+				posts: postsByTag,
+				paginated: false,
+				// Passing document image data
+				postPreviewFallbackImage: settings.postPreviewFallbackImage,
+				// Passing needed settings for the template
+				siteTitle: settings.siteTitle,
+				menuLinks: settings.menuLinks,
+				footerCopyright: settings.footerCopyright,
+			})
+			return c.html(res)
+		} else {
+			// Proceed to the 404 route if no tag is found
+			await next()
+		}
+	})

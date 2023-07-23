@@ -1,14 +1,23 @@
-const router = global.router
+// Internal Functions
+import { getPosts } from "../functions/blog-doc.js"
+import { initializeApp } from "../functions/initialize.js"
+const { app, eta } = initializeApp()
 
-const getPosts = require("../functions/getPosts")
-const { siteURL } = require("../config/settings.json")
+// Settings
+import { settings } from "../config/settings.js"
 
-// Render RSS feed on the rss route
-router.get("/rss", (req, res) => {
-	res.set("Content-Type", "text/xml").render("layouts/rss", {
-		siteURL: siteURL,
-		posts: getPosts(),
+// RSS Route
+export const rssRoute = app.get("/rss", async (c) => {
+	const posts = await getPosts()
+	c.header("Content-Type", "text/xml")
+	const res = eta.render("layouts/rss.html", {
+		// Passing needed settings for the template
+		siteTitle: settings.siteTitle,
+		siteDescription: settings.siteDescription,
+		siteURL: settings.siteURL,
+		rssSiteLanguage: settings.rssSiteLanguage,
+		rssCopyright: settings.rssCopyright,
+		posts: posts,
 	})
+	return c.body(res)
 })
-
-module.exports = router
