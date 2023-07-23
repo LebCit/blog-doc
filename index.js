@@ -1,59 +1,110 @@
-const express = require("express")
-const app = express()
-exports.app = app
-const { searchFeature } = require("./config/settings.json")
+// Internal Functions
+import { initializeApp } from "./functions/initialize.js"
+const { app, eta } = initializeApp()
 
-app.use(express.static("public"))
-app.set("view engine", "ejs")
+// Settings
+import { settings } from "./config/settings.js"
 
-const liveReload = require("./functions/liveReload")
-liveReload()
+// External modules
+import { serveStatic } from "@hono/node-server/serve-static"
+import { serve } from "@hono/node-server"
+import { env } from "hono/adapter"
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+// Serve Static files
+app.use("/static/*", serveStatic({ root: "./" }))
 
-const router = (global.router = express.Router())
-app.use(router)
+// Set the port value
+const port = env.PORT || 3000
 
-app.use("/", require("./routes/mainRoute"))
-app.use("/", require("./routes/filesRoute"))
-app.use("/", require("./routes/archiveRoute"))
-app.use("/", require("./routes/tagsRoute"))
-app.use("/", require("./routes/rssRoute"))
-app.use("/", require("./routes/sitemapRoute"))
-if (searchFeature) app.use("/", require("./routes/searchRoute"))
+app.use("*", async (c, next) => {
+	console.log(c.req.param())
+	await next()
+})
 
-// 404 route
-app.use((req, res, next) => {
-	const titles = {
-		docTitle: "Page Not Found",
-		docDescription: "The server cannot find the requested resource",
+// Administration Routes
+import { adminRoutes, adminUpdateDelete } from "./routes/admin/adminRoute.js"
+import { adminCreateRoute } from "./routes/admin/adminCreateRoute.js"
+import { adminConfigRoute } from "./routes/admin/adminConfigRoute.js"
+import { adminGalleryRoute } from "./routes/admin/adminGalleryRoute.js"
+import { adminBuildRoute } from "./routes/admin/adminBuildRoute.js"
+
+app.route("/", adminRoutes)
+app.route("/", adminUpdateDelete)
+app.route("/", adminCreateRoute)
+app.route("/", adminConfigRoute)
+app.route("/", adminGalleryRoute)
+app.route("/", adminBuildRoute)
+
+// Routes
+import { mainRoute } from "./routes/mainRoute.js"
+import { markdownRoute } from "./routes/markdownRoute.js"
+import { tagsRoute } from "./routes/tagsRoute.js"
+import { archiveRoute } from "./routes/archiveRoute.js"
+import { searchRoute } from "./routes/searchRoute.js"
+import { rssRoute } from "./routes/rssRoute.js"
+import { sitemapRoute } from "./routes/sitemapRoute.js"
+
+app.route("/", mainRoute)
+app.route("/", markdownRoute)
+app.route("/", tagsRoute)
+app.route("/", archiveRoute)
+app.route("/", searchRoute)
+app.route("/", rssRoute)
+app.route("/", sitemapRoute)
+
+// 404 Route
+app.notFound((c) => {
+	const data = {
+		title: "Page Not Found",
+		description: "The server cannot find the requested resource",
+		subTitle: "Nothing to land on here !",
 	}
-	res.status(404).render("layouts/error", {
-		titles: titles,
-		headerTitle: "Page Not Found",
-		headerSubtitle: "Nothing to land on here !",
-		imageSrc: "/images/404-not-found-error.png",
+	const res = eta.render("layouts/base.html", {
+		// Passing Route data
+		errorRoute: true,
+		// Passing document data
+		data: data,
+		// Passing document image data
+		imageSrc: "/static/images/404-not-found-error.png",
 		imageAlt: "Sailor on a 404 mast looking out to sea",
+		// Passing needed settings for the template
+		siteTitle: settings.siteTitle,
+		menuLinks: settings.menuLinks,
+		footerCopyright: settings.footerCopyright,
 	})
+	return c.html(res, 404)
 })
 
-// 500 route
-app.use((err, req, res, next) => {
-	console.error(err.stack)
-	const titles = {
-		docTitle: "Internal Server Error",
-		docDescription: "The server encountered an unexpected condition that prevented it from fulfilling the request",
+// 500 Route
+app.onError((err, c) => {
+	console.error(`${err}`)
+	const data = {
+		title: "Internal Server Error",
+		description: "The server encountered an unexpected condition that prevented it from fulfilling the request",
+		subTitle: "Server is on a break here !",
 	}
-	res.status(500).render("layouts/error", {
-		titles: titles,
-		headerTitle: "Internal Server Error",
-		headerSubtitle: "Server is on a break here !",
-		imageSrc: "/images/500-internal-server-error.png",
+	const res = eta.render("layouts/base.html", {
+		// Passing Route data
+		errorRoute: true,
+		// Passing document data
+		data: data,
+		// Passing document image data
+		imageSrc: "/static/images/500-internal-server-error.png",
 		imageAlt: "Sad robot in front of empty box",
+		// Passing needed settings for the template
+		siteTitle: settings.siteTitle,
+		menuLinks: settings.menuLinks,
+		footerCopyright: settings.footerCopyright,
 	})
+	return c.html(res, 500)
 })
 
-app.listen(3000, () => {
-	console.log(`App 🚀 @ http://localhost:3000`)
-})
+serve(
+	{
+		fetch: app.fetch,
+		port: port,
+	},
+	({ port }) => {
+		console.log(`App @ http://localhost:${port}`)
+	}
+)
