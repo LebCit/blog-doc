@@ -88,7 +88,7 @@ Another way is to directly clone the repository itself.<br />
 git clone https://github.com/LebCit/blog-doc.git
 ```
 
-Whatever method you use to get Bloc-Doc, the process after having it is to open the folder where Blog-Doc lives with your IDE and type in the terminal:
+Whatever method you use to get Blog-Doc, the process after having it is to open the folder where Blog-Doc lives with your IDE and type in the terminal:
 
 ```bash
 npm install
