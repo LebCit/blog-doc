@@ -11,7 +11,7 @@ A tiny flame in the darkness of error...
 
 ## Motivation & Purpose
 
-_With all due respect to the time and hard work of each and every developer who made a Static Site Generator with Node.js, **including the previous versions of Blog-Doc**, those are gasworks!_<br />
+_With all due respect to the time and hard work of every developer who made a Static Site Generator with Node.js, **including the previous versions of Blog-Doc**, those are gasworks!_<br />
 _I offer my sincerest apologies in advance to each one of these developers, but an app is not supposed to be a gasworks..._<br />
 **Please read [From 145 to 7 💪](https://lebcit.github.io/posts/from-145-to-7/)**<br />
 **Also read [The New Blog-Doc](/posts/the-new-blog-doc)**
