@@ -12,7 +12,7 @@ While paying homage to the developers of other Node.js-based Static Site Generat
 
 ## Nota bene
 
-**The previous posts have been retained for demonstration purposes, but their content is no longer relevant to the new version of Blog-Doc.**
+**The [previous post](/posts/templates) has been retained for demonstration purposes, but its content is no longer relevant to the new version of Blog-Doc.**
 
 Blog-Doc's latest version proudly employs:
 

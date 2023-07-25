@@ -3,8 +3,7 @@ title: The blog
 date: 2022/10/05
 description: How the blog works ?
 featuredImage: /static/images/the-blog.webp
-tags: [Blog-Doc, Blog]
-relatedPosts: [the-files-route, excerpt-length]
+tags: [Blog-Doc,Blog]
 ---
 
 This post is an introduction to the blog design and functionalities. We'll explore how things are related and how they work together. We'll understand what's mandatory for the blog to work properly and what's optional.
@@ -36,16 +35,16 @@ To change the fallback image :
 ### Publishing date & tag(s)
 
 When the preview of a single post is hovered, a zoom in with a little rotation is applied to the featured image while it gets covered by an overlay.  
-The overlay reveals the publishing date of the post and the tag(s) associated to this post **if any**. Yes, **if any means that you can choose to tag or not any post**, tagging a post is an optional feature while giving it a **publishing date is mandatory**, some logic please !
+The overlay reveals the publishing date of the post and the tag(s) associated to this post **if any**. Yes, **if any means that you can choose to tag or not any post**, tagging a post is an optional feature while giving it a **publishing date is mandatory**, some logic please!
 
-The hovered card will look like the following image :
+The hovered card will look like the following image:
 
 <img class="pure-img-responsive" alt="Screenshot of a hovered single post card in the blog" src="/static/images/screenshot-card-blog-hovered.png">
 
 ### Brief preview
 
 The right section of the card contains the post's **title**, **description**, first **180 characters**, and a **Read the post** button linking to the post itself, just like it's title.  
-When this button is hovered, the previous effects are applied and the button expands a little bit to the left, gets a blue background while it's label becomes white and an arrow takes the available space to the right, like the following image :
+When this button is hovered, the previous effects are applied and the button expands a little bit to the left, gets a blue background while it's label becomes white and an arrow takes the available space to the right, like the following image:
 
 <img class="pure-img-responsive" alt="Screenshot of a hovered button of a single post card in the blog" src="/static/images/screenshot-card-blog-read-hovered.png">
 

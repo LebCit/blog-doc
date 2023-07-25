@@ -6,7 +6,7 @@ featuredImage:
 tags: [Blog-Doc]
 ---
 Blog-Doc is **The Simplest Node.js CMS & SSG**. The CMS (Content Management System) allows the user to CRUD (Create, Read, Update, Delete) and control every aspect of the application **from the front-end** while the SSG (Static Site Generator) build a static site out of the created content !  
-Blog-Doc is written in JavaScript ES6, using EJS as a templating language and Markdown to write and format the markup of the generated posts and pages.
+Blog-Doc is written in JavaScript ES6, using Eta as a templating language and Markdown to write and format the markup of the generated posts and pages.
 
 ## Motivation
 
@@ -30,7 +30,7 @@ Once the purpose defined, I had to think about the look and feel of this app.
 Again, simplicity was the keyword. [Pure.css](https://purecss.io/) docs are a great example, they also provide an identical layout of their own website, lucky me !
 
 Finally, after acquiring the design, I had to carefully build the app's architecture.  
-As easy as it may sound, you have to think about _the future_ ! Possibilities are limitless, but by writing essential functionalities for the app and deciding how they should work together and what they should do, the path becomes less cloudy...
+As easy as it may sound, you have to think about _the future_! Possibilities are limitless, but by writing essential functionalities for the app and deciding how they should work together and what they should do, the path becomes less cloudy...
 
 This one ends here, I'll be talking about some aspects of the design and the architecture later on.
 

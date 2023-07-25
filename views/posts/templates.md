@@ -5,10 +5,13 @@ description: Using EJS for specific pages
 featuredImage: /static/images/templates.avif
 tags: [Blog-Doc,Templates,Server-Side]
 ---
-Because a template file have more capabilities and can render a totally different architecture and design than the predefined ones for a Markdown file, this feature is only available if you download Blog-Doc !  
+You may ask yourself the reason for a third option of files since we already can create posts and pages in Markdown. Well the reason is that a template can do much more than a Markdown file...<br />
+A template file have more capabilities and can render a totally different architecture and design than the predefined ones for a Markdown file.<br />
 I intend to make templates editable from the front-end like pages and posts, but not in a near future...
 
-You may ask yourself the reason for a third option of files since we already can create posts and pages in Markdown. Well the reason is that a template can do much more than a Markdown file...
+## Nota bene
+
+**This post has been retained for demonstration purposes, but its content is no longer relevant to the [new version of Blog-Doc](/posts/the-new-blog-doc).**
 
 ## Capabilities & Security
 
@@ -21,11 +24,11 @@ The design is obviously at the templates' level. We can pass personalized CSS fo
 This is why we use a templating language, EJS in Blog-Doc, to generate our final HTML markup with the power of plain JavaScript.  
 Another advantage is that we could completely change the design of a site for a particular page to whatever we like with a template, but this would result in a labyrinthine system if we try to achieve it from a Markdown file...
 
-## How to use a template ?
+## How to use a template?
 
 To use a template file, head over to the **templates** folder under the **views** folder and create in there an `.ejs` file.  
 You can name it whatever you like. As an example : `my-template.ejs`
-Now paste the following block of code :
+Now paste the following block of code:
 
 ```html
 <!DOCTYPE html>
