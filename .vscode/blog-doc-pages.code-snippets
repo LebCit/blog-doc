@@ -5,7 +5,7 @@
 			"---",
 			"title: $1",
 			"description: $2",
-			"featuredImage: $3",
+			"featuredImage: /static/images/$3",
 			"---",
 			""
 		],
