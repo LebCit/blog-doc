@@ -12,12 +12,12 @@
   "author": "LebCit",
   "license": "MIT",
   "dependencies": {
-    "@hono/node-server": "^1.1.0",
+    "@hono/node-server": "^1.1.1",
     "adm-zip": "^0.5.10",
-    "eta": "^3.0.3",
+    "eta": "^3.1.0",
     "highlight.js": "^11.8.0",
-    "hono": "^3.3.3",
-    "marked": "^5.1.1",
+    "hono": "^3.3.4",
+    "marked": "^5.1.2",
     "marked-highlight": "^2.0.1"
   }
 }
