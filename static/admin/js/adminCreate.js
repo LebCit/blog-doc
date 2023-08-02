@@ -52,17 +52,17 @@ For example, if you give your page the following title :
 \`My awesome page title\`
 The URL to the page will be \`https://domain.name/pages/my-awesome-page-title\`
 
-So choose wisely your page's title the first time you create it !
-⚠️ You'll be able to update the page's title but this will not change the page's URL !
+⚠️ You'll not be able to update the page's title!
+So choose wisely your page's title the first time you create it!
 
 ## Optional field
 
 The \`image\` field is optional.
-It means that you can leave it empty, it's totally up to you !
+It means that you can leave it empty, it's totally up to you!
 
 ## The content
 
-Now remove all of this page's content, and start writing your next awesome page !
+Now remove all of this page's content, and start writing your next awesome page!
 Use Markdown to write and format the markup of your page,
 click on the preview tab to have an idea of the content's output.
 Finally, click the submit button to create your new page 😉`)
@@ -165,17 +165,17 @@ For example, if you give your post the following title :
 \`My awesome post title\`
 The URL to the post will be \`https://domain.name/posts/my-awesome-post-title\`
 
-So choose wisely your post's title the first time you create it !
-⚠️ You'll be able to update the post's title but this will not change the post's URL !
+⚠️ You'll not be able to update the post's title!
+So choose wisely your post's title the first time you create it!
 
 ## Optional fields
 
 The \`description\`, \`image\` and \`tag(s)\` fields are optional.
-It means that you can leave any of them or all of them empty, it's totally up to you !
+It means that you can leave any of them or all of them empty, it's totally up to you!
 
 ## The content
 
-Now remove all of this post's content, and start writing your next awesome post !
+Now remove all of this post's content, and start writing your next awesome post!
 Use Markdown to write and format the markup of your post,
 click on the preview tab to have an idea of the content's output.
 Finally, click the submit button to create your new page 😉`)
