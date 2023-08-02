@@ -3,7 +3,7 @@ import { join } from "path"
 import { writeFile } from "node:fs/promises"
 
 // Internal Functions
-import { getImages } from "../../functions/blog-doc.js"
+import { getImages, getPages, getPosts } from "../../functions/blog-doc.js"
 import { initializeApp } from "../../functions/initialize.js"
 const { app, eta } = initializeApp()
 
@@ -27,6 +27,17 @@ export const adminCreateRoute = app
 			footerCopyright: footerCopyright,
 		})
 		return c.html(res)
+	})
+
+	.get("/check-admin-create", async (c) => {
+		// Merge the pages and the posts arrays into a single array named mdFiles
+		const pages = await getPages()
+		const posts = await getPosts()
+		const mdFiles = pages.concat(posts)
+		// Create a new array called mdTitles populated by Markdown files titles
+		const mdTitles = mdFiles.map((x) => x[0])
+		// Send mdTitles array to the client
+		return c.body(JSON.stringify(mdTitles))
 	})
 
 	.post("/admin-create", async (c) => {

@@ -92,23 +92,52 @@ Finally, click the submit button to create your new page 😉`)
 					})
 				})
 			} else {
-				Swal.fire({
-					title: "Create a page ?!",
-					html: `By clicking on <b>Create</b>,<br>a new <b>page</b> will be created,<br>with the content provided in the editor.`,
-					icon: "question",
-					showCancelButton: true,
-					confirmButtonText: "Create",
-					didOpen: () => {
-						const mdContent = editor.getMarkdown()
-						const textArea = document.getElementById("file-contents")
-						textArea.value += mdContent
-						const b = Swal.getConfirmButton()
-						b.type = "button"
-						b.addEventListener("click", () => {
-							fileForm.submit()
-						})
-					},
-				})
+				const pageTitleValue = document.getElementById("page-title-input").value
+				const pageTitle = pageTitleValue
+					.toLowerCase()
+					.replace(/[^a-zA-Z0-9-_ ]/g, "") // Remove special characters except hyphen and underscore
+					.replace(/_+/g, "-") // Replace any number of underscore by one hyphen
+					.replace(/\s+/g, "-") // Replace any number of space by one hyphen
+					.replace(/^-+/, "") // Remove any number of hyphen at the beginning
+					.replace(/-+/g, "-") // Replace any number of hyphen by one hyphen only
+					.replace(/-+$/, "") // Remove any number of hyphen at the end
+
+				fetch("/check-admin-create")
+					.then((res) => res.json())
+					.then((data) => {
+						const filename = data.find((title) => title === `${pageTitle}.md`)
+						// If no file with the same name is found create it!
+						if (filename === undefined) {
+							Swal.fire({
+								title: "Create a page?!",
+								html: `By clicking on <b>Create</b>,<br>a new <b>page</b> will be created,<br>with the content provided in the editor.`,
+								icon: "question",
+								showCancelButton: true,
+								confirmButtonText: "Create",
+								didOpen: () => {
+									const mdContent = editor.getMarkdown()
+									const textArea = document.getElementById("file-contents")
+									textArea.value += mdContent
+									const b = Swal.getConfirmButton()
+									b.type = "button"
+									b.addEventListener("click", () => {
+										fileForm.submit()
+									})
+								},
+							})
+						} else {
+							Swal.fire({
+								title: "This file already exists!",
+								html: `A file with the same title has been found!<br>Change the title to create a new page!<br>Remember that you can update a page!`,
+								icon: "warning",
+								showConfirmButton: false,
+								showCancelButton: true,
+							})
+						}
+					})
+					.catch((err) => {
+						console.error("Error: ", err)
+					})
 			}
 		})
 	} else if (fileTypeSelectValue === "post") {
@@ -176,23 +205,52 @@ Finally, click the submit button to create your new page 😉`)
 					})
 				})
 			} else {
-				Swal.fire({
-					title: "Create a post ?!",
-					html: `By clicking on <b>Create</b>,<br>a new <b>post</b> will be created,<br>with the content provided in the editor.`,
-					icon: "question",
-					showCancelButton: true,
-					confirmButtonText: "Create",
-					didOpen: () => {
-						const mdContent = editor.getMarkdown()
-						const textArea = document.getElementById("file-contents")
-						textArea.value += mdContent
-						const b = Swal.getConfirmButton()
-						b.type = "button"
-						b.addEventListener("click", () => {
-							fileForm.submit()
-						})
-					},
-				})
+				const postTitleValue = document.getElementById("post-title-input").value
+				const postTitle = postTitleValue
+					.toLowerCase()
+					.replace(/[^a-zA-Z0-9-_ ]/g, "") // Remove special characters except hyphen and underscore
+					.replace(/_+/g, "-") // Replace any number of underscore by one hyphen
+					.replace(/\s+/g, "-") // Replace any number of space by one hyphen
+					.replace(/^-+/, "") // Remove any number of hyphen at the beginning
+					.replace(/-+/g, "-") // Replace any number of hyphen by one hyphen only
+					.replace(/-+$/, "") // Remove any number of hyphen at the end
+
+				fetch("/check-admin-create")
+					.then((res) => res.json())
+					.then((data) => {
+						const filename = data.find((title) => title === `${postTitle}.md`)
+						// If no file with the same name is found create it
+						if (filename === undefined) {
+							Swal.fire({
+								title: "Create a post?!",
+								html: `By clicking on <b>Create</b>,<br>a new <b>post</b> will be created,<br>with the content provided in the editor.`,
+								icon: "question",
+								showCancelButton: true,
+								confirmButtonText: "Create",
+								didOpen: () => {
+									const mdContent = editor.getMarkdown()
+									const textArea = document.getElementById("file-contents")
+									textArea.value += mdContent
+									const b = Swal.getConfirmButton()
+									b.type = "button"
+									b.addEventListener("click", () => {
+										fileForm.submit()
+									})
+								},
+							})
+						} else {
+							Swal.fire({
+								title: "This file already exists!",
+								html: `A file with the same title has been found!<br>Change the title to create a new post!<br>Remember that you can update a post!`,
+								icon: "warning",
+								showConfirmButton: false,
+								showCancelButton: true,
+							})
+						}
+					})
+					.catch((err) => {
+						console.error("Error: ", err)
+					})
 			}
 		})
 	} else {
