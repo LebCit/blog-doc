@@ -16,8 +16,8 @@
     "adm-zip": "^0.5.10",
     "eta": "^3.1.0",
     "highlight.js": "^11.8.0",
-    "hono": "^3.3.4",
-    "marked": "^6.0.0",
-    "marked-highlight": "^2.0.1"
+    "hono": "^3.4.3",
+    "marked": "^7.0.2",
+    "marked-highlight": "^2.0.4"
   }
 }
