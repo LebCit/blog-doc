@@ -71,7 +71,7 @@ async function build() {
 			mdFiles.forEach(async (file) => {
 				const fileName = file[0].replace(".md", "")
 				const fileData = file[1].frontmatter
-				const fileContent = marked.parse(file[1].content, { mangle: false, headerIds: false })
+				const fileContent = marked.parse(file[1].content)
 
 				// Create a folder for each file
 				await mkdir(`_site/${file.dir}/${fileName}`, { recursive: true })
