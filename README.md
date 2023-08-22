@@ -143,7 +143,7 @@ There are many free hosts for static sites. The most known are:
 
 _Nota Bene: the above list can be much longer with the different services out there to host a static site !_
 
-## RSS !
+## RSS!
 
 ⚠️ You **MUST** provide the **live URL** of your site in the **Settings page** under the administration by modifying the `siteURL` value before deploying the application.
 
@@ -285,7 +285,7 @@ At build time, predefined ids will be generated into the HTML of the static site
 
 If you wish to disable this feature, set the `addIdsToHeadings` value to `false` in the Settings page.
 
-## The Gallery !
+## The Gallery!
 
 Since Blog-Doc turned into a CMS, I've planned to add a gallery and a way to retrieve images for the pages and posts directly.<br />
 Now it's almost done. Almost, because there is always space to bring on improvements.<br />
