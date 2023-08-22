@@ -194,6 +194,14 @@ class Blog_Doc {
 		}
 		return relatedPosts
 	}
+
+	// Method to list sub directories in directory. Used to get available themes.
+	async getSubDirs(dirname) {
+		const subDirs = (await readdir(dirname, { withFileTypes: true }))
+			.filter((dirent) => dirent.isDirectory())
+			.map((dirent) => dirent.name)
+		return subDirs
+	}
 }
 
 export const {
@@ -207,4 +215,5 @@ export const {
 	postsByTagList,
 	prevNext,
 	relatedPosts,
+	getSubDirs,
 } = new Blog_Doc()
