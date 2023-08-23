@@ -59,7 +59,7 @@ app.notFound((c) => {
 		description: "The server cannot find the requested resource",
 		subTitle: "Nothing to land on here !",
 	}
-	const res = eta.render("layouts/base.html", {
+	const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 		// Passing Route data
 		errorRoute: true,
 		// Passing document data
@@ -83,7 +83,7 @@ app.onError((err, c) => {
 		description: "The server encountered an unexpected condition that prevented it from fulfilling the request",
 		subTitle: "Server is on a break here !",
 	}
-	const res = eta.render("layouts/base.html", {
+	const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 		// Passing Route data
 		errorRoute: true,
 		// Passing document data

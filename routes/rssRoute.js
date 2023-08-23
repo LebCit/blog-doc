@@ -10,7 +10,7 @@ import { settings } from "../config/settings.js"
 export const rssRoute = app.get("/rss", async (c) => {
 	const posts = await getPosts()
 	c.header("Content-Type", "text/xml")
-	const res = eta.render("layouts/rss.html", {
+	const res = eta.render(`themes/${settings.currentTheme}/layouts/rss.html`, {
 		// Passing needed settings for the template
 		siteTitle: settings.siteTitle,
 		siteDescription: settings.siteDescription,

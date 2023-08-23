@@ -18,7 +18,7 @@ export const searchRoute = app
 				featuredImage: settings.searchImage,
 			}
 
-			const res = eta.render("layouts/base.html", {
+			const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				// Passing Route data
 				searchRoute: true,
 				// Passing document data
@@ -71,7 +71,7 @@ export const searchRoute = app
 			if (result.length > 0) {
 				const resultLength = result.length
 				// Render the search page with the resultant post(s)
-				const res = eta.render("layouts/base.html", {
+				const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 					// Passing Route data
 					searchRoute: true,
 					// Passing document data
@@ -94,7 +94,7 @@ export const searchRoute = app
 				 * render the search page,
 				 * with a message.
 				 */
-				const res = eta.render("layouts/base.html", {
+				const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 					// Passing Route data
 					searchRoute: true,
 					// Passing document data

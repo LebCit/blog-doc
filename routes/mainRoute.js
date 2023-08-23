@@ -23,7 +23,7 @@ export const mainRoute = app
 			featuredImage: settings.blogImage,
 		}
 
-		const res = eta.render("layouts/base.html", {
+		const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 			// Passing Route data
 			mainRoute: true,
 			firstPage: true,
@@ -60,7 +60,7 @@ export const mainRoute = app
 		// Paginated array from the list of posts without the newest X posts
 		const paginatedPostsList = paginator(posts.slice(settings.postsPerPage), actualBlogPage, settings.postsPerPage)
 
-		const res = eta.render("layouts/base.html", {
+		const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 			// Passing Route data
 			mainRoute: true,
 			firstPage: false,

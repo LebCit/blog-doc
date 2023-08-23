@@ -14,7 +14,7 @@ export const archiveRoute = app.get("/posts", (c) => {
 		description: "A list of all the posts",
 		featuredImage: settings.archiveImage,
 	}
-	const res = eta.render("layouts/base.html", {
+	const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 		// Passing Route data
 		archiveRoute: true,
 		// Passing document data

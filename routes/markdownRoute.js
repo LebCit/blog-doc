@@ -36,7 +36,7 @@ export const markdownRoute = app.get("/:folder/:filename", async (c, next) => {
 	if (currentFile) {
 		const fileData = currentFile[1].frontmatter
 		const fileContent = marked.parse(currentFile[1].content)
-		const res = eta.render("layouts/base.html", {
+		const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 			// Passing Route data
 			mdRoute: true,
 			// Passing Markdown file data

@@ -76,7 +76,7 @@ async function build() {
 				// Create a folder for each file
 				await mkdir(`_site/${file.dir}/${fileName}`, { recursive: true })
 
-				const fileHTML = eta.render("layouts/base.html", {
+				const fileHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 					// Passing Route data
 					mdRoute: true,
 					data: fileData,
@@ -106,7 +106,7 @@ async function build() {
 				featuredImage: settings.blogImage,
 			}
 
-			const indexHTML = eta.render("layouts/base.html", {
+			const indexHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				mainRoute: true,
 				firstPage: true,
 				data: data,
@@ -129,7 +129,7 @@ async function build() {
 				// Paginated array from the list of posts without the newest X posts
 				const paginatedPostsList = paginator(posts.slice(settings.postsPerPage), i, settings.postsPerPage)
 
-				const dynamicIndexHTML = eta.render("layouts/base.html", {
+				const dynamicIndexHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 					// Passing Route data
 					mainRoute: true,
 					firstPage: false,
@@ -157,7 +157,7 @@ async function build() {
 				featuredImage: settings.archiveImage,
 			}
 
-			const archiveHTML = eta.render("layouts/base.html", {
+			const archiveHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				archiveRoute: true,
 				data: data,
 				posts: posts,
@@ -180,7 +180,7 @@ async function build() {
 				featuredImage: settings.tagsImage,
 			}
 
-			const tagsHTML = eta.render("layouts/base.html", {
+			const tagsHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				tagsRoute: true,
 				data: data,
 				posts: await postsByTagCount(),
@@ -216,7 +216,7 @@ async function build() {
 							postsByTag.length > 1 ? `${postsByTag.length} posts with this tag` : `1 post with this tag`,
 					}
 
-					const tagHTML = eta.render("layouts/base.html", {
+					const tagHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 						// Passing Route data
 						tagRoute: true,
 						data: data,
@@ -236,7 +236,7 @@ async function build() {
 
 		// RSS ROUTE
 		async function rssRoute() {
-			const rssXML = eta.render("layouts/rss.html", {
+			const rssXML = eta.render(`themes/${settings.currentTheme}/layouts/rss.html`, {
 				siteTitle: settings.siteTitle,
 				siteDescription: settings.siteDescription,
 				siteURL: settings.siteURL,
@@ -251,7 +251,7 @@ async function build() {
 
 		// SITEMAP ROUTE
 		async function sitemapRoute() {
-			const sitemapXML = eta.render("layouts/sitemap.html", {
+			const sitemapXML = eta.render(`themes/${settings.currentTheme}/layouts/sitemap.html`, {
 				urls: sitemap(),
 			})
 			// Create xml file for the sitemap.
@@ -280,7 +280,7 @@ async function build() {
 				featuredImage: settings.searchImage,
 			}
 
-			const searchHTML = eta.render("layouts/base.html", {
+			const searchHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				build: true,
 				searchRoute: true,
 				data: data,

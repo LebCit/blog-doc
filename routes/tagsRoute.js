@@ -15,7 +15,7 @@ export const tagsRoute = app
 			description: "A list of all the tags",
 			featuredImage: settings.tagsImage,
 		}
-		const res = eta.render("layouts/base.html", {
+		const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 			// Passing Route data
 			tagsRoute: true,
 			// Passing document data
@@ -41,7 +41,7 @@ export const tagsRoute = app
 				featuredImage: settings.tagImage,
 				subTitle: postsByTag.length > 1 ? `${postsByTag.length} posts with this tag` : `1 post with this tag`,
 			}
-			const res = eta.render("layouts/base.html", {
+			const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				// Passing Route data
 				tagRoute: true,
 				// Passing document data
