@@ -270,7 +270,7 @@ async function build() {
 			const postsJSON = JSON.stringify(allPosts)
 			await writeFile(`_site/static/scripts/posts.json`, postsJSON, "utf8")
 
-			const searchFile = await readFile("functions/search.js")
+			const searchFile = await readFile(`functions/search-${settings.currentTheme}.js`)
 			const searchString = searchFile.toString()
 			await writeFile("_site/static/scripts/search.js", searchString, "utf8")
 
