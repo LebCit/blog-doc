@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%~ include('../components/head.html', it) %>
+	<body>
+		<!-- Navigation -->
+		<%~ include('../components/menu.html', it) %>
+
+		<!-- Page Header -->
+		<%~ include('../components/header.html', it) %>
+
+		<!-- Main Content -->
+		<%/*
+		<!--MAIN, ARCHIVE AND TAG ROUTE-->
+		*/%> <% if (it.mainRoute || it.archiveRoute || it.tagRoute) { %>
+		<!-- Start Post(s) Listing -->
+		<%~ include('./index.html', it) %>
+		<!-- End Post(s) Listing -->
+		<% } %> <%/*
+		<!--MARKDOWN ROUTE-->
+		*/%> <% if (it.mdRoute) { %>
+		<!-- Start Markdown file content -->
+		<%~ include('./mdTemplate.html', it) %>
+		<!-- End Markdown file content -->
+		<% } %> <%/*
+		<!--TAGS ROUTE-->
+		*/%> <% if (it.tagsRoute) { %>
+		<!-- Start list of tags with count -->
+		<%~ include('./postsByTagCount.html', it) %>
+		<!-- End list of tags with count -->
+		<% } %> <%/*
+		<!--SEARCH ROUTE-->
+		*/%> <% if (it.searchRoute) { %>
+		<!-- Start search page content -->
+		<%~ include('./search.html', it) %>
+		<!-- End search page content -->
+		<% } %> <%/*
+		<!-- ERROR ROUTE -->
+		*/%> <% if (it.errorRoute) { %>
+		<!-- Start error route content -->
+		<%~ include('../components/backToHome.html') %>
+		<!-- End error route content -->
+		<% } %>
+
+		<!-- Footer -->
+		<%~ include('../components/footer.html', it) %>
+	</body>
+</html>

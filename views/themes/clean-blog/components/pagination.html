@@ -1,0 +1,22 @@
+<%/*
+<!-- First page pagination -->
+*/%> <% if (it.firstPage && it.lastPage > 0) { %>
+<div class="d-flex justify-content-end mb-4">
+	<a class="btn btn-primary text-uppercase" href="/page/1">← Older Posts</a>
+</div>
+<% } %> <%/*
+<!-- Other pages pagination -->
+*/%> <% if (!it.firstPage) { %>
+<div class="d-flex justify-content-between mb-4">
+	<!-- Older Posts -->
+	<% if (it.paginatedPostsList.next_page) { %>
+	<a class="btn btn-primary text-uppercase" href="/page/<%=it.paginatedPostsList.next_page%>">← Older Posts</a>
+	<% } %>
+	<!-- Newer Posts -->
+	<% if (it.paginatedPostsList.prev_page) { %>
+	<a class="btn btn-primary text-uppercase" href="/page/<%=it.paginatedPostsList.prev_page%>">Newer Posts →</a>
+	<% } else { %>
+	<a class="btn btn-primary text-uppercase" href="/">Newer Posts →</a>
+	<% } %>
+</div>
+<% } %>

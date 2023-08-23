@@ -1,0 +1,51 @@
+<div id="main" class="container px-4 px-lg-5">
+	<div class="row gx-4 gx-lg-5 justify-content-center">
+		<div class="col-md-10 col-lg-8 col-xl-7">
+			<% it.posts.forEach((post) => { %> <%/*
+			<!-- Get the Markdown filename without it's extension -->
+			*/%> <% const postFilename = post[0].replace(/\.[^/.]+$/, "") %> <%/*
+			<!-- Get the Markdown post title from it's front matter -->
+			*/%> <% const postTitle = post[1].frontmatter.title %> <%/*
+			<!-- Get the post date from it's front matter -->
+			*/%> <% const postDate = post[1].frontmatter.date %> <%/*
+			<!-- Get the post description from it's front matter -->
+			*/%> <% const postDescription = post[1].frontmatter.description %> <%/*
+			<!-- Get the post tags from it's front matter -->
+			*/%> <% const postTags = post[1].frontmatter.tags %>
+
+			<!-- Post preview -->
+			<div class="post-preview">
+				<a href="/posts/<%= postFilename %>" rel="bookmark">
+					<h2 class="post-title"><%= postTitle %></h2>
+					<h3 class="post-subtitle"><%= postDescription %></h3>
+				</a>
+				<p class="post-meta">
+					Posted on <%= postDate %>
+					<!-- Post tag(s) -->
+					<% if (postTags.length) { %>
+					<br />
+					Tagged: <% postTags.forEach(tag => { %>
+					<a href="/tags/<%= tag %>"><span><%= tag %></span></a>
+					<% }) %> <% } %>
+				</p>
+			</div>
+			<!-- Divider-->
+			<hr class="my-4" />
+
+			<% }) %>
+
+			<!--Start Pagination-->
+			<% if (it.paginated) { %>
+			<!--Start include Pagination-->
+			<%~ include('../components/pagination.html', it) %>
+			<!--End include Pagination-->
+			<p class="archive-link">
+				All the posts can be found in the
+				<a href="/posts">archive</a>
+				📦
+			</p>
+			<% } %>
+			<!--End Pagination-->
+		</div>
+	</div>
+</div>

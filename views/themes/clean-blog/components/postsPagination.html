@@ -1,0 +1,16 @@
+<div class="d-flex justify-content-center mb-4">
+	<% if (it.previousPost !== null) { %>
+	<a class="btn btn-primary text-uppercase m-1" href="/posts/<%=it.previousPost%>" aria-label="Go to the previous post">
+		<span aria-hidden="true">Previous: <%=it.previousPostTitle%></span>
+		<span class="visually-hidden">Go to the previous post</span>
+	</a>
+
+	<% } %> <%/*
+	<!-- Added comment for readability -->
+	*/%> <% if (it.nextPost !== null) { %>
+	<a class="btn btn-primary text-uppercase m-1" href="/posts/<%=it.nextPost%>" aria-label="Go to the next post">
+		<span aria-hidden="true">Next: <%=it.nextPostTitle%></span>
+		<span class="visually-hidden">Go to the next post</span>
+	</a>
+	<% } %>
+</div>

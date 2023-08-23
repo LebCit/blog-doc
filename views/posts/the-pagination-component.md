@@ -67,7 +67,7 @@ After that, always in the `mainRoute.js` file, we pass those data objects to the
 ```js
 // /routes/mainRoute.js
 
-const res = eta.render("layouts/base.html", {
+const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
     // Passing Route data
     mainRoute: true,
     firstPage: true,

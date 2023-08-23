@@ -1,0 +1,22 @@
+<main id="main" class="mb-4">
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 gx-lg-5 justify-content-center">
+			<div class="col-md-10 col-lg-8 col-xl-7">
+				<ol class="tags">
+					<% for (const property in it.posts) { %> <%/*
+					<!-- To avoid displaying a null or undefined tag in the list of tags if one or more post have no tag(s) -->
+					*/%> <% if (property !== "null" && property !== "undefined") { %>
+					<li class="tag">
+						<a class="tag-link" href="/tags/<%= property %>"><%= property %></a>
+						<% if (it.posts[property] == 1) { %>
+						<span>(1 post)</span>
+						<% } else { %>
+						<span>(<%= it.posts[property] %> posts)</span>
+						<% } %>
+					</li>
+					<% } %> <% } %>
+				</ol>
+			</div>
+		</div>
+	</div>
+</main>
