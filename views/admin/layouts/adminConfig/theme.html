@@ -1,0 +1,25 @@
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title"><b>Current Theme</b></h3>
+	</div>
+
+	<div class="card-body">
+		<%/* Current theme */%>
+		<div class="mb-3">
+			<label for="current-theme" class="form-label">
+				<b>Theme* - REQUIRED !</b>
+			</label>
+			<select id="current-theme" name="currentTheme" class="form-select" required>
+				<option value="">Please choose an option</option>
+				<option value="<%= it.settings.currentTheme %>" selected><%= it.settings.currentTheme %></option>
+				<% const themes = it.themes; const currentTheme = themes.indexOf(it.settings.currentTheme);
+				themes.splice(currentTheme, 1) %> <%/*
+				<!-- Display other themes -->
+				*/%> <% themes.forEach(theme => { %>
+				<option value="<%= theme %>"><%= theme %></option>
+				<% }) %>
+			</select>
+			<div class="invalid-tooltip">Please select a theme!</div>
+		</div>
+	</div>
+</div>

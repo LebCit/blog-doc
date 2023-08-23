@@ -2,7 +2,7 @@
 import { writeFile } from "node:fs/promises"
 
 // Internal Functions
-import { getImages } from "../../functions/blog-doc.js"
+import { getImages, getSubDirs } from "../../functions/blog-doc.js"
 import { initializeApp } from "../../functions/initialize.js"
 import { transformParsedBody } from "../../functions/helpers.js"
 const { app, eta } = initializeApp()
@@ -23,6 +23,7 @@ export const adminConfigRoute = app
 			data: data,
 			settings: settings,
 			images: await getImages(),
+			themes: await getSubDirs("views/themes"),
 			siteTitle: settings.siteTitle,
 			footerCopyright: settings.footerCopyright,
 		})
@@ -68,6 +69,7 @@ export const adminConfigRoute = app
 		settings.postPreviewFallbackImage = siteSettings.postPreviewFallbackImage
 		settings.searchFeature = siteSettings.searchFeature
 		settings.addIdsToHeadings = siteSettings.addIdsToHeadings
+		settings.currentTheme = siteSettings.currentTheme
 
 		await writeFile("config/settings.json", JSON.stringify(settings), "utf8")
 		return c.redirect("/admin")
