@@ -18,7 +18,7 @@ export const adminConfigRoute = app
 			description: `${settings.siteTitle} Site Settings`,
 		}
 
-		const res = eta.render("layouts/admin/adminConfigSite.html", {
+		const res = eta.render("admin/layouts/adminConfigSite.html", {
 			adminConfig: true,
 			data: data,
 			settings: settings,
@@ -36,7 +36,7 @@ export const adminConfigRoute = app
 			description: `${settings.siteTitle} Menu Settings`,
 		}
 
-		const res = eta.render("layouts/admin/adminConfigMenu.html", {
+		const res = eta.render("admin/layouts/adminConfigMenu.html", {
 			adminConfig: true,
 			data: data,
 			settings: settings,

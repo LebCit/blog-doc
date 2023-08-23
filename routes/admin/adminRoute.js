@@ -17,7 +17,7 @@ const adminRoutes = app
 			description: `${siteTitle} Administration`,
 		}
 
-		const res = eta.render("layouts/admin/admin.html", {
+		const res = eta.render("admin/layouts/admin.html", {
 			admin: true,
 			data: data,
 			siteTitle: siteTitle,
@@ -33,7 +33,7 @@ const adminRoutes = app
 			description: `${siteTitle} Posts`,
 		}
 
-		const res = eta.render("layouts/admin/adminTable.html", {
+		const res = eta.render("admin/layouts/adminTable.html", {
 			adminTable: true,
 			postsTable: true,
 			data: data,
@@ -51,7 +51,7 @@ const adminRoutes = app
 			description: `${siteTitle} Pages`,
 		}
 
-		const res = eta.render("layouts/admin/adminTable.html", {
+		const res = eta.render("admin/layouts/adminTable.html", {
 			adminTable: true,
 			pagesTable: true,
 			data: data,
@@ -79,7 +79,7 @@ const adminUpdateDelete = app
 			description: `Admin page to update ${file[1].frontmatter.title}`,
 		}
 
-		const res = eta.render("layouts/admin/adminUpdate.html", {
+		const res = eta.render("admin/layouts/adminUpdate.html", {
 			adminUpdate: true,
 			data: data,
 			file: file,

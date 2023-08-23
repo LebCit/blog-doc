@@ -18,7 +18,7 @@ export const adminGalleryRoute = app
 			title: "Images gallery",
 			description: `${settings.siteTitle} gallery page`,
 		}
-		const res = eta.render("layouts/admin/adminGallery.html", {
+		const res = eta.render("admin/layouts/adminGallery.html", {
 			adminGallery: true,
 			data: data,
 			images: await getImages(),

@@ -19,7 +19,7 @@ const data = {
 
 export const adminCreateRoute = app
 	.get("/admin-create", async (c) => {
-		const res = eta.render("layouts/admin/adminCreate.html", {
+		const res = eta.render("admin/layouts/adminCreate.html", {
 			adminCreate: true,
 			data: data,
 			images: await getImages(),
