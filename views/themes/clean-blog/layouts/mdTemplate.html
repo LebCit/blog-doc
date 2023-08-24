@@ -2,6 +2,14 @@
 <main id="main" class="mb-4">
 	<div class="container px-4 px-lg-5">
 		<div class="row gx-4 gx-lg-5 justify-content-center">
+			<% if (it.editable) { %>
+			<a href="/admin-update/<%= it.filename %>" class="text-center">
+				<button class="btn btn-warning">
+					<i class="fa fa-edit"></i>
+					Edit
+				</button>
+			</a>
+			<% } %>
 			<div class="col-md-10 col-lg-8 col-xl-7"><%~ it.content %></div>
 		</div>
 	</div>
@@ -10,6 +18,14 @@
 <article id="main" class="mb-4">
 	<div class="container px-4 px-lg-5">
 		<div class="row gx-4 gx-lg-5 justify-content-center">
+			<% if (it.editable) { %>
+			<a href="/admin-update/<%= it.filename %>" class="text-center">
+				<button class="btn btn-warning">
+					<i class="fa fa-edit"></i>
+					Edit
+				</button>
+			</a>
+			<% } %>
 			<div class="col-md-10 col-lg-8 col-xl-7"><%~ it.content %></div>
 		</div>
 	</div>
