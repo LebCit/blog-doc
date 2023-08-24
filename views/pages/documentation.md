@@ -1,7 +1,7 @@
 ---
 title: Blog-Doc's documentation
 description: Why and how to use Blog-Doc?
-featuredImage: 
+featuredImage:
 ---
 
 # Blog-Doc
@@ -52,6 +52,7 @@ _I offer my sincerest apologies in advance to each one of these developers, but 
 ## Features ⚡
 
 -   Administrate your app from the front-end! ![Settings icon](/static/icons/settings.svg)
+-   [Themes](#themes) to change the look and feel of your site! ![Brush icon](/static/icons/brush.svg)
 -   [Gallery](#the-gallery) to upload your images ![Image upload icon](/static/icons/photo-up.svg)
 -   Create, Read, Update & Delete your pages and posts ![Pencil icon](/static/icons/pencil.svg)
 -   Paginated blog with chosen number of posts per page ![Left and right arrows icon](/static/icons/arrows-left-right.svg)
@@ -310,6 +311,47 @@ You'll find a drop zone where you can drop your image(s) or click on it and choo
 You can also delete an image from the gallery by clicking on it's **&#10008; DELETE** button.
 
 Finally, to assign an image to a page or a post, you can, while creating or updating, choose an image from the gallery by selecting it directly from the page or post.
+
+## Themes {#themes}
+
+You can switch between themes and choose the design that suites your needs.
+
+Blog-Doc comes with:
+
+-   A default theme based on the [Responsive Side Menu Layout of Pure.css](https://purecss.io/layouts/side-menu/)
+-   A clean-blog theme based on [Clean Blog](https://startbootstrap.com/theme/clean-blog) from [Start Bootstrap](https://startbootstrap.com/)
+
+If a picture is worth a thousand words, a video is worth a million!<br />
+A 30 seconds video showing the ability to instantly change the look and feel of your site with Blog-Doc.
+
+<style>
+  .container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+/* Then style the iframe to fit in the container div with full height and width */
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
+
+<div class="container">
+<iframe class="responsive-iframe" src="https://www.youtube.com/embed/qaulkcZ-yu8?si=Ptq9mGrwU0hj9Uo1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+</iframe>
+</div>
+
+**I'll be adding more themes to Blog-Doc over time.**<br />
+If you've coded a theme for Blog-Doc and wish to list it among the available themes, you can let me know in the Discussions of Blog-Doc's repository under the [Ideas](https://github.com/LebCit/blog-doc/discussions/categories/ideas) category.<br />
+Please keep in mind that Blog-Doc themes **MUST** only use plain JavaScript and cannot contain any code or image(s) that have publishing and/or distribution restrictions!
 
 ## What's next?
 
