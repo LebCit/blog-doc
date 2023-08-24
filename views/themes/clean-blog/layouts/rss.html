@@ -12,7 +12,7 @@
 		<% it.posts.forEach(post => { %>
 			<item>
 				<title><%= post[1].frontmatter.title %></title>
-				<link><%= it.siteURL + post[0].replace(/\.[^/.]+$/, "") %></link>
+				<link><%= it.siteURL + "posts/" + post[0].replace(/\.[^/.]+$/, "") %></link>
 				<% if (post[1].frontmatter.description) { %>
 				<description><%= post[1].frontmatter.description %></description>
 				<% } %>
