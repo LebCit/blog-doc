@@ -8,7 +8,7 @@ const posts = await getPosts()
 
 // Settings
 import { readFile } from "node:fs/promises"
-const { siteURL } = JSON.parse(await readFile(new URL("../config/settings.json", import.meta.url)))
+const { siteURL, postsPerPage } = JSON.parse(await readFile(new URL("../config/settings.json", import.meta.url)))
 
 export function sitemap() {
 	let urlsData = []
@@ -52,8 +52,8 @@ export function sitemap() {
 	}
 
 	// MAIN ROUTE
-	const newestFivePosts = posts.slice(0, 5) // Array of, at most, the newest five posts
-	postsObj(newestFivePosts, siteURL)
+	const newestPosts = posts.slice(0, postsPerPage) // Array of, at most, the newest X posts
+	postsObj(newestPosts, siteURL)
 
 	// ARCHIVE ROUTE
 	const archiveURL = siteURL + "archive"
@@ -65,12 +65,12 @@ export function sitemap() {
 
 	// BLOG ROUTES
 	/**
-	 * 1- Check if the array of posts is greater then 5.
-	 * 2- Slice the array of posts into chunks of 5.
+	 * 1- Check if the array of posts is greater then postsPerPage.
+	 * 2- Slice the array of posts into chunks of postsPerPage.
 	 * 3- Remove the first chunk corresponding to the main route.
 	 * 4- For each other chunk apply the postsObj() function.
 	 */
-	if (posts.length > 5) {
+	if (posts.length > postsPerPage) {
 		function sliceIntoChunks(arr, chunkSize) {
 			const res = []
 			for (let i = 0; i < arr.length; i += chunkSize) {
@@ -80,7 +80,7 @@ export function sitemap() {
 			return res
 		}
 
-		let slicedArray = sliceIntoChunks(posts, 5)
+		let slicedArray = sliceIntoChunks(posts, postsPerPage)
 		slicedArray.shift()
 
 		slicedArray.forEach((arr, idx) => {
@@ -95,9 +95,7 @@ export function sitemap() {
 	 * This function is used for all the pages, posts and templates.
 	 */
 	function filesObj() {
-		let files = viewsFiles.filter(
-			(path) => !path.startsWith("views/components") && !path.startsWith("views/layouts")
-		)
+		let files = viewsFiles.filter((path) => !path.startsWith(`views/admin`) && !path.startsWith(`views/themes`))
 		files.forEach((file) => {
 			const fileTitle = file
 				.split("/")
