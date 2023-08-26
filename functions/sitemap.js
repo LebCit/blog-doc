@@ -1,7 +1,7 @@
 import { statSync } from "fs"
 
 // Internal Functions
-import { getFiles, getPosts, postsByTagList } from "../functions/blog-doc.js"
+import { getFiles, getPosts } from "../functions/blog-doc.js"
 
 const viewsFiles = await getFiles("views")
 const posts = await getPosts()
@@ -102,11 +102,13 @@ export function sitemap() {
 				.pop()
 				.replace(/\.[^/.]+$/, "")
 
+			const fileDir = file.split("/")[1]
+
 			let fileLastMod = statSync(file).mtimeMs
 			let fileLastModDate = new Date(fileLastMod).toLocaleDateString().split("/").reverse().join("-")
 
 			let fileObj = {
-				urlLocation: siteURL + fileTitle,
+				urlLocation: `${siteURL + fileDir}/${fileTitle}`,
 				urlLastMod: fileLastModDate,
 			}
 
@@ -122,27 +124,31 @@ export function sitemap() {
 		// Remove duplicates from tagsArray using a Set
 		const tagsArray = [...new Set(allTagsArray)]
 
-		tagsArray.forEach(async (tag) => {
-			// If tag is not undefined
-			if (tag) {
-				let tagLastMod
+		tagsArray.forEach((tag) => {
+			// Define an empty time array
+			let timeArray = []
+			// Get the posts in which the tag exist
+			const postsByTagArray = posts.filter((post) =>
+				post[1].frontmatter.tags ? post[1].frontmatter.tags.includes(tag) : post[1].frontmatter.tags === []
+			)
+			// Push into the time array the last modification time of each post of the tag
+			postsByTagArray.forEach((post) => {
+				const postTitle = post[0]
+				const postLastMod = statSync(`views/posts/${postTitle}`).mtimeMs
 
-				const postsByTag = await postsByTagList(tag)
+				timeArray.push(postLastMod)
+			})
+			// Get the newest time from the time array
+			const newestTime = Math.max.apply(Math, timeArray)
+			// Change the tag's last modification time to a readable date.
+			const tagLastMod = new Date(newestTime).toLocaleDateString().split("/").reverse().join("-")
 
-				postsByTag.forEach((post) => {
-					const postTitle = post[0]
-					const postLastMod = statSync(`views/posts/${postTitle}`).mtimeMs
-
-					tagLastMod = new Date(postLastMod).toLocaleDateString().split("/").reverse().join("-")
-				})
-
-				let tagObj = {
-					urlLocation: siteURL + "tags/" + tag,
-					urlLastMod: tagLastMod,
-				}
-
-				urlsData.push(tagObj)
+			let tagObj = {
+				urlLocation: siteURL + "tags/" + tag,
+				urlLastMod: tagLastMod,
 			}
+
+			urlsData.push(tagObj)
 		})
 	}
 	tagObj()
