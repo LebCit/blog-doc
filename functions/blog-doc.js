@@ -142,7 +142,7 @@ class Blog_Doc {
 		// Filter the posts to retrieve an array of post(s) including the requested tag
 		// Check if the post have tags, otherwise define them as an empty array
 		const postsByTagArray = posts.filter((post) =>
-			post[1].frontmatter.tags ? post[1].frontmatter.tags.includes(tag) : post[1].frontmatter.tags === []
+			post[1].frontmatter.tags.includes(tag) ? post[1].frontmatter.tags : post[1].frontmatter.tags == []
 		)
 
 		return postsByTagArray
