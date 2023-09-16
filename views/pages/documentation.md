@@ -1,7 +1,7 @@
 ---
 title: Blog-Doc's documentation
 description: Why and how to use Blog-Doc?
-featuredImage:
+featuredImage: 
 ---
 
 # Blog-Doc
@@ -13,8 +13,8 @@ A tiny flame in the darkness of error...
 
 _With all due respect to the time and hard work of every developer who made a Static Site Generator with Node.js, **including the previous versions of Blog-Doc**, those are gasworks!_<br />
 _I offer my sincerest apologies in advance to each one of these developers, but an app is not supposed to be a gasworks..._<br />
-**Please read [From 145 to 7 💪](https://lebcit.github.io/posts/from-145-to-7/)**<br />
-**Also read [The New Blog-Doc](/posts/the-new-blog-doc)**
+**Please read** [From 145 to 7 💪](https://lebcit.github.io/posts/from-145-to-7/)<br /> 
+**Also read** [The New Blog-Doc](/posts/the-new-blog-doc)
 
 ## Requirements
 
@@ -202,7 +202,7 @@ To write a **block of code**, surround your block with a pair of 3 backticks <co
 To highlight it, provide the alias of the language for the block just after the first 3 backticks.<br />
 An example to highlight a block of CSS:
 
-<pre><code>
+<pre><code class="nohighlight">
 ```css
 p { 
     color: red 
@@ -220,7 +220,10 @@ p {
 
 ⚠️ **The alias of the code language**, inline or block, **is always lowercase** ⚠️
 
-Visit the [highlight.js demo](https://highlightjs.org/static/demo/) to get the correct alias if you're unsure.
+Visit the [Supported Languages of highlight.js](https://highlightjs.readthedocs.io/en/latest/supported-languages.html) to get the correct alias if you're unsure.
+
+Alternatively, you can write a block of code without providing an alias, highlight.js will automatically detect the language.<br />
+If the highlighter fails to detect the correct language for a block of code without an alias, just add the desired language to the block as indicated above.
 
 ## Ids for H2 till H4 in Markdown{#ids-for-h2-till-h4-in-markdown}
 
@@ -279,7 +282,7 @@ The HTML output will be: <h2 id="my-awesome-h2-title">My awesome H2 title</h2>
 
 ⚠️ Please be aware that the following special characters, if used **inside the id's text** after the **last** hashtag, will not be deleted:
 
-```txt
+```plaintext
 & will be parsed to amp (ampersand)
 " will be parsed to quot (quotation)
 > will be parsed to gt (greater then)
@@ -322,32 +325,8 @@ Blog-Doc comes with:
 -   A clean-blog theme based on [Clean Blog](https://startbootstrap.com/theme/clean-blog) from [Start Bootstrap](https://startbootstrap.com/)
 
 If a picture is worth a thousand words, a video is worth a million!<br />
-A 30 seconds video showing the ability to instantly change the look and feel of your site with Blog-Doc.
-
-<style>
-  .container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
-}
-
-/* Then style the iframe to fit in the container div with full height and width */
-.responsive-iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-}
-</style>
-
-<div class="container">
-<iframe class="responsive-iframe" src="https://www.youtube.com/embed/qaulkcZ-yu8?si=Ptq9mGrwU0hj9Uo1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-</div>
+The embedded video was producing warnings and errors in the console, which is against my code standards, so I replaced it with a link.<br />
+[A 30 seconds video](https://youtu.be/qaulkcZ-yu8) showing the ability to instantly change the look and feel of your site with Blog-Doc.
 
 **I'll be adding more themes to Blog-Doc over time.**<br />
 If you've coded a theme for Blog-Doc and wish to list it among the available themes, you can let me know in the Discussions of Blog-Doc's repository under the [Ideas](https://github.com/LebCit/blog-doc/discussions/categories/ideas) category.<br />

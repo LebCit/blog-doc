@@ -7,7 +7,8 @@ A tiny flame in the darkness of error...
 
 _With all due respect to the time and hard work of every developer who made a Static Site Generator with Node.js, **including the previous versions of Blog-Doc**, those are gasworks!_<br />
 _I offer my sincerest apologies in advance to each one of these developers, but an app is not supposed to be a gasworks..._<br />
-**Please read [From 145 to 7 💪](https://lebcit.github.io/posts/from-145-to-7/)**
+**Please read [From 145 to 7 💪](https://lebcit.github.io/posts/from-145-to-7/)**<br />
+**Also read [The New Blog-Doc](https://blogdoc.github.io/posts/the-new-blog-doc/)**
 
 ## Requirements
 
@@ -208,7 +209,10 @@ p {
 
 ⚠️ **The alias of the code language**, inline or block, **is always lowercase** ⚠️
 
-Visit the [highlight.js demo](https://highlightjs.org/static/demo/) to get the correct alias if you're unsure.
+Visit the [Supported Languages of highlight.js](https://highlightjs.readthedocs.io/en/latest/supported-languages.html) to get the correct alias if you're unsure.
+
+Alternatively, you can write a block of code without providing an alias, highlight.js will automatically detect the language.<br />
+If the highlighter fails to detect the correct language for a block of code without an alias, just add the desired language to the block as indicated above.
 
 ## Ids for H2 till H4 in Markdown
 
