@@ -5,8 +5,6 @@ import { join } from "path"
 // External modules
 import { Eta } from "eta"
 import { marked } from "marked"
-import { markedHighlight } from "marked-highlight"
-import hljs from "highlight.js"
 
 // Promisify
 const mkdir = util.promisify(fs.mkdir)
@@ -54,16 +52,6 @@ async function build() {
 
 		// MARKDOWN ROUTE
 		async function markdownRoute() {
-			// USe marked-highlight to highlight code blocks
-			marked.use(
-				markedHighlight({
-					langPrefix: "hljs language-",
-					highlight(code, lang) {
-						const language = hljs.getLanguage(lang) ? lang : "plaintext"
-						return hljs.highlight(code, { language }).value
-					},
-				})
-			)
 			// Merge the pages and the posts arrays into a single array named mdFiles
 			const pages = await getPages()
 			const mdFiles = pages.concat(posts)

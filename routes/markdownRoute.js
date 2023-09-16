@@ -8,19 +8,6 @@ const { app, eta } = initializeApp()
 import { settings } from "../config/settings.js"
 
 import { marked } from "marked"
-import { markedHighlight } from "marked-highlight"
-import hljs from "highlight.js"
-
-// USe marked-highlight to highlight code blocks
-marked.use(
-	markedHighlight({
-		langPrefix: "hljs language-",
-		highlight(code, lang) {
-			const language = hljs.getLanguage(lang) ? lang : "plaintext"
-			return hljs.highlight(code, { language }).value
-		},
-	})
-)
 
 // Markdown Route
 export const markdownRoute = app.get("/:folder/:filename", async (c, next) => {
