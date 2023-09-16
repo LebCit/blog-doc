@@ -232,35 +232,6 @@ body {
 		margin-left: 150px;
 	}
 }
-.gg-external {
-	box-sizing: border-box;
-	position: relative;
-	display: inline-block;
-	transform: scale(var(--ggs, 1));
-	width: 12px;
-	height: 12px;
-	box-shadow: -2px 2px 0 0, -4px -4px 0 -2px, 4px 4px 0 -2px;
-	margin: 1px 5px 0px;
-	&::before {
-		background: currentColor;
-		transform: rotate(-45deg);
-		width: 12px;
-		height: 2px;
-		top: 1px;
-	}
-	&::after {
-		width: 8px;
-		height: 8px;
-		border-right: 2px solid;
-		border-top: 2px solid;
-		top: -4px;
-	}
-}
-.gg-external::after,
-.gg-external::before {
-	content: "";
-	display: block;
-	box-sizing: border-box;
-	position: absolute;
-	right: -4px;
+code {
+	color: #d63384;
 }
