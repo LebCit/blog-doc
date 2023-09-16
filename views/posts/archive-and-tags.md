@@ -35,19 +35,19 @@ Under the **routes** folder, the last file is `tagsRoute.js`. This file has 2 ta
 The first task is accomplished by a function defined in `blog-doc.js` under the **functions** folder, that creates an array of the tags from all the posts and sort them alphabetically then count the occurrence of each tag in this tags' array and return the result as an object.  
 The function is imported to `tagsRoute.js` on line 2:
 
-```js
+```
 import { postsByTagCount, ... } from "../functions/blog-doc.js"
 ```
 
 The function is then passed to the `/tags` route, `posts: await postsByTagCount()`, where we loop through the resulting object in `postsByTagCount.html` on line 2 :
 
-```js
+```
 for (const property in it.posts)
 ```
 
 Then we check inside the loop, on line 4, if each tag exists and it's value is greater than 0, to avoid displaying a null tag in the list of tags if one or more post have no tag(s) :
 
-```js
+```
 if (property !== "null" && property !== "undefined")
 ```
 
@@ -56,26 +56,26 @@ if (property !== "null" && property !== "undefined")
 The second task, leading to the display of all the posts for a particular tag, begins with a simple function living in `blog-doc.js` under the **functions** folder. This function, with a `(tag)` parameter, filters the posts to retrieve an array of post(s) including the requested tag, otherwise it returns an empty array.  
 The function is imported in `tagsRoute.js` on line 5 :
 
-```js
+```
 import { ..., postsByTagList } from "../functions/blog-doc.js"
 ```
 
 This function is used with the requested parameter (the requested tag) on line 31 inside the dynamic route `"/tags/:tag"` :
 
-```js
+```
 const tag = c.req.param("tag")
 const postsByTag = await postsByTagList(tag)
 ```
 
 Finally `postsByTag` is passed through the dynamic route as a data object :
 
-```js
+```javascript
 posts: postsByTag
 ```
 
 This data object, the array of post(s) related to a single tag, is sent to the `base.html` file in the **layout** folder under the **views** folder, where it will be used by the `index.html` file living in the same folder :
 
-```js
+```xml
 // index.html | line 3
 it.posts.forEach((post, index) => {...})
 ```

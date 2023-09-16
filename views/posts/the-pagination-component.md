@@ -9,7 +9,7 @@ One of the functionalities that we have seen in [The Main Route](/posts/the-main
 
 The file `pagination.html` in the **components** folder under the **views** folder holds the logic behind the display and the look of the pagination component and is only used by the `index.html` file in the **layouts** folder under the **views** folder on line 72:
 
-```html
+```xml
 <!--Start Pagination-->
 <% if (it.paginated) { %>
 <!--Start include Pagination-->
@@ -30,7 +30,7 @@ The `paginated` condition is a passed data object to display or not the paginati
 
 At the top of the `pagination.html` file, you can find a link to the stylesheet related to this component.
 
-```html
+```xml
 <link rel="stylesheet" href="/static/styles/pagination.css" />
 ```
 
@@ -41,7 +41,7 @@ In [The Main Route](/posts/the-main-route) we have seen that the pagination comp
 That's nice, but how the pagination works on the front-end? How does it know where to go?  
 Well, if you look again in `pagination.html` on line 4, you'll see that the pagination for the homepage has a condition:
 
-```js
+```javascript
 if (it.firstPage && it.lastPage > 0)
 ```
 
@@ -49,7 +49,7 @@ Hey ! Where those data objects came from?
 They also came from the `mainRoute.js` file under the **routes** folder.  
 You can see in there that we have calculated the result of the last page on line 16 with the help of `getPosts` and `paginator` functions which are located under the **functions** folder:
 
-```js
+```javascript
 // /routes/mainRoute.js
 
 import { getPosts } from "../functions/blog-doc.js" // Line 2
@@ -64,7 +64,7 @@ const lastPage = paginatedPosts.total_pages - 1
 
 After that, always in the `mainRoute.js` file, we pass those data objects to the entry route `/`:
 
-```js
+```javascript
 // /routes/mainRoute.js
 
 const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
@@ -89,7 +89,7 @@ So now, back to our condition in `pagination.html` on line 4, `firstPage` is tru
 
 For the other pages of the blog, the condition is declared on line 25:
 
-```js
+```javascript
 // /views/components/pagination.html
 if (!it.firstPage)
 ```
@@ -102,7 +102,7 @@ We just check that we are not on the first page. Three scenarios can take place:
 
 In [The Main Route](/posts/the-main-route), we have seen that the function `paginator` gives us some values that we can use to paginate our collection of posts, like the actual page, the previous page and the next page. By using this function in `mainRoute.js` on line 60 and passing it to the dynamic route `"/page/:actualBlogPage"` on line 69, we can access those values through the pagination component:
 
-```js
+```javascript
 // /routes/mainRoute.js
 const paginatedPostsList = paginator(posts.slice(settings.postsPerPage), actualBlogPage, settings.postsPerPage)) // line 60
 ...
@@ -111,7 +111,7 @@ paginatedPostsList: paginatedPostsList // line 69
 
 So, for the first scenario, we just have to check that the page we are on have at least one page after it. In other words, we check if their is a `next_page` property returned by the `paginatedPostsList` data object. A simplified explanation would be that we check if there are some previous posts rendered on a page after the page we are on. You can see it in `pagination.html` on line 30 :
 
-```js
+```javascript
 if (it.paginatedPostsList.next_page)
 ```
 
@@ -120,7 +120,7 @@ So if this condition is true, we display a link to the last page as well as a li
 The same logic applies for the page before, but here we solve the last two scenarios together.  
 We know for fact that there is a page before the one we are on, so we just check for the page before where the newer set of posts are rendered on line 52 :
 
-```js
+```javascript
 if (it.paginatedPostsList.prev_page)
 ```
 

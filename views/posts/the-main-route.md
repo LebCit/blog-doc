@@ -24,7 +24,7 @@ Since I decided to have the blog on the entry route `/`, and paginate it with a 
 
 **1-** The first step is pretty easy, just slice out the newest five posts:
 
-```js
+```javascript
 // /routes/mainRoute.js
 
 // Paginate all the posts. Set the first page to 1 and X posts per page. | Line 14
@@ -36,7 +36,7 @@ const newestPosts = paginatedPosts.data
 After acquiring those ones, we render them on the entry route `/` via `base.html` in the **layouts** folder under the **views** folder.  
 To know if the first page should be paginated or not, we pass a data object that will display the pagination component only if the length off all the posts is greater than **X**:
 
-```js
+```javascript
 // /routes/mainRoute.js
 
 // Get the total number of posts. | Line 17
@@ -49,21 +49,21 @@ paginated: postsLength > settings.postsPerPage ? true : false,
 
 **2-** The second step is a little bit trickier because it's not only a matter of slicing out the rest of the posts. We have to slice them out, _dynamically_ define the current page for each set once paginated, paginate them by a maximum of **X** posts per page. This is where the `paginator` function steps in to achieve this goal and returns the actual page, the previous page, the next page, the sliced posts' total, the total of the pages and the sliced posts themselves. We use this function in `mainRoute.js` to accomplish this task on line 60:
 
-```js
+```javascript
 // Paginated array from the list of posts without the newest X posts
 const paginatedPostsList = paginator(posts.slice(settings.postsPerPage), actualBlogPage, settings.postsPerPage)
 ```
 
 `actualBlogPage` is a parameter in the dynamic route `"/page/:actualBlogPage"` defined on line 58:
 
-```js
+```javascript
 // Dynamic page number
 const actualBlogPage = c.req.param("actualBlogPage")
 ```
 
 With this in place, the rest of the posts are now paginated in sets of **X**, we use `index.html` to render them on the dynamic route mentioned above and make sure to display the pagination component on each page coming after the homepage by passing a paginated data object on line 71:
 
-```js
+```javascript
 paginated: true
 ```
 

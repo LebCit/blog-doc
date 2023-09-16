@@ -10,4 +10,17 @@ This post is for testing the output of an article that doesn't have a descriptio
 
 ## Note
 
-I've completely removed the `description` and the `tags` from the front matter of the Markdown file of this post. It was also possible to just leave them empty, the result would exactly be the same.
+While creating a post, you can leave the `description` and/or the `tags` empty, they will not be render.<vr />
+Please keep in mind that if you are creating a post manually, you **must** add those properties to the front matter of the file and leave them empty like so:
+
+```
+---
+title: The post title
+date: 2023/09/16
+description: 
+featuredImage: The path or URL to the post's image
+tags: []
+---
+```
+
+You can read more about it under [Posts and Pages](/posts/posts-and-pages).

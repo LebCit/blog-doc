@@ -30,7 +30,7 @@ To use a template file, head over to the **templates** folder under the **views*
 You can name it whatever you like. As an example : `my-template.ejs`
 Now paste the following block of code:
 
-```html
+```
 <!DOCTYPE html>
 <html lang="en">
 	<head>
