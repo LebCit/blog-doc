@@ -1,17 +1,17 @@
 <link rel="stylesheet" href="/static/styles/single-post-preview.css" />
 
 <% it.posts.forEach((post, index) => { %> <%/*
-<!-- Get the Markdown filename without it's extension -->
+<!-- Get the Markdown filename without its extension -->
 */%> <% const postFilename = post[0].replace(/\.[^/.]+$/, "") %> <%/*
-<!-- Get the Markdown post title from it's front matter -->
+<!-- Get the Markdown post title from its front matter -->
 */%> <% const postTitle = post[1].frontmatter.title %> <%/*
-<!-- Get the post featured image from it's front matter -->
+<!-- Get the post featured image from its front matter -->
 */%> <% const postFeaturedImage = post[1].frontmatter.featuredImage %> <%/*
-<!-- Get the post date from it's front matter -->
+<!-- Get the post date from its front matter -->
 */%> <% const postDate = post[1].frontmatter.date %> <%/*
-<!-- Get the post description from it's front matter -->
+<!-- Get the post description from its front matter -->
 */%> <% const postDescription = post[1].frontmatter.description %> <%/*
-<!-- Get the post tags from it's front matter -->
+<!-- Get the post tags from its front matter -->
 */%> <% const postTags = post[1].frontmatter.tags %> <%/*
 <!-- Get the post content -->
 */%> <% const postContent = post[1].content %> <%/*
