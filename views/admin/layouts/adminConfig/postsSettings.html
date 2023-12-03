@@ -25,29 +25,6 @@
 		</div>
 
 		<%/* Post Preview Fallback Image */%>
-		<div class="mb-3">
-			<label for="post-preview-fallback-image-select" class="form-label">
-				<b>Post Preview Fallback Image* - REQUIRED !</b>
-			</label>
-			<select
-				name="postPreviewFallbackImage"
-				id="post-preview-fallback-image-select"
-				class="form-select"
-				required
-			>
-				<option value="">Choose an image from the gallery</option>
-				<option value="<%= it.settings.postPreviewFallbackImage %>" selected>
-					<%= it.settings.postPreviewFallbackImage.split("/").pop() %>
-				</option>
-				<% let otherImages = it.images.filter(image => image !== it.settings.postPreviewFallbackImage) %><%/*
-				<!-- Display the other images from the gallery -->
-				*/%> <% otherImages.forEach(image => { %> <%/*
-				<!-- Get the filename of each other image -->
-				*/%> <% const otherImageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= otherImageName %></option>
-				<% }) %>
-			</select>
-			<div class="invalid-tooltip">Please choose an image from the gallery !</div>
-		</div>
+		<div class="mb-3"><%~ include('../../components/modals/postPreviewFallbackImageModal.html', it) %></div>
 	</div>
 </div>
