@@ -2,7 +2,7 @@
 import { writeFile } from "node:fs/promises"
 
 // Internal Functions
-import { getImages, getSubDirs } from "../../functions/blog-doc.js"
+import { getIcons, getImages, getSubDirs } from "../../functions/blog-doc.js"
 import { initializeApp } from "../../functions/initialize.js"
 import { transformParsedBody } from "../../functions/helpers.js"
 const { app, eta } = initializeApp()
@@ -23,6 +23,7 @@ export const adminConfigRoute = app
 			data: data,
 			settings: settings,
 			images: await getImages(),
+			icons: await getIcons(),
 			themes: await getSubDirs("views/themes"),
 			siteTitle: settings.siteTitle,
 			footerCopyright: settings.footerCopyright,
