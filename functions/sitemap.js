@@ -129,7 +129,7 @@ export function sitemap() {
 			let timeArray = []
 			// Get the posts in which the tag exist
 			const postsByTagArray = posts.filter((post) =>
-				post[1].frontmatter.tags ? post[1].frontmatter.tags.includes(tag) : post[1].frontmatter.tags === []
+				post[1].frontmatter.tags.includes(tag) ? post[1].frontmatter.tags : post[1].frontmatter.tags == []
 			)
 			// Push into the time array the last modification time of each post of the tag
 			postsByTagArray.forEach((post) => {
