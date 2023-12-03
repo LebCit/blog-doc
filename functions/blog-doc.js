@@ -114,11 +114,10 @@ class Blog_Doc {
 	// Method to get the images from their directory.
 	async getImages() {
 		let images = await getFiles("static/images")
-		images = images.filter(
-			(image) =>
-				image !== "static/images/404-not-found-error.png" &&
-				image !== "static/images/500-internal-server-error.png"
-		)
+
+		const excludedImages = ["static/images/404-not-found-error.png", "static/images/500-internal-server-error.png"]
+
+		images = images.filter((image) => !excludedImages.includes(image))
 
 		return images
 	}
