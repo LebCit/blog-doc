@@ -117,7 +117,7 @@ Finally, click the submit button to create your new page 😉`)
 								didOpen: () => {
 									const mdContent = editor.getMarkdown()
 									const textArea = document.getElementById("file-contents")
-									textArea.value += mdContent
+									textArea.value = mdContent
 									const b = Swal.getConfirmButton()
 									b.type = "button"
 									b.addEventListener("click", () => {
@@ -230,7 +230,7 @@ Finally, click the submit button to create your new page 😉`)
 								didOpen: () => {
 									const mdContent = editor.getMarkdown()
 									const textArea = document.getElementById("file-contents")
-									textArea.value += mdContent
+									textArea.value = mdContent
 									const b = Swal.getConfirmButton()
 									b.type = "button"
 									b.addEventListener("click", () => {
