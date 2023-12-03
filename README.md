@@ -95,7 +95,7 @@ After the install, to see what Blog-Doc looks like, type in the terminal the fol
 npm run fire
 ```
 
-This command will allow you to explore the app in the browser of your choice by visiting [localhost on port 3000](http://localhost:3000).
+This command will allow you to explore the app in the browser of your choice by visiting [localhost on port 8080](http://localhost:8080).
 
 Blog-Doc comes with some posts and pages. You can now begin to create your own pages and posts from the administration, then remove the existing ones also from the administration.
 
