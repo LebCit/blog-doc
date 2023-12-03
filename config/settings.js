@@ -1,2 +1,4 @@
 import { readFile } from "node:fs/promises"
-export const settings = JSON.parse(await readFile(new URL("./settings.json", import.meta.url)))
+const settings = JSON.parse(await readFile(new URL("./settings.json", import.meta.url)))
+Object.hasOwn(settings, "favicon") ? settings : (settings.favicon = "/static/icons/favicon.ico")
+export { settings }
