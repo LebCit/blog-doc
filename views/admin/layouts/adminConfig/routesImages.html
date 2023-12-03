@@ -1,150 +1,94 @@
+<% const routes = ["blogImage","archiveImage","tagsImage","tagImage","searchImage"] %>
 <div class="card">
 	<div class="card-header">
 		<h3 class="card-title"><b>Routes Images</b></h3>
 	</div>
-
 	<div class="card-body">
-		<%/* Blog Featured Image */%>
-		<div class="mb-3">
-			<label for="site-image-select" class="form-label">
-				Blog Featured Image - Optional, better for design !
-			</label>
-			<select name="blogImage" id="site-image-select" class="form-select">
-				<option value="">Choose an image from the gallery</option>
-				<% if (it.settings.blogImage) { %>
-				<option value="<%= it.settings.blogImage %>" selected>
-					<%= it.settings.blogImage.split("/").pop() %>
-				</option>
-				<% let otherImages = it.images.filter(image => image !== it.settings.blogImage) %><%/*
-				<!-- Display the other images from the gallery -->
-				*/%> <% otherImages.forEach(image => { %> <%/*
-				<!-- Get the filename of each other image -->
-				*/%> <% const otherImageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= otherImageName %></option>
-				<% }) %> <%/*
-				<!-- If the blog doesn't have a blogImage -->
-				*/%> <% } else { %> <%/*
-				<!-- Comment added for readability -->
-				*/%> <% it.images.forEach(image => { %> <%/*
-				<!-- Get the filename of each image -->
-				*/%> <% const imageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= imageName %></option>
-				<% }) %> <% } %>
-			</select>
-		</div>
+		<!-- Markup for each route -->
+		<% routes.forEach(route => { %>
+		<!-- Construct each route name for the `for` attribute -->
+		<% const routeName = route.replace("Image", "") %>
+		<!-- Route name first letter to uppercase -->
+		<% function capitalizeFirstLetter(string) { return string.charAt(0).toUpperCase() + string.slice(1); } %>
+		<label for="<%= routeName %>-image" class="form-label">
+			<%= capitalizeFirstLetter(routeName) %> Featured Image - Optional, better for design!
+		</label>
+		<button type="button" class="btn btn-vk w-100" data-bs-toggle="modal" data-bs-target="#imageModal">
+			Change <%= capitalizeFirstLetter(routeName) %> Image
+		</button>
+		<%/* Hidden input to store the selected route image value */%>
+		<input type="hidden" id="<%= routeName %>-image" name="<%= route %>" value="<%= it.settings[route] %>" />
+		<% }) %>
+	</div>
+</div>
 
-		<%/* Archive Featured Image */%>
-		<div class="mb-3">
-			<label for="archive-image-select" class="form-label">
-				Archive Featured Image - Optional, better for design !
-			</label>
-			<select name="archiveImage" id="archive-image-select" class="form-select">
-				<option value="">Choose an image from the gallery</option>
-				<% if (it.settings.archiveImage) { %>
-				<option value="<%= it.settings.archiveImage %>" selected>
-					<%= it.settings.archiveImage.split("/").pop() %>
-				</option>
-				<% let otherImages = it.images.filter(image => image !== it.settings.archiveImage) %><%/*
-				<!-- Display the other images from the gallery -->
-				*/%> <% otherImages.forEach(image => { %> <%/*
-				<!-- Get the filename of each other image -->
-				*/%> <% const otherImageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= otherImageName %></option>
-				<% }) %> <%/*
-				<!-- If the archive doesn't have an archiveImage -->
-				*/%> <% } else { %> <%/*
-				<!-- Comment added for readability -->
-				*/%> <% it.images.forEach(image => { %> <%/*
-				<!-- Get the filename of each image -->
-				*/%> <% const imageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= imageName %></option>
-				<% }) %> <% } %>
-			</select>
-		</div>
-
-		<%/* Tags Featured Image */%>
-		<div class="mb-3">
-			<label for="tags-image-select" class="form-label">
-				Tags Featured Image - Optional, better for design !
-			</label>
-			<select name="tagsImage" id="tags-image-select" class="form-select">
-				<option value="">Choose an image from the gallery</option>
-				<% if (it.settings.tagsImage) { %>
-				<option value="<%= it.settings.tagsImage %>" selected>
-					<%= it.settings.tagsImage.split("/").pop() %>
-				</option>
-				<% let otherImages = it.images.filter(image => image !== it.settings.tagsImage) %><%/*
-				<!-- Display the other images from the gallery -->
-				*/%> <% otherImages.forEach(image => { %> <%/*
-				<!-- Get the filename of each other image -->
-				*/%> <% const otherImageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= otherImageName %></option>
-				<% }) %> <%/*
-				<!-- If the tags doesn't have a tagsImage -->
-				*/%> <% } else { %> <%/*
-				<!-- Comment added for readability -->
-				*/%> <% it.images.forEach(image => { %> <%/*
-				<!-- Get the filename of each image -->
-				*/%> <% const imageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= imageName %></option>
-				<% }) %> <% } %>
-			</select>
-		</div>
-
-		<%/* Tag Featured Image */%>
-		<div class="mb-3">
-			<label for="tag-image-select" class="form-label">Tag Featured Image - Optional, better for design !</label>
-			<select name="tagImage" id="tag-image-select" class="form-select">
-				<option value="">Choose an image from the gallery</option>
-				<% if (it.settings.tagImage) { %>
-				<option value="<%= it.settings.tagImage %>" selected>
-					<%= it.settings.tagImage.split("/").pop() %>
-				</option>
-				<% let otherImages = it.images.filter(image => image !== it.settings.tagImage) %><%/*
-				<!-- Display the other images from the gallery -->
-				*/%> <% otherImages.forEach(image => { %> <%/*
-				<!-- Get the filename of each other image -->
-				*/%> <% const otherImageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= otherImageName %></option>
-				<% }) %> <%/*
-				<!-- If the tag doesn't have a tagImage -->
-				*/%> <% } else { %> <%/*
-				<!-- Comment added for readability -->
-				*/%> <% it.images.forEach(image => { %> <%/*
-				<!-- Get the filename of each image -->
-				*/%> <% const imageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= imageName %></option>
-				<% }) %> <% } %>
-			</select>
-		</div>
-
-		<%/* Search Featured Image */%>
-		<div class="mb-3">
-			<label for="search-image-select" class="form-label">
-				Search Featured Image - Optional, better for design !
-			</label>
-			<select name="searchImage" id="search-image-select" class="form-select">
-				<option value="">Choose an image from the gallery</option>
-				<% if (it.settings.searchImage) { %>
-				<option value="<%= it.settings.searchImage %>" selected>
-					<%= it.settings.searchImage.split("/").pop() %>
-				</option>
-				<% let otherImages = it.images.filter(image => image !== it.settings.searchImage) %><%/*
-				<!-- Display the other images from the gallery -->
-				*/%> <% otherImages.forEach(image => { %> <%/*
-				<!-- Get the filename of each other image -->
-				*/%> <% const otherImageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= otherImageName %></option>
-				<% }) %> <%/*
-				<!-- If the search doesn't have a searchImage -->
-				*/%> <% } else { %> <%/*
-				<!-- Comment added for readability -->
-				*/%> <% it.images.forEach(image => { %> <%/*
-				<!-- Get the filename of each image -->
-				*/%> <% const imageName = image.split("/").pop() %>
-				<option value="/<%= image %>"><%= imageName %></option>
-				<% }) %> <% } %>
-			</select>
+<div
+	class="modal fade"
+	id="imageModal"
+	tabindex="-1"
+	role="dialog"
+	aria-labelledby="imageModalLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="imageModalLabel">Select Image</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<small>Enter an https:// URL of an image:</small>
+				<div class="input-group mb-3">
+					<div class="input-group-text">
+						<input class="form-check-input mt-0" type="radio" name="modalSelectedRouteImage" />
+					</div>
+					<input
+						type="url"
+						class="form-control"
+						placeholder="https://an-image-url.com"
+						pattern="https://.*"
+						aria-label="URL input with radio button"
+					/>
+				</div>
+				<div class="row g-2">
+					<div class="col-2">
+						<label class="form-imagecheck mb-2">
+							<input type="radio" name="modalSelectedRouteImage" value="" class="form-imagecheck-input" />
+							<span class="form-imagecheck-figure">
+								<img
+									src="https://cdn.jsdelivr.net/npm/@tabler/icons@2.42.0/icons/photo-off.svg"
+									class="form-imagecheck-image"
+									width="100px"
+								/>
+							</span>
+						</label>
+					</div>
+					<% it.images.forEach(image => { %>
+					<div class="col-2">
+						<label class="form-imagecheck mb-2">
+							<input
+								type="radio"
+								name="modalSelectedRouteImage"
+								value="/<%= image %>"
+								class="form-imagecheck-input"
+							/>
+							<span class="form-imagecheck-figure">
+								<img src="/<%= image %>" class="form-imagecheck-image" width="100px" />
+							</span>
+						</label>
+					</div>
+					<% }) %>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Apply Image</button>
+			</div>
 		</div>
 	</div>
 </div>
+
+<script type="module">
+	import { imagesModal } from "../static/admin/js/imagesModal.js"
+	imagesModal("imageModal")
+</script>
