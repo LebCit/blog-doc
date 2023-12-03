@@ -63,37 +63,7 @@
 												/>
 											</div>
 
-											<div>
-												<label for="page-image-select" class="form-label">
-													Page image - Optional, better for design
-												</label>
-												<select name="pageImage" id="page-image-select" class="form-select">
-													<option value="">Choose an image from the gallery</option>
-													<% if (it.file[1].frontmatter.featuredImage) { %>
-													<option
-														value="<%= it.file[1].frontmatter.featuredImage %>"
-														selected
-													>
-														<%= it.file[1].frontmatter.featuredImage.split("/").pop() %>
-													</option>
-													<% let otherImages = it.images.filter(image => image !==
-													it.file[1].frontmatter.featuredImage) %><%/*
-													<!-- Display the other images from the gallery -->
-													*/%> <% otherImages.forEach(image => { %> <%/*
-													<!-- Get the filename of each other image -->
-													*/%> <% const otherImageName = image.split("/").pop() %>
-													<option value="/<%= image %>"><%= otherImageName %></option>
-													<% }) %> <%/*
-													<!-- If the page doesn't have a featuredImage -->
-													*/%> <% } else { %> <%/*
-													<!-- Comment added for readability -->
-													*/%> <% it.images.forEach(image => { %> <%/*
-													<!-- Get the filename of each image -->
-													*/%> <% const imageName = image.split("/").pop() %>
-													<option value="/<%= image %>"><%= imageName %></option>
-													<% }) %> <% } %>
-												</select>
-											</div>
+											<div><%~ include('../components/modals/pageImageModal.html', it) %></div>
 										</div>
 										<% } %> <%/*
 										<!-- Comment added for readability -->

@@ -61,19 +61,7 @@
 												/>
 											</div>
 
-											<div>
-												<label for="page-image-select" class="form-label">
-													Page image - Optional, better for design
-												</label>
-												<select name="pageImage" id="page-image-select" class="form-select">
-													<option value="">Choose an image from the gallery</option>
-													<% it.images.forEach(image => { %> <%/*
-													<!-- Get the filename of each image -->
-													*/%> <% const imageName = image.split("/").pop() %>
-													<option value="<%= image %>"><%= imageName %></option>
-													<% }) %>
-												</select>
-											</div>
+											<div><%~ include('../components/modals/pageImageModal.html', it) %></div>
 										</div>
 
 										<%/* POST FRONT MATTER */%>

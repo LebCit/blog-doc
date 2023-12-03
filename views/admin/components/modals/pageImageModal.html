@@ -1,0 +1,77 @@
+<label for="page-image" class="form-label">Page Image - Optional, better for design!</label>
+<button type="button" class="btn btn-vk w-100" data-bs-toggle="modal" data-bs-target="#pageImageModal">
+	Choose an image from the gallery
+</button>
+<%/* Hidden input to store the selected post preview fallback image value */%> <input type="hidden" id="page-image"
+name="pageImage" value="<%= it.adminCreate? "" : it.file[1].frontmatter.featuredImage %>" />
+
+<div
+	class="modal fade"
+	id="pageImageModal"
+	tabindex="-1"
+	role="dialog"
+	aria-labelledby="pageModalLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="pageModalLabel">Select</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<small>Enter an https:// URL of an image:</small>
+				<div class="input-group mb-3">
+					<div class="input-group-text">
+						<input class="form-check-input mt-0" type="radio" name="modalSelectedPageImage" />
+					</div>
+					<input
+						type="url"
+						class="form-control"
+						placeholder="https://an-image-url.com"
+						pattern="https://.*"
+						aria-label="URL input with radio button"
+					/>
+				</div>
+				<div class="row g-2">
+					<div class="col-2">
+						<label class="form-imagecheck mb-2">
+							<input type="radio" name="modalSelectedPageImage" value="" class="form-imagecheck-input" />
+							<span class="form-imagecheck-figure">
+								<img
+									src="https://cdn.jsdelivr.net/npm/@tabler/icons@2.42.0/icons/photo-off.svg"
+									class="form-imagecheck-image"
+									width="100px"
+								/>
+							</span>
+						</label>
+					</div>
+					<% it.images.forEach(image => { %>
+					<div class="col-2">
+						<label class="form-imagecheck mb-2">
+							<input
+								type="radio"
+								name="modalSelectedPageImage"
+								value="/<%= image %>"
+								class="form-imagecheck-input"
+							/>
+							<span class="form-imagecheck-figure">
+								<img src="/<%= image %>" class="form-imagecheck-image" width="100px" />
+							</span>
+						</label>
+					</div>
+					<% }) %>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Apply image</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="module">
+	import { imagesModal } from "../static/admin/js/imagesModal.js"
+	imagesModal("pageImageModal")
+</script>
