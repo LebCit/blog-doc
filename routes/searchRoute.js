@@ -16,6 +16,7 @@ export const searchRoute = app
 				title: "Search",
 				description: "Make a research in the site's posts",
 				featuredImage: settings.searchImage,
+				favicon: settings.favicon,
 			}
 
 			const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
@@ -42,6 +43,7 @@ export const searchRoute = app
 				title: "Search",
 				description: "Make a research in the site's posts",
 				featuredImage: settings.searchImage,
+				favicon: settings.favicon,
 			}
 
 			const query = c.req.param("query")

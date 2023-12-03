@@ -13,6 +13,7 @@ export const archiveRoute = app.get("/posts", (c) => {
 		title: "Archive",
 		description: "A list of all the posts",
 		featuredImage: settings.archiveImage,
+		favicon: settings.favicon,
 	}
 	const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 		// Passing Route data

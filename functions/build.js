@@ -59,6 +59,7 @@ async function build() {
 			mdFiles.forEach(async (file) => {
 				const fileName = file[0].replace(".md", "")
 				const fileData = file[1].frontmatter
+				fileData.favicon = settings.favicon
 				const fileContent = marked.parse(file[1].content)
 
 				// Create a folder for each file
@@ -92,6 +93,7 @@ async function build() {
 				title: "Home",
 				description: settings.siteDescription,
 				featuredImage: settings.blogImage,
+				favicon: settings.favicon,
 			}
 
 			const indexHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
@@ -143,6 +145,7 @@ async function build() {
 				title: "Archive",
 				description: "A list of all the posts",
 				featuredImage: settings.archiveImage,
+				favicon: settings.favicon,
 			}
 
 			const archiveHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
@@ -166,6 +169,7 @@ async function build() {
 				title: "Tags",
 				description: "A list of all the tags",
 				featuredImage: settings.tagsImage,
+				favicon: settings.favicon,
 			}
 
 			const tagsHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
@@ -202,6 +206,7 @@ async function build() {
 						featuredImage: settings.tagImage,
 						subTitle:
 							postsByTag.length > 1 ? `${postsByTag.length} posts with this tag` : `1 post with this tag`,
+						favicon: settings.favicon,
 					}
 
 					const tagHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
@@ -266,6 +271,7 @@ async function build() {
 				title: "Search",
 				description: "Make a research in the site's posts",
 				featuredImage: settings.searchImage,
+				favicon: settings.favicon,
 			}
 
 			const searchHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
