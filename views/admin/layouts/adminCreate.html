@@ -112,19 +112,7 @@
 												/>
 											</div>
 
-											<div>
-												<label for="post-image-select" class="form-label">
-													Post image - Optional, better for design
-												</label>
-												<select name="postImage" id="post-image-select" class="form-select">
-													<option value="">Choose an image from the gallery</option>
-													<% it.images.forEach(image => { %> <%/*
-													<!-- Get the filename of each image -->
-													*/%> <% const imageName = image.split("/").pop() %>
-													<option value="<%= image %>"><%= imageName %></option>
-													<% }) %>
-												</select>
-											</div>
+											<div><%~ include('../components/modals/postImageModal.html', it) %></div>
 
 											<div>
 												<label for="post-tags-input" class="form-label">
@@ -158,9 +146,7 @@
 								</div>
 
 								<div class="card-footer">
-									<button id="submit-button" type="button" class="btn btn-primary">
-										Submit
-									</button>
+									<button id="submit-button" type="button" class="btn btn-primary">Submit</button>
 								</div>
 							</div>
 						</div>
