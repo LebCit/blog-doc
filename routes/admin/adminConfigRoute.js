@@ -55,9 +55,17 @@ export const adminConfigRoute = app
 		siteSettings.searchFeature = JSON.parse(siteSettings.searchFeature) // Get the value of searchFeature as a boolean
 		siteSettings.addIdsToHeadings = JSON.parse(siteSettings.addIdsToHeadings) // Get the value of addIdsToHeadings as a boolean
 
+		// Remove unneeded properties from siteSettings
+		delete siteSettings.modalSelectedFavicon
+		delete siteSettings.modalSelectedPageImage
+		delete siteSettings.modalSelectedPostImage
+		delete siteSettings.modalSelectedPostPreviewFallbackImage
+		delete siteSettings.modalSelectedRouteImage
+
 		settings.siteTitle = siteSettings.siteTitle
 		settings.siteDescription = siteSettings.siteDescription
 		settings.siteURL = siteSettings.siteURL
+		settings.favicon = siteSettings.favicon
 		settings.rssSiteLanguage = siteSettings.rssSiteLanguage
 		settings.rssCopyright = siteSettings.rssCopyright
 		settings.blogImage = siteSettings.blogImage
