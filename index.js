@@ -14,12 +14,7 @@ import { env } from "hono/adapter"
 app.use("/static/*", serveStatic({ root: "./" }))
 
 // Set the port value
-const port = env.PORT || 3000
-
-app.use("*", async (c, next) => {
-	console.log(c.req.param())
-	await next()
-})
+const port = env.PORT || 8080
 
 // Administration Routes
 import { adminRoutes, adminUpdateDelete } from "./routes/admin/adminRoute.js"
