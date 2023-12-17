@@ -117,8 +117,10 @@ published: ${published}
 ---
 ${fileContents}`
 
+			const path = published == "true" ? "/pages" : "/admin-preview"
+
 			await writeFile(`${filePath}`, pageContents, "utf8")
-			return c.redirect(`/pages/${updatedFile}`, 301)
+			return c.redirect(`${path}/${updatedFile}`, 301)
 		} else {
 			const postContents = `---
 title: ${postTitle}
@@ -130,8 +132,10 @@ published: ${published}
 ---
 ${fileContents}`
 
+			const path = published == "true" ? "/posts" : "/admin-preview"
+
 			await writeFile(`${filePath}`, postContents, "utf8")
-			return c.redirect(`/posts/${updatedFile}`)
+			return c.redirect(`${path}/${updatedFile}`)
 		}
 	})
 

@@ -76,6 +76,8 @@ ${fileContents}`
 		const createdFilePath = `${join(process.cwd())}/views/${fileType}s`
 
 		if (fileType === "page") {
+			const path = published == "true" ? "/pages" : "/admin-preview"
+
 			const createdPageName = pageTitle
 				.toLowerCase()
 				.replace(/[^a-zA-Z0-9-_ ]/g, "") // Remove special characters except hyphen and underscore
@@ -86,8 +88,10 @@ ${fileContents}`
 				.replace(/-+$/, "") // Remove any number of hyphen at the end
 
 			writeFile(`${createdFilePath}/${createdPageName}.md`, pageContents, "utf8")
-			return c.redirect(`/admin-create?created=/pages/${createdPageName}`)
+			return c.redirect(`/admin-create?created=${path}/${createdPageName}`)
 		} else {
+			const path = published == "true" ? "/posts" : "/admin-preview"
+
 			const createdPostName = postTitle
 				.toLowerCase()
 				.replace(/[^a-zA-Z0-9-_ ]/g, "") // Remove special characters except hyphen and underscore
@@ -98,6 +102,6 @@ ${fileContents}`
 				.replace(/-+$/, "") // Remove any number of hyphen at the end
 
 			writeFile(`${createdFilePath}/${createdPostName}.md`, postContents, "utf8")
-			return c.redirect(`/admin-create?created=/posts/${createdPostName}`)
+			return c.redirect(`/admin-create?created=${path}/${createdPostName}`)
 		}
 	})
