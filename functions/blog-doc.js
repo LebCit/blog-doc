@@ -144,7 +144,7 @@ class Blog_Doc {
 
 	// Method to count the occurrence of each tag from the posts front-matter.
 	async postsByTagCount() {
-		const posts = await getPosts()
+		const posts = (await getPosts()).filter((post) => post[1].frontmatter.published == "true")
 
 		// Create an array of the tags from all the posts and sort them alphabetically
 		const tagsArray = posts.flatMap((post) => post[1].frontmatter.tags).sort()
@@ -157,7 +157,7 @@ class Blog_Doc {
 
 	// Method to return the posts of a particular tag.
 	async postsByTagList(tag) {
-		const posts = await getPosts()
+		const posts = (await getPosts()).filter((post) => post[1].frontmatter.published == "true")
 		// Filter the posts to retrieve an array of post(s) including the requested tag
 		// Check if the post have tags, otherwise define them as an empty array
 		const postsByTagArray = posts.filter((post) =>
@@ -169,7 +169,7 @@ class Blog_Doc {
 
 	// Method to return the previous and next posts of a particular post.
 	async prevNext(filename) {
-		const posts = await getPosts()
+		const posts = (await getPosts()).filter((post) => post[1].frontmatter.published == "true")
 		// Get the index of each post in the posts array by it's filename
 		const actualPostIndex = posts.findIndex((post) => post[0] === filename)
 		// Get the previous post index while the actual post index is smaller than the posts array length - 1 (posts array length - 1 is the index of the last post)
@@ -195,7 +195,7 @@ class Blog_Doc {
 
 	// Method to return the related posts of a particular post.
 	async relatedPosts(filename) {
-		const posts = await getPosts()
+		const posts = (await getPosts()).filter((post) => post[1].frontmatter.published == "true")
 		// Get the post in the posts array by it's filename
 		const actualPost = posts.find((post) => post[0] === filename)
 		// Get the related posts from the front-matter of the actual post

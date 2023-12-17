@@ -1,6 +1,5 @@
 // Internal Functions
 import { getPosts } from "../functions/blog-doc.js"
-const posts = await getPosts()
 import { initializeApp } from "../functions/initialize.js"
 const { app, eta } = initializeApp()
 
@@ -8,7 +7,9 @@ const { app, eta } = initializeApp()
 import { settings } from "../config/settings.js"
 
 // Render all the posts from the list of posts on the Archive Route.
-export const archiveRoute = app.get("/posts", (c) => {
+export const archiveRoute = app.get("/posts", async (c) => {
+	const posts = (await getPosts()).filter((post) => post[1].frontmatter.published == "true")
+
 	const data = {
 		title: "Archive",
 		description: "A list of all the posts",

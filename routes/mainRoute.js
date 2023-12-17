@@ -10,7 +10,7 @@ import { settings } from "../config/settings.js"
 // Render, at most, the newest X posts from the list of posts on the Main Route.
 export const mainRoute = app
 	.get("/", async (c) => {
-		const posts = await getPosts()
+		const posts = (await getPosts()).filter((post) => post[1].frontmatter.published == "true")
 		const paginatedPosts = paginator(posts, 1, settings.postsPerPage) // Paginate all the posts. Set the first page to 1 and X posts per page.
 		const newestPosts = paginatedPosts.data // Get the first X posts.
 		const lastPage = paginatedPosts.total_pages - 1 // Get the last page number by removing 1 from the total number of pages.
@@ -45,7 +45,7 @@ export const mainRoute = app
 
 	// Dynamic route to display the list of posts without the newest X posts
 	.get("/page/:actualBlogPage", async (c) => {
-		const posts = await getPosts()
+		const posts = (await getPosts()).filter((post) => post[1].frontmatter.published == "true")
 		const paginatedPosts = paginator(posts, 1, settings.postsPerPage) // Paginate all the posts. Set the first page to 1 and X posts per page.
 		const lastPage = paginatedPosts.total_pages - 1 // Get the last page number by removing 1 from the total number of pages.
 

@@ -12,8 +12,8 @@ import { marked } from "marked"
 // Markdown Route
 export const markdownRoute = app.get("/:folder/:filename", async (c, next) => {
 	// Merge the pages and the posts arrays into a single array named mdFiles
-	const pages = await getPages()
-	const posts = await getPosts()
+	const pages = (await getPages()).filter((page) => page[1].frontmatter.published == "true")
+	const posts = (await getPosts()).filter((post) => post[1].frontmatter.published == "true")
 	const mdFiles = pages.concat(posts)
 
 	const currentFile = mdFiles.find(

@@ -4,7 +4,7 @@ import { statSync } from "fs"
 import { getFiles, getPosts } from "../functions/blog-doc.js"
 
 const viewsFiles = await getFiles("views")
-const posts = await getPosts()
+const posts = (await getPosts()).filter((post) => post[1].frontmatter.published == "true")
 
 // Settings
 import { readFile } from "node:fs/promises"

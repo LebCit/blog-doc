@@ -1,6 +1,6 @@
 // Internal Functions
 import { getPosts } from "../functions/blog-doc.js"
-const posts = await getPosts()
+const posts = (await getPosts()).filter((post) => post[1].frontmatter.published == "true")
 import { initializeApp } from "../functions/initialize.js"
 const { app, eta } = initializeApp()
 
