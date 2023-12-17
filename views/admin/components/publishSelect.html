@@ -1,0 +1,30 @@
+<% /* Since v5.3.0 to allow publishing now or later  */ %>
+<div class="mb-3">
+	<label for="publish-select" class="form-label">
+		<b>Publish* - REQUIRED!</b>
+	</label>
+
+	<select id="publish-select" name="published" class="form-select" required>
+		<option value="">Please choose an option</option>
+		<% if (it.adminCreate) { %>
+		<option value="true" selected>True</option>
+		<option value="false">False</option>
+		<% } else { %>
+		<!-- Start adminUpdate publish select -->
+		<% const published = JSON.parse(it.file[1].frontmatter.published) %>
+		<!-- Published value to string -->
+		<% const publishedString = JSON.stringify(published) %>
+		<!-- Published contrary value to string -->
+		<% const publishedContraryString = JSON.stringify(!published) %>
+
+		<option value="<%= published %>" selected>
+			<%= publishedString.charAt(0).toUpperCase() + publishedString.slice(1) %>
+		</option>
+
+		<option value="<%= !published %>">
+			<%= publishedContraryString.charAt(0).toUpperCase() + publishedContraryString.slice(1) %>
+		</option>
+		<!-- End adminUpdate publish select -->
+		<% } %>
+	</select>
+</div>
