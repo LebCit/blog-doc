@@ -10,7 +10,8 @@
 				<div class="page-body">
 					<div class="container-xl">
 						<div class="row m-auto mb-3">
-							<form action="/save-image" method="post">
+							<% const image = it.adminIcons ? "icon" : "image" %>
+							<form action="/save/<%= image %>" method="post">
 								<div class="col-md-6 col-lg-4">
 									<label for="add-image">
 										<b>Add up to 3 images at once. An image cannot exceed 3MB</b>

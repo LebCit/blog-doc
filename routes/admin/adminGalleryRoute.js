@@ -53,8 +53,10 @@ export const adminGalleryRoute = app
 		return c.text("uploaded!")
 	})
 
-	.post("/save-image", (c) => {
-		return c.redirect("/admin-gallery")
+	.post("/save/:imgType", (c) => {
+		const imgType = c.req.param("imgType")
+
+		return c.redirect(`/admin/gallery/${imgType}s`)
 	})
 
 	.post("/delete-image", async (c) => {
