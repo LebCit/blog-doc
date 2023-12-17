@@ -59,12 +59,14 @@ export const adminGalleryRoute = app
 		return c.redirect(`/admin/gallery/${imgType}s`)
 	})
 
-	.post("/delete-image", async (c) => {
+	.post("/erase/:imgType", async (c) => {
+		const imgType = c.req.param("imgType")
 		const { imageName } = await c.req.parseBody()
-		const imagePath = `${join(process.cwd())}/static/images/${imageName}`
+		const imagePath = `${join(process.cwd())}/static/${imgType}s/${imageName}`
+
 		try {
 			await unlink(`${imagePath}`)
-			return c.redirect("/admin-gallery")
+			return c.redirect(`/admin/gallery/${imgType}s`)
 		} catch (error) {
 			console.error("there was an error:", error.message)
 		}

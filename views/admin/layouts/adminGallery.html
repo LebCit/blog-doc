@@ -147,7 +147,9 @@
 						this is IRREVERSIBLE !
 						<br />
 						This file will be FOREVER LOST if you proceed !
-						<form class="d-none" id="delete-image" action="/delete-image" method="post">
+						<form class="d-none" id="delete-image" action="/erase/${
+							pathName == "/admin/gallery/icons" ? "icon" : "image"
+						}" method="post">
 						<input type="text" name="imageName" id="image-name" value="${imageName}" />
 						</form>`,
 						icon: "warning",
