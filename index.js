@@ -22,6 +22,7 @@ import { adminCreateRoute } from "./routes/admin/adminCreateRoute.js"
 import { adminConfigRoute } from "./routes/admin/adminConfigRoute.js"
 import { adminGalleryRoute } from "./routes/admin/adminGalleryRoute.js"
 import { adminBuildRoute } from "./routes/admin/adminBuildRoute.js"
+import { adminPreviewRoute } from "./routes/admin/adminPreviewRoute.js"
 
 app.route("/", adminRoutes)
 app.route("/", adminUpdateDelete)
@@ -29,6 +30,7 @@ app.route("/", adminCreateRoute)
 app.route("/", adminConfigRoute)
 app.route("/", adminGalleryRoute)
 app.route("/", adminBuildRoute)
+app.route("/", adminPreviewRoute)
 
 // Routes
 import { mainRoute } from "./routes/mainRoute.js"
