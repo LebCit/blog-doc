@@ -54,10 +54,16 @@
 
 						<div class="row row-cards m-auto mt-3">
 							<% it.images.forEach(image => { %>
-							<div class="col-sm-6 col-lg-3">
+							<div class="col-sm-4 col-lg-3 col-xl-2">
 								<div class="card card-sm">
-									<a data-fslightbox href="<%= image %>" class="d-block">
-										<img src="<%= image %>" class="card-img-top" />
+									<a data-fslightbox href="/<%= image %>" class="d-block">
+										<style>
+											.card-img-top {
+												height: 200px;
+												object-fit: cover;
+											}
+										</style>
+										<img src="/<%= image %>" class="card-img-top" />
 									</a>
 									<div class="card-body">
 										<% const imageName = image.split("/").pop() %>

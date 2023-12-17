@@ -4,24 +4,31 @@ import { writeFile } from "fs"
 import { join } from "path"
 
 // Internal Functions
-import { getImages } from "../../functions/blog-doc.js"
+import { getIcons, getImages } from "../../functions/blog-doc.js"
 import { initializeApp } from "../../functions/initialize.js"
 const { app, eta } = initializeApp()
 
 // Settings
 import { settings } from "../../config/settings.js"
 
-// GALLERY ROUTE.
+// GALLERIES ROUTE. Since v2.5.0
 export const adminGalleryRoute = app
-	.get("/admin-gallery", async (c) => {
+	.get("/admin/gallery/:files", async (c) => {
+		const files = c.req.param("files")
+		const firstLetter = files.charAt(0)
+		const firstLetterCap = firstLetter.toUpperCase()
+		const remainingLetters = files.slice(1)
+		const capitalizedFiles = firstLetterCap + remainingLetters
+
 		const data = {
-			title: "Images gallery",
-			description: `${settings.siteTitle} gallery page`,
+			title: `${capitalizedFiles} gallery`,
+			description: `${settings.siteTitle} ${files} gallery page`,
 		}
 		const res = eta.render("admin/layouts/adminGallery.html", {
 			adminGallery: true,
+			adminIcons: files == "icons" ? true : false,
 			data: data,
-			images: await getImages(),
+			images: files == "icons" ? await getIcons() : await getImages(),
 			siteTitle: settings.siteTitle,
 			footerCopyright: settings.footerCopyright,
 		})
