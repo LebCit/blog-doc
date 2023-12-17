@@ -45,7 +45,8 @@
 					<a href="/admin-pages" class="dropdown-item">Pages</a>
 					<a href="/admin-posts" class="dropdown-item">Posts</a>
 					<a href="/admin-create" class="dropdown-item">New</a>
-					<a href="/admin-gallery" class="dropdown-item">Gallery</a>
+					<a href="/admin/gallery/icons" class="dropdown-item">Icons gallery</a>
+					<a href="/admin/gallery/images" class="dropdown-item">Images gallery</a>
 					<div class="dropdown-divider"></div>
 					<a href="/admin-config-site" class="dropdown-item">Site Settings</a>
 					<a href="/admin-config-menu" class="dropdown-item">Menu Settings</a>
@@ -169,9 +170,16 @@
 					</a>
 				</li>
 
-				<%/* Gallery link. Single list item with no children. */%>
-				<li class="nav-item">
-					<a class="nav-link" href="/admin-gallery">
+				<%/* GALLERIES - Since v2.5.0 */%>
+				<li class="nav-item dropdown">
+					<a
+						class="nav-link dropdown-toggle"
+						href="#navbar-help"
+						data-bs-toggle="dropdown"
+						data-bs-auto-close="false"
+						role="button"
+						aria-expanded="false"
+					>
 						<span class="nav-link-icon d-md-none d-lg-inline-block">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -196,6 +204,55 @@
 						</span>
 						<span class="nav-link-title">Gallery</span>
 					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="/admin/gallery/images">
+							<span class="nav-link-icon d-md-none d-lg-inline-block">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="icon icon-tabler icon-tabler-album"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									stroke-width="2"
+									stroke="currentColor"
+									fill="none"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path
+										d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"
+									/>
+									<path d="M12 4v7l2 -2l2 2v-7" />
+								</svg>
+							</span>
+							<span class="nav-link-title">Images</span>
+						</a>
+						<a class="dropdown-item" href="/admin/gallery/icons">
+							<span class="nav-link-icon d-md-none d-lg-inline-block">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="icon icon-tabler icon-tabler-icons"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									stroke-width="2"
+									stroke="currentColor"
+									fill="none"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path d="M6.5 6.5m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0" />
+									<path d="M2.5 21h8l-4 -7z" />
+									<path d="M14 3l7 7" />
+									<path d="M14 10l7 -7" />
+									<path d="M14 14h7v7h-7z" />
+								</svg>
+							</span>
+							<span class="nav-link-title">Icons</span>
+						</a>
+					</div>
 				</li>
 
 				<%/* SETTINGS */%>
