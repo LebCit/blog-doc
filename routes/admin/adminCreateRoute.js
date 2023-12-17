@@ -52,12 +52,14 @@ export const adminCreateRoute = app
 			postDescription,
 			postImage,
 			postTags,
+			published,
 		} = await c.req.parseBody()
 
 		const pageContents = `---
 title : ${pageTitle}
 description: ${pageDescription}
 featuredImage: ${pageImage}
+published: ${published}
 ---
 ${fileContents}`
 
@@ -67,6 +69,7 @@ date: ${postDate.split("-").join("/")}
 description: ${postDescription}
 featuredImage: ${postImage}
 tags: [${postTags}]
+published: ${published}
 ---
 ${fileContents}`
 

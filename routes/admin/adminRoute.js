@@ -103,6 +103,7 @@ const adminUpdateDelete = app
 			postImage,
 			postTags,
 			fileContents,
+			published,
 		} = await c.req.parseBody()
 
 		const updatedFile = filePath.split("/").pop().replace(".md", "")
@@ -112,6 +113,7 @@ const adminUpdateDelete = app
 title: ${pageTitle}
 description: ${pageDescription}
 featuredImage: ${pageImage}
+published: ${published}
 ---
 ${fileContents}`
 
@@ -124,6 +126,7 @@ date: ${postDate.split("-").join("/")}
 description: ${postDescription}
 featuredImage: ${postImage}
 tags: [${postTags}]
+published: ${published}
 ---
 ${fileContents}`
 
