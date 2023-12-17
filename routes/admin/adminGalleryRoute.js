@@ -35,7 +35,9 @@ export const adminGalleryRoute = app
 		return c.html(res)
 	})
 
-	.post("/add-image", async (c) => {
+	.post("/add/:imgType", async (c) => {
+		const imgType = c.req.param("imgType")
+
 		const { images } = await c.req.parseBody()
 
 		const arr = [images]
@@ -43,7 +45,7 @@ export const adminGalleryRoute = app
 		arr.forEach(async (image) => {
 			const buffer = await image.arrayBuffer()
 
-			writeFile(`${join(process.cwd())}/static/images/${image.name}`, Buffer.from(buffer), (err) => {
+			writeFile(`${join(process.cwd())}/static/${imgType}s/${image.name}`, Buffer.from(buffer), (err) => {
 				if (err) throw err
 			})
 		})

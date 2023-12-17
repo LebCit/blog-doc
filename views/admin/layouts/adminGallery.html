@@ -104,6 +104,8 @@
 		</div>
 		<%~ include('../components/adminScripts.html', it) %>
 		<script>
+			const pathName = window.location.pathname
+
 			// We want to preview images, so we need to register the Image Preview plugin
 			FilePond.registerPlugin(
 				// encodes the file as base64 data
@@ -128,7 +130,7 @@
 				acceptedFileTypes: ["image/*"],
 			})
 			FilePond.setOptions({
-				server: "/add-image",
+				server: pathName == "/admin/gallery/icons" ? "/add/icon" : "/add/image",
 			})
 
 			const deleteButtons = document.querySelectorAll(".delete-button")
