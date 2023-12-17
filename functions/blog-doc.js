@@ -82,6 +82,10 @@ class Blog_Doc {
 			const fileName = file.split("/").pop() // Markdown filename : my-file.md
 			const contents = readFileSync(file, "utf-8") // Synchronously reads the entire contents of the file
 			const fileData = parseFrontMatter(contents) // Parse the front-matter of the file
+			// Since v2.5.0 to allow publishing now or later
+			Object.hasOwn(fileData.frontmatter, "published")
+				? fileData.frontmatter.published
+				: (fileData.frontmatter.published = "true")
 			const filePath = `${dirname}/${fileName}` // Get the file path
 			const fileDir = filePath.split("/")[1] // Get the file directory
 			const obj = { 0: fileName, 1: fileData } // Create the object that holds the file data
