@@ -2,6 +2,7 @@
 title: Blog-Doc's documentation
 description: Why and how to use Blog-Doc?
 featuredImage: 
+published: true
 ---
 
 # Blog-Doc
@@ -9,11 +10,57 @@ featuredImage:
 The Simplest Node.js CMS & SSG!<br />
 A tiny flame in the darkness of error...
 
+<style>
+alert {
+        display: grid;
+	grid-template-columns: auto 1fr !important;
+	border-radius: 12px;
+	background: #ab1236; /*#b01238*/
+        gap: calc(8px + 1.5625vw);
+        padding: 20px;
+}
+alert-icon {
+	line-height: 1px;
+        text-align: center;
+        align-self: center;
+}
+alert-icon img {
+	filter: invert();
+	width: 2.5rem;
+}
+alert-text {
+	color: #fff;
+        text-align: left;
+        align-self: center;
+}
+alert-text a,
+alert-text a:visited,
+alert-text a:active {
+	color: #fdffcb;
+	text-decoration: underline dotted;
+}
+alert-text a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+</style>
+
+<alert>
+    <alert-icon>
+        <img src="https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/icons/info-hexagon.svg" alt="Information SVG" />
+    </alert-icon>
+    <alert-text>
+    This documentation page is retained solely for demonstration purposes and no longer represents the diverse features of Blog-Doc. Kindly consult the comprehensive <a href="https://blog-doc.pages.dev/">documentation</a> for up-to-date information on Blog-Doc's functionalities. 
+    </alert-text>
+</alert>
+
+<br />
+
 ## Motivation & Purpose
 
 _With all due respect to the time and hard work of every developer who made a Static Site Generator with Node.js, **including the previous versions of Blog-Doc**, those are gasworks!_<br />
 _I offer my sincerest apologies in advance to each one of these developers, but an app is not supposed to be a gasworks..._<br />
-**Please read** [From 145 to 7 💪](https://lebcit.github.io/posts/from-145-to-7/)<br /> 
+**Please read** [From 145 to 7 💪](https://lebcit.github.io/posts/from-145-to-7/)<br />
 **Also read** [The New Blog-Doc](/posts/the-new-blog-doc)
 
 ## Requirements
