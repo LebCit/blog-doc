@@ -40,10 +40,10 @@ fetch("/static/scripts/posts.json")
 
 		// If a search is made and the result array is not empty
 		if (query && result.length > 0) {
-			// Insert the single-post-preview.css at the end of the head tag
+			// Insert the default-single-post-preview.css at the end of the head tag
 			document.head.insertAdjacentHTML(
 				"beforeend",
-				'<link rel="stylesheet" href="/static/styles/single-post-preview.css" />'
+				'<link rel="stylesheet" href="/static/styles/default-single-post-preview.css" />'
 			)
 
 			// Define an empty string that will hold the search result(s)
