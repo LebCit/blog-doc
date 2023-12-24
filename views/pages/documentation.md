@@ -1,7 +1,7 @@
 ---
 title: Blog-Doc's documentation
 description: Why and how to use Blog-Doc?
-featuredImage: 
+featuredImage:
 published: true
 ---
 
@@ -53,6 +53,12 @@ alert-text a:hover {
     This documentation page is retained solely for demonstration purposes and no longer represents the diverse features of Blog-Doc. Kindly consult the comprehensive <a href="https://blog-doc.pages.dev/">documentation</a> for up-to-date information on Blog-Doc's functionalities. 
     </alert-text>
 </alert>
+
+<br />
+
+| 👀 PREVIEW                                                |
+| :-------------------------------------------------------- |
+| [Blog-Doc's static site demo](https://blogdoc.github.io/) |
 
 <br />
 

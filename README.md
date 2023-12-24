@@ -6,6 +6,9 @@ A tiny flame in the darkness of error...
 > [!IMPORTANT]  
 > This documentation no longer represents the diverse features of Blog-Doc. Kindly consult the comprehensive [documentation](https://blog-doc.pages.dev/) for up-to-date information on Blog-Doc's functionalities.
 
+> [!NOTE]  
+> Preview of [Blog-Doc's static site demo](https://blogdoc.github.io/).
+
 ## Motivation & Purpose
 
 _With all due respect to the time and hard work of every developer who made a Static Site Generator with Node.js, **including the previous versions of Blog-Doc**, those are gasworks!_<br />
