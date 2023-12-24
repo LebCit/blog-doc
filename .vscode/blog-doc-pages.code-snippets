@@ -6,6 +6,7 @@
 			"title: $1",
 			"description: $2",
 			"featuredImage: /static/images/$3",
+			"published: true $4",
 			"---",
 			""
 		],

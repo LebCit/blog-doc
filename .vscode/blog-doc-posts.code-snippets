@@ -8,6 +8,7 @@
 			"description: $3",
 			"featuredImage: /static/images/$4",
 			"tags: [$5]",
+			"published: true $6",
 			"---",
 			""
 		],
