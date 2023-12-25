@@ -49,7 +49,7 @@ Now paste the following block of code:
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css" />
 
 		<link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon" />
-		<link rel="stylesheet" href="/css/default-styles.min.css" />
+		<link rel="stylesheet" href="/static/styles/themes/default/default-styles.min.css" />
 	</head>
 	<body>
 		<div id="layout">

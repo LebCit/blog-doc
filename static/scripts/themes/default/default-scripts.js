@@ -1,4 +1,4 @@
-import { isExternalLink } from "./is-external-link.js"
+import { isExternalLink } from "../../is-external-link.js"
 
 // Utility function to ensure that the trailing slash is not considered when highlighting the menu item
 function removeTrailingSlash(str) {

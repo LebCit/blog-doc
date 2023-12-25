@@ -31,7 +31,7 @@ The `paginated` condition is a passed data object to display or not the paginati
 At the top of the `pagination.html` file, you can find a link to the stylesheet related to this component.
 
 ```xml
-<link rel="stylesheet" href="/static/styles/default-pagination.css" />
+<link rel="stylesheet" href="/static/styles/themes/default/default-pagination.css" />
 ```
 
 Those styles will only be available when the pagination component is displayed. This is very useful to avoid loading unnecessary styles in the app.

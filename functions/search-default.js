@@ -43,7 +43,7 @@ fetch("/static/scripts/posts.json")
 			// Insert the default-single-post-preview.css at the end of the head tag
 			document.head.insertAdjacentHTML(
 				"beforeend",
-				'<link rel="stylesheet" href="/static/styles/default-single-post-preview.css" />'
+				'<link rel="stylesheet" href="/static/styles/themes/default/default-single-post-preview.css" />'
 			)
 
 			// Define an empty string that will hold the search result(s)

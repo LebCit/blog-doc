@@ -74,7 +74,7 @@
 }
 .blog-card .details .date:before {
 	content: "";
-	background: url("../icons/date-post-details.svg");
+	background: url("../../../icons/date-post-details.svg");
 	position: absolute;
 	width: 16px;
 	height: 16px;
@@ -84,7 +84,7 @@
 }
 .blog-card .details .tags ul:before {
 	content: "";
-	background: url("../icons/tag-post-details.svg");
+	background: url("../../../icons/tag-post-details.svg");
 	position: absolute;
 	width: 16px;
 	height: 16px;
