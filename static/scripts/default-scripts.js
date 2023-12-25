@@ -40,6 +40,13 @@ function handleDOMContentLoaded() {
 	// Highlight the corresponding menu item based on the pathname
 	highlightMenuItem(currentPath)
 
+	// RESPONSIVE IMAGES IN PAGES AND POSTS
+	const main = document.getElementById("main")
+	const images = main.querySelectorAll("img")
+	images.forEach((image) => {
+		image.classList.add("pure-img-responsive")
+	})
+
 	// Toggle sidebar menu
 	const menuToggle = document.getElementById("menuLink")
 	if (menuToggle) {

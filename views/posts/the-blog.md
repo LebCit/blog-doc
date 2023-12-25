@@ -18,7 +18,7 @@ The blog sorts your posts by their publication's dates in descending order, newe
 
 Each post in the blog is represented by a card like the following one :
 
-<img class="pure-img-responsive" alt="Screenshot of a single post card in the blog" src="/static/images/screenshot-card-blog.png">
+<img alt="Screenshot of a single post card in the blog" src="/static/images/screenshot-card-blog.png">
 
 First things first, the design of this card is the work of [Chyno Deluxe](https://codepen.io/ChynoDeluxe) that you can find on his [Blog Cards](https://codepen.io/ChynoDeluxe/pen/bdXeqQ) pen.  
 The card is composed of two parts:
@@ -39,14 +39,14 @@ The overlay reveals the publishing date of the post and the tag(s) associated to
 
 The hovered card will look like the following image:
 
-<img class="pure-img-responsive" alt="Screenshot of a hovered single post card in the blog" src="/static/images/screenshot-card-blog-hovered.png">
+<img alt="Screenshot of a hovered single post card in the blog" src="/static/images/screenshot-card-blog-hovered.png">
 
 ### Brief preview
 
 The right section of the card contains the post's **title**, **description**, first **180 characters**, and a **Read the post** button linking to the post itself, just like it's title.  
 When this button is hovered, the previous effects are applied and the button expands a little bit to the left, gets a blue background while it's label becomes white and an arrow takes the available space to the right, like the following image:
 
-<img class="pure-img-responsive" alt="Screenshot of a hovered button of a single post card in the blog" src="/static/images/screenshot-card-blog-read-hovered.png">
+<img alt="Screenshot of a hovered button of a single post card in the blog" src="/static/images/screenshot-card-blog-read-hovered.png">
 
 ## Pagination
 

@@ -220,11 +220,11 @@ A list of available language codes can be found on the [RSS language codes page]
 Bellow is a screenshot of the old RSS feed of Blog-Doc in [Vivaldi browser](https://vivaldi.com/)
 
 <style>
-.pure-img-responsive {
+.rss {
   border-style: dashed;
 }
 </style>
-<img class="pure-img-responsive" src="/static/images/blog-doc-rss.xml.png">
+<img class="rss" src="/static/images/blog-doc-rss.xml.png">
 
 ## Sitemap{#sitemap}
 
