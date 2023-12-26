@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "node functions/build.js",
+    "build": "node functions/build/build.js",
     "fire": "node index.js"
   },
   "keywords": [],
