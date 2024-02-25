@@ -4,6 +4,7 @@ date: 2023/07/23
 description: A tiny flame in the darkness of error
 featuredImage: /static/images/tiny-flame.avif
 tags: [Blog-Doc,Hono,Eta,Marked]
+published: true
 ---
 
 In the vast landscape of Node.js apps, Blog-Doc shines as a tiny flame in the darkness of error.  
