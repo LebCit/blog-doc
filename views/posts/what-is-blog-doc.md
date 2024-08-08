@@ -5,33 +5,32 @@ publish_date: 2022-09-30
 tags: [Blog-Doc]
 published: true
 ---
-Blog-Doc is **The Simplest Node.js CMS & SSG**. The CMS (Content Management System) allows the user to CRUD (Create, Read, Update, Delete) and control every aspect of the application **from the front-end** while the SSG (Static Site Generator) build a static site out of the created content !  
-Blog-Doc is written in JavaScript ES6, using Eta as a templating language and Markdown to write and format the markup of the generated posts and pages.
 
-## Motivation
+Blog-Doc is **the simplest Node.js CMS & SSG** around! With Blog-Doc, you can easily Create, Read, Update, and Delete (CRUD) content through its intuitive [administration interface](/bd-admin). Plus, it transforms your content into a static site using its Static Site Generator (SSG) feature!
 
-In July of this year (2022), I've written some posts on [my personal blog](https://lebcit.github.io/) showing how to create a Node.js app using EJS as a templating language and how to improve it. Then, taking the code a step further, I've showed how to use Markdown to write the app's content, and finally how to turn it into a simple SSG. So I've decided to leverage my own tutorials one more step by creating a super simple CMS & SSG out of them.
+Written in JavaScript ES6, Blog-Doc includes the `default` and `clean-blog` themes that use [Eta](https://eta.js.org/) for templating and Markdown for formatting posts and pages.
 
-## Name, design & architecture
+<h2>Motivation</h2>
 
-I wanted from the beginning something extremely easy to maintain, modify and improve.  
-With this in mind, I asked myself two questions :
+In July 2022, I posted a series on [my personal blog](https://lebcit.github.io/) about creating a Node.js app using [EJS](https://ejs.co/) and improving it. I demonstrated how to use Markdown for content and eventually how to build a simple SSG. To build on that, I decided to create a super simple CMS & SSG from my own tutorials.
 
--   what would be the purpose of this application ?
--   how it could be useful in the sea of CMS and SSG ?
+<h2>Name, Design & Architecture</h2>
 
-The answer to both came by responding to a third one :
+From the start, I aimed for something extremely easy to maintain and enhance. I asked myself two key questions:
 
--   what do we use mostly the net for ?
+-   What’s the purpose of this application?
+-   How can it stand out in the crowded CMS and SSG landscape?
 
-Putting aside personal communication, entertainment of any kind and shopping, we use the net to get data ! We search, read, take notes... The web, in my modest opinion, is a place where people share experience and knowledge with each other. Blogging is the way to express ourselves and spread what we have learned, and documentation is the backbone of any decent application... Therefor, the name **Blog-Doc** was chosen.
+The answers emerged from a third question:
 
-Once the purpose defined, I had to think about the look and feel of this app.  
-Again, simplicity was the keyword. [Pure.css](https://purecss.io/) docs are a great example, they also provide an identical layout of their own website, lucky me !
+-   What do we use the internet for?
 
-Finally, after acquiring the design, I had to carefully build the app's architecture.  
-As easy as it may sound, you have to think about _the future_! Possibilities are limitless, but by writing essential functionalities for the app and deciding how they should work together and what they should do, the path becomes less cloudy...
+Aside from personal communication, entertainment, and shopping, the primary use of the web is to access information. We search, read, and take notes. The web is a platform for sharing knowledge, and blogging and documentation are crucial for that. That’s why I named it **Blog-Doc**.
 
-This one ends here, I'll be talking about some aspects of the design and the architecture later on.
+With the purpose clear, I focused on the app’s design. Simplicity was key. The [Pure.css](https://purecss.io/) documentation was a great example of clean, straightforward design, which was a lucky find!
 
-See you in the next one 😉
+Finally, designing the app’s architecture required careful planning for future growth. While the possibilities are endless, defining essential functionalities and how they interact helps clarify the development path.
+
+That’s all for now! I’ll dive deeper into the design and architecture in upcoming posts.
+
+See you next time 😉

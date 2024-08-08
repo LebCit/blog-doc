@@ -7,48 +7,63 @@ tags: [Posts, Pages, Server-Side]
 published: true
 ---
 
-```yaml
----
-title:
-date: 2022/11/12
-description:
-featuredImage: /static/images/
-tags: []
----
-```
+Creating posts and pages manually in Blog-Doc is a breeze! Please keep in mind that creating posts and pages from the [administration interface](/bd-admin) is much easier and safer! Here’s a step-by-step guide to get you started:
 
-Type the title of your post, the date is automatically generated, give it a short description, put its featured image in the **images** folder under the **static** folder and add the filename after `/static/images/` like `/static/images/an_image.png` or simply link to any image out there like `featuredImage: https://link_to_an_image.com`, and finally tag it with the appropriate keywords in the array of `tags` like `[Development, Node.js, Markdown]`.  
-You should now be able to see your post on the blog and click on it's title or it's _Read the post_ button to access it !
+<h3>Writing a Post</h3>
 
-> _Nota Bene: it's always a good idea to give your post the same file name as it's title for SEO !_
+Create a Markdown file in the **posts** folder within the **views** directory.
 
-So if the title of your post will be **_Just another dev journey story_**, the filename should be `just-another-dev-journey-story.md`.
+1. **Title and Date**: Start by typing the title of your post. If the title contains any [special character](https://www.webopedia.com/definitions/special-character#How_to_Type_Special_Characters) it must be quoted! The publish_date must be in YYYY-MM-DD format (4 digits year - 2 digits month - 2 digits day).
+2. **Description**: Add a brief description of your post. Quote it if it contains any special character!
+3. **Featured Image**: Place your featured image in the **images** folder under the **static** directory. Use the path `/static/images/` followed by the image filename, like `/static/images/an_image.png`. Alternatively, you can link to any image online by using a URL like `https://link_to_an_image.com`.
+4. **Tags**: Include relevant keywords for your post in the `tags` array. For example: `[Development, Node.js, Markdown]`.
+5. **Published**: Set the state of the post to be published or saved as a draft for later use. Drafts are not available on the blog or in the list of published posts!
 
-## Pages
-
-The same logic applies to write a page. Create a Markdown file in the **pages** folder under the **views** folder. Press `Ctrl+spacebar` and choose the `Blog-Doc Page Frontmatter` to get the following snippet:
+Here’s a front-matter snippet for your post:
 
 ```yaml
 ---
-title:
-description:
-featuredImage: /static/images/
+title: Your Post Title
+publish_date: 2024-08-06
+description: A brief description of your post
+featuredImage: "/static/images/an_image.png"
+tags: [Development, Node.js, Markdown]
+published: true
 ---
 ```
 
-Also, give your page the same file name as it's title for SEO.
+After you’ve set everything up, your post will appear on the blog. Click on the title or the _Read the post_ button to view it.
 
-The page will be rendered on a route matching its file name. As an example, if your page filename is `contact-me.md`, this page would be accessible on a route like `https://domain-name/pages/contact-me`. Then, you'll be able to add a link to your page in the menu or anywhere else that suits your needs.
+> _Tip: For better SEO, use the same filename as your post title._  
+> For a post titled **_Just Another Dev Journey Story_**, name your file `just-another-dev-journey-story.md`.
 
-A page is generally informational, which is why I didn't add a date or a tags' array to the pages.  
-Keep in mind that **everything in Blog-Doc can be modified, adapted or improved**.
+<h3>Creating a Page</h3>
 
-## Notes
+The process for creating a page is similar:
 
-If you don't use VS Code, copy and paste the post or page front-matter above.  
-Please note that the content of a Markdown file starts two lines after its front-matter!  
-You should leave an empty line between the front-matter and the beginning of your post!  
-You can read more about the Markdown parser used for Blog-Doc by visiting its [repository](https://github.com/markedjs/marked).  
-There is also a [demo page](https://marked.js.org/demo/) for this parser where you can see how it works.
+1. **Markdown File**: Create a Markdown file in the **pages** folder within the **views** directory.
+2. **Front-Matter**: If you’re using VS Code, press `Ctrl+spacebar` and select `Blog-Doc Page Frontmatter` to insert the following snippet:
 
-And that's how simply you can write posts and pages using Markdown in Blog-Doc, see you in the next one.
+    ```yaml
+    ---
+    title: Your Page Title
+    description: A brief description of your page
+    featuredImage: "/static/images/"
+    published: true
+    ---
+    ```
+
+3. **Filename**: Name your page file the same as its title for SEO purposes.
+
+Your page will be available at a route that matches its filename. For example, a file named `contact-me.md` will be accessible at `https://domain-name/pages/contact-me`. You can then link to this page from the menu or anywhere else on your site.
+
+Pages are usually informational, so there’s no need to add a date or tags.  
+Remember, **everything in Blog-Doc can be customized to fit your needs**.
+
+<h3>Additional Notes</h3>
+
+-   **For Non-VS Code Users**: Manually copy and paste the front-matter snippets as shown above.
+-   **Markdown Content**: Start writing your content two lines after the front-matter. Make sure to leave an empty line between the front-matter and your content.
+-   **Markdown Parser**: For more info on the Markdown parser used by Blog-Doc, check out its [repository](https://github.com/markedjs/marked) or visit the [demo page](https://marked.js.org/demo/).
+
+And that’s it! You’re all set to write posts and pages in Blog-Doc using Markdown. See you in the next one!

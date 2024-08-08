@@ -7,56 +7,53 @@ tags: [Blog]
 published: true
 ---
 
-This post is an introduction to the blog design and functionalities. We'll explore how things are related and how they work together. We'll understand what's mandatory for the blog to work properly and what's optional.
+This post will give you an overview of the blog's design and features. We’ll look at how different elements are connected and how they work together. We'll also break down what’s essential for the blog to function properly and what’s optional.
 
-## Blog's design & functionalities
+<h2>Blog Design & Functionality</h2>
 
-You'll notice that the homepage, dedicated to the blog, shares with the archive page and the page of a particular tag almost the same design. They give us a view of existing posts, however their designs are slightly different, only the blog is paginated.
+You’ll see that the [homepage](/), [archive](/posts) page, and  each individual tag page all have similar designs. They show a list of posts, though each page has slight design differences, with only the blog being paginated.
 
-The blog sorts your posts by their publication's dates in descending order, newest to oldest, and displays the [defined number of posts](/admin-config-site#posts-per-page) in the settings on each page. **The blog will not be paginated if the number of posts is less than the defined number of posts !**
+The blog sorts posts by their publication date, from newest to oldest, and displays the [number of posts per page](/bd-admin/set/site-settings#site-posts-per-page) as set in the settings. **If the total number of posts is fewer than the defined number, pagination won’t be applied!**
 
-## Single post preview
+<h2>Single Post Preview</h2>
 
-Each post in the blog is represented by a card like the following one :
+Each post is shown as a card like this one:
 
 <img alt="Screenshot of a single post card in the blog" src="/static/images/screenshot-card-blog.png">
 
-First things first, the design of this card is the work of [Chyno Deluxe](https://codepen.io/ChynoDeluxe) that you can find on his [Blog Cards](https://codepen.io/ChynoDeluxe/pen/bdXeqQ) pen.  
-The card is composed of two parts:
+The design for this card is inspired by [Chyno Deluxe](https://codepen.io/ChynoDeluxe), which you can check out on his [Blog Cards](https://codepen.io/ChynoDeluxe/pen/bdXeqQ) CodePen.  
+The card consists of two parts:
 
 1. A featured image of the post
 2. A brief preview of the post
 
-**The featured image is optional**. If you don't assign a featured image to a post, a fallback image will be displayed. This fallback image can of course be changed depending on your needs.  
-To change the fallback image :
+**The featured image is optional**. If you don’t set one, a default fallback image will be used. You can change this fallback image to whatever suits your needs:
 
-1. Upload the desired image to the [gallery](/admin-gallery).
-2. And select it in the [post preview fallback image](/admin-config-site#post-preview-fallback-image-select).
+1. Upload your desired image to the [gallery](/bd-admin/set/images).
+2. Select it in the [Post Preview Fallback Image](/bd-admin/set/site-settings) modal under the site's settings.
 
-### Publishing date & tag(s)
+<h3>Publishing Date & Tags</h3>
 
-When the preview of a single post is hovered, a zoom in with a little rotation is applied to the featured image while it gets covered by an overlay.  
-The overlay reveals the publishing date of the post and the tag(s) associated to this post **if any**. Yes, **if any means that you can choose to tag or not any post**, tagging a post is an optional feature while giving it a **publishing date is mandatory**, some logic please!
+When you hover over a post preview, the featured image zooms in slightly and rotates, covered by an overlay. This overlay shows the post’s publishing date and any associated tags, **if there are any**. Yes, **tags are optional**, but you must provide a the required properties/fields mentioned earlier in [No description or tags](/posts/no-description-or-tags) post.
 
-The hovered card will look like the following image:
+Here’s how the hovered card looks:
 
 <img alt="Screenshot of a hovered single post card in the blog" src="/static/images/screenshot-card-blog-hovered.png">
 
-### Brief preview
+<h3>Brief Preview</h3>
 
-The right section of the card contains the post's **title**, **description**, first **180 characters**, and a **Read the post** button linking to the post itself, just like it's title.  
-When this button is hovered, the previous effects are applied and the button expands a little bit to the left, gets a blue background while it's label becomes white and an arrow takes the available space to the right, like the following image:
+The right side of the card includes the post’s **title**, **description**, the first **180 characters**, and a **Read the post** button that links to the full post. When you hover over this button, it expands slightly to the left, changes to a blue background with white text, and features an arrow to the right:
 
 <img alt="Screenshot of a hovered button of a single post card in the blog" src="/static/images/screenshot-card-blog-read-hovered.png">
 
-## Pagination
+<h2>Pagination</h2>
 
-Like explained previously, the pagination will only work if your blog contains more than the defined number of posts. Once this number exceeded, a pagination will be displayed at the bottom of each blog's page.
+As mentioned, pagination only kicks in if your blog has more posts than the defined number per page. Once you hit that threshold, pagination will appear at the bottom of each blog page.
 
-The homepage will have a pagination to the **Older Posts**, page 1 of the blog, as well as a left chevron icon linking to the last page of the blog.  
-The last page of the blog will have a pagination to the **Newer Posts**, as well as a right chevron icon linking to the first page of the blog.  
-In between, every other page of the blog will have a pagination to the **Older Posts**, the **Newer Posts**, a left chevron icon linking to the last page of the blog and a right chevron icon linking to the first page of the blog.
+The homepage will have a pagination link to **Older Posts** (page 1) and a left chevron icon to navigate to the last page.  
+The last page will have a pagination link to **Newer Posts** and a right chevron icon to navigate to the first page.  
+Pages in between will have links to **Older Posts**, **Newer Posts**, and chevron icons to navigate to both the first and last pages.
 
-This one ends here, I'll be talking more about the pagination later on.
+That’s all for now! I’ll dive deeper into pagination in a future post.
 
-See you in the next one 😉
+See you next time 😉

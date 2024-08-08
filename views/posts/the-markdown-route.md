@@ -6,19 +6,19 @@ featuredImage: "/static/images/files-route.avif"
 tags: [Blog-Doc, Server-Side]
 published: true
 ---
-Under the routes folder lives the `markdownRoute.js` file, it's the most important file of the app, the heart and soul of [Blog-Doc](/posts/what-is-blog-doc). This file looks at two folders sitting under the **views** folder at the same time:
 
-1. The **posts** folder 
+In the **default** folder within the **routes** directory, you'll find the `markdownRoute.js` file—this is essentially the heart and soul of [Blog-Doc](/posts/what-is-blog-doc). It’s responsible for handling the content of two key folders under the **views** directory:
+
+1. The **posts** folder
 2. The **pages** folder
 
-It converts the content of the Markdown files in the **posts** and **pages** folders to `HTML` and renders each post and page on a route matching it's filename. If the requested route doesn't match any file name inside those folders, the 404 error page will be displayed.
+This file takes the Markdown files from these folders and converts them into HTML. It then serves each post and page on a route that matches its filename. If someone tries to access a route that doesn’t correspond to any file in these folders, they’ll see a 404 error page.
 
-To understand how this file works, please take a look at it, it's pretty well documented.  
-You can also read more about it on my personal blog:
+To get a deeper understanding of how this works, I encourage you to check out the `markdownRoute.js` file itself—it’s well documented and should provide all the insights you need. You might also find these articles on my personal blog helpful:
 
-1. [Markdown blog with EJS](https://lebcit.github.io/posts/markdown-blog-with-ejs/)
-2. [Turn a Markdown blog to a simple SSG](https://lebcit.github.io/posts/turn-a-markdown-blog-to-a-simple-ssg/)
+1. [Markdown Blog with EJS](https://lebcit.github.io/posts/markdown-blog-with-ejs/)
+2. [Turn a Markdown Blog into a Simple SSG](https://lebcit.github.io/posts/turn-a-markdown-blog-to-a-simple-ssg/)
 
-Since everything is explained inside the file itself and in the two articles mentioned above, I'm not going to elaborate further more about it here.
+Since the file and these articles cover everything in detail, there’s no need to go further here.
 
-That will be all for the rendering of Markdown and EJS files from one end to another, see you in the next one.
+That’s a wrap on how Markdown and template engine files are rendered from start to finish. See you in the next post!
