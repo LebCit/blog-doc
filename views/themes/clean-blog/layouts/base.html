@@ -19,13 +19,13 @@
 		<!--MARKDOWN ROUTE-->
 		*/%> <% if (it.mdRoute) { %>
 		<!-- Start Markdown file content -->
-		<%~ include('./mdTemplate.html', it) %>
+		<%~ include('./markdown-files-template.html', it) %>
 		<!-- End Markdown file content -->
 		<% } %> <%/*
 		<!--TAGS ROUTE-->
 		*/%> <% if (it.tagsRoute) { %>
 		<!-- Start list of tags with count -->
-		<%~ include('./postsByTagCount.html', it) %>
+		<%~ include('./count-posts-by-tag.html', it) %>
 		<!-- End list of tags with count -->
 		<% } %> <%/*
 		<!--SEARCH ROUTE-->
@@ -37,7 +37,7 @@
 		<!-- ERROR ROUTE -->
 		*/%> <% if (it.errorRoute) { %>
 		<!-- Start error route content -->
-		<%~ include('../components/backToHome.html') %>
+		<%~ include('../components/back-to-home.html') %>
 		<!-- End error route content -->
 		<% } %>
 
