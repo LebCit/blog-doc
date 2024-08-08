@@ -3,26 +3,26 @@
 		<div class="col-md-10 col-lg-8 col-xl-7">
 			<% it.posts.forEach((post) => { %> <%/*
 			<!-- Get the Markdown filename without it's extension -->
-			*/%> <% const postFilename = post[0].replace(/\.[^/.]+$/, "") %> <%/*
+			*/%> <% const postFilename = post.fileName.replace(/\.[^/.]+$/, "") %> <%/*
 			<!-- Get the Markdown post title from it's front matter -->
-			*/%> <% const postTitle = post[1].frontmatter.title %> <%/*
+			*/%> <% const postTitle = post.frontmatter.title %> <%/*
 			<!-- Get the post date from it's front matter -->
-			*/%> <% const postDate = post[1].frontmatter.date %> <%/*
+			*/%> <% const postDate = post.frontmatter.publish_date %> <%/*
 			<!-- Get the post description from it's front matter -->
-			*/%> <% const postDescription = post[1].frontmatter.description %> <%/*
+			*/%> <% const postDescription = post.frontmatter.description %> <%/*
 			<!-- Get the post tags from it's front matter -->
-			*/%> <% const postTags = post[1].frontmatter.tags %>
+			*/%> <% const postTags = post.frontmatter.tags %>
 
 			<!-- Post preview -->
 			<div class="post-preview">
 				<a href="/posts/<%= postFilename %>" rel="bookmark">
 					<h2 class="post-title"><%= postTitle %></h2>
-					<h3 class="post-subtitle"><%= postDescription %></h3>
+					<h3 class="post-subtitle"><%= postDescription ? postDescription : "" %></h3>
 				</a>
 				<p class="post-meta">
 					Posted on <%= postDate %>
 					<!-- Post tag(s) -->
-					<% if (postTags.length) { %>
+					<% if (postTags && postTags.length) { %>
 					<br />
 					Tagged: <% postTags.forEach(tag => { %>
 					<a href="/tags/<%= tag %>"><span><%= tag %></span></a>

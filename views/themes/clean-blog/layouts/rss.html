@@ -6,22 +6,22 @@
 		<description><%= it.siteDescription %></description>
 		<language><%= it.rssSiteLanguage %></language>
 		<copyright><%= it.rssCopyright %></copyright>
-		<pubDate><%= it.posts[0].date.toUTCString() %></pubDate>
-		<lastBuildDate><%= it.posts[0].date.toUTCString() %></lastBuildDate>
+		<pubDate><%= it.posts[0].pubDate.toUTCString() %></pubDate>
+		<lastBuildDate><%= it.posts[0].pubDate.toUTCString() %></lastBuildDate>
 		<docs>https://www.rssboard.org/rss-specification</docs>
 		<% it.posts.forEach(post => { %>
 			<item>
-				<title><%= post[1].frontmatter.title %></title>
-				<link><%= it.siteURL + "posts/" + post[0].replace(/\.[^/.]+$/, "") %></link>
-				<% if (post[1].frontmatter.description) { %>
-				<description><%= post[1].frontmatter.description %></description>
+				<title><%= post.frontmatter.title %></title>
+				<link><%= it.siteURL + "posts/" + post.fileName.replace(/\.[^/.]+$/, "") %></link>
+				<% if (post.frontmatter.description) { %>
+				<description><%= post.frontmatter.description %></description>
 				<% } %>
-				<% if (post[1].frontmatter.tags) { %>
-				<% post[1].frontmatter.tags.forEach(tag => { %>
+				<% if (post.frontmatter.tags) { %>
+				<% post.frontmatter.tags.forEach(tag => { %>
 				<category domain="<%= it.siteURL + "tags/" + tag %>"><%= tag %></category>
 				<% }) %>
 				<% } %>
-				<pubDate><%= post.date.toUTCString() %></pubDate>
+				<pubDate><%= post.pubDate.toUTCString() %></pubDate>
 			</item>
 		<% }) %>
 	</channel>

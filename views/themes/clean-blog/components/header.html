@@ -8,9 +8,9 @@
 					<h1><%= it.data.title %></h1>
 					<h2 class="subheading"><%= it.data.description %></h2>
 					<span class="meta">
-						<% const postTags = it.data.tags %> Posted on <%= it.data.date %>
+						<% const postTags = it.data.tags %> Posted on <%= it.data.publish_date %>
 						<!-- Post tag(s) -->
-						<% if (postTags.length) { %>
+						<% if (postTags && postTags.length) { %>
 						<br />
 						Tagged: <% postTags.forEach(tag => { %>
 						<a href="/tags/<%= tag %>"><span><%= tag %></span></a>
