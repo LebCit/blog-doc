@@ -28,12 +28,12 @@
 <div class="header post-header">
 	<div class="overlay">
 		<h1><%= it.mainRoute ? it.siteTitle : it.data.title %></h1>
-		<h2><%= it.tagRoute || it.errorRoute ? it.data.subTitle : it.data.description %></h2>
+		<h2><%= it.tagRoute || it.errorRoute ? it.data.subTitle : it.data.description ? it.data.description : "" %></h2>
 	</div>
 </div>
 <% } else { %>
 <div class="header">
 	<h1><%= it.mainRoute ? it.siteTitle : it.data.title %></h1>
-	<h2><%= it.tagRoute || it.errorRoute ? it.data.subTitle : it.data.description %></h2>
+	<h2><%= it.tagRoute || it.errorRoute ? it.data.subTitle : it.data.description ? it.data.description : "" %></h2>
 </div>
 <% } %>

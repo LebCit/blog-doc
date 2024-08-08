@@ -2,19 +2,19 @@
 
 <% it.posts.forEach((post, index) => { %> <%/*
 <!-- Get the Markdown filename without its extension -->
-*/%> <% const postFilename = post[0].replace(/\.[^/.]+$/, "") %> <%/*
+*/%> <% const postFilename = post.fileName.replace(/\.[^/.]+$/, "") %> <%/*
 <!-- Get the Markdown post title from its front matter -->
-*/%> <% const postTitle = post[1].frontmatter.title %> <%/*
+*/%> <% const postTitle = post.frontmatter.title %> <%/*
 <!-- Get the post featured image from its front matter -->
-*/%> <% const postFeaturedImage = post[1].frontmatter.featuredImage %> <%/*
+*/%> <% const postFeaturedImage = post.frontmatter.featuredImage %> <%/*
 <!-- Get the post date from its front matter -->
-*/%> <% const postDate = post[1].frontmatter.date %> <%/*
+*/%> <% const postDate = post.frontmatter.publish_date %> <%/*
 <!-- Get the post description from its front matter -->
-*/%> <% const postDescription = post[1].frontmatter.description %> <%/*
+*/%> <% const postDescription = post.frontmatter.description %> <%/*
 <!-- Get the post tags from its front matter -->
-*/%> <% const postTags = post[1].frontmatter.tags %> <%/*
+*/%> <% const postTags = post.frontmatter.tags %> <%/*
 <!-- Get the post content -->
-*/%> <% const postContent = post[1].content %> <%/*
+*/%> <% const postContent = post.content %> <%/*
 <!-- Create an excerpt from the post content -->
 */%> <% const postExcerpt = postContent.substring(0, 180)+"..." %> <%/*
 <!-- Single post preview -->
@@ -29,7 +29,7 @@
 
 		<ul class="details">
 			<li class="date"><span><%= postDate %></span></li>
-			<% if (postTags) { %>
+			<% if (postTags && postTags.length) { %>
 			<li class="tags">
 				<ul>
 					<% postTags.forEach(tag => { %>
@@ -47,7 +47,7 @@
 		<h1>
 			<a href="/posts/<%= postFilename %>" rel="bookmark"><%= postTitle %></a>
 		</h1>
-		<h2><%= postDescription %></h2>
+		<h2><%= postDescription ? postDescription : "" %></h2>
 		<p><%= postExcerpt %></p>
 		<p class="read-more">
 			<a

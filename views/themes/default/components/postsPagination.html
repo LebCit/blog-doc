@@ -61,15 +61,15 @@
 
 <nav aria-label="pagination">
 	<ul class="pagination">
-		<% if (it.previousPost !== null) { %>
+		<% if (it.prevPost !== null) { %>
 		<li>
 			<a
 				class="post-link prev"
 				role="button"
-				href="/posts/<%=it.previousPost%>"
+				href="/posts/<%=it.prevPost.fileBaseName%>"
 				aria-label="Go to the previous post"
 			>
-				<span aria-hidden="true">Previous: <%=it.previousPostTitle%></span>
+				<span aria-hidden="true">Previous: <%=it.prevPost.frontmatter.title%></span>
 				<span class="hidden">Go to the previous post</span>
 			</a>
 		</li>
@@ -77,8 +77,13 @@
 		<!-- Added comment for readability -->
 		*/%> <% if (it.nextPost !== null) { %>
 		<li>
-			<a class="post-link next" role="button" href="/posts/<%=it.nextPost%>" aria-label="Go to the next post">
-				<span aria-hidden="true">Next: <%=it.nextPostTitle%></span>
+			<a
+				class="post-link next"
+				role="button"
+				href="/posts/<%=it.nextPost.fileBaseName%>"
+				aria-label="Go to the next post"
+			>
+				<span aria-hidden="true">Next: <%=it.nextPost.frontmatter.title%></span>
 				<span class="hidden">Go to the next post</span>
 			</a>
 		</li>
