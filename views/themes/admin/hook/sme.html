@@ -1,0 +1,128 @@
+<link rel="stylesheet" href="/static/admin/vendors/sme/sme.css" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono&display=swap" rel="stylesheet" />
+
+<sme-main data-sm="3column pad gap">
+	<input type="radio" name="sme-tabs" id="sme-write-tab" checked />
+	<label data-sm="show left" for="sme-write-tab">Markdown Editor</label>
+
+	<input type="radio" name="sme-tabs" id="sme-view-tab" />
+	<label data-sm="show left" for="sme-view-tab">HTML Preview</label>
+
+	<sme-write data-sm="1column">
+		<label data-lg="left" for="sme-editor">Markdown Editor</label>
+
+		<sme-write-toolbar>
+			<!-- UNDO / REDO -->
+			<buttons-group>
+				<!-- UNDO BUTTON -->
+				{{include("themes/admin/hook/sme/sme-undo.html")}}
+
+				<!-- REDO BUTTON -->
+				{{include("themes/admin/hook/sme/sme-redo.html")}}
+			</buttons-group>
+
+			<!-- HEADINGS / LISTS -->
+			<buttons-group>
+				<!-- HEADINGS DROPDOWN-->
+				{{include("themes/admin/hook/sme/sme-headings.html")}}
+
+				<!-- LISTS DROPDOWN-->
+				{{include("themes/admin/hook/sme/sme-lists.html")}}
+			</buttons-group>
+
+			<!-- BOLD / ITALIC / UNDERLINE / STRIKETHROUGH -->
+			<buttons-group>
+				<!-- BOLD BUTTON -->
+				{{include("themes/admin/hook/sme/sme-bold.html")}}
+
+				<!-- ITALIC BUTTON -->
+				{{include("themes/admin/hook/sme/sme-italic.html")}}
+
+				<!-- UNDERLINE BUTTON -->
+				{{include("themes/admin/hook/sme/sme-underline.html")}}
+
+				<!-- STRIKETHROUGH BUTTON -->
+				{{include("themes/admin/hook/sme/sme-strikethrough.html")}}
+			</buttons-group>
+
+			<!-- LINK / IMAGE -->
+			<buttons-group>
+				<!-- LINK BUTTON -->
+				{{include("themes/admin/hook/sme/sme-link.html")}}
+
+				<!-- IMAGE BUTTON -->
+				{{include("themes/admin/hook/sme/sme-image.html")}}
+			</buttons-group>
+
+			<!-- HORIZONTAL RULE / BLOCKQUOTE / TABLE -->
+			<buttons-group>
+				<!-- HORIZONTAL RULE BUTTON -->
+				{{include("themes/admin/hook/sme/sme-horizontal-rule.html")}}
+
+				<!-- BLOCKQUOTE BUTTON -->
+				{{include("themes/admin/hook/sme/sme-blockquote.html")}}
+
+				<!-- TABLE BUTTON -->
+				{{include("themes/admin/hook/sme/sme-table.html")}}
+			</buttons-group>
+
+			<!-- CODE -->
+			<buttons-group>
+				<!-- INLINE CODE BUTTON -->
+				{{include("themes/admin/hook/sme/sme-inline-code.html")}}
+
+				<!-- BLOCK OF CODE BUTTON -->
+				{{include("themes/admin/hook/sme/sme-block-of-code.html")}}
+			</buttons-group>
+
+			<!-- CLEAR -->
+			<buttons-group>
+				<!-- CLEAR BUTTON -->
+				{{include("themes/admin/hook/sme/sme-clear.html")}}
+			</buttons-group>
+		</sme-write-toolbar>
+
+		<textarea name="file[content]" id="sme-editor" data-sm="pad" required>
+{{#if editRoute}}{{file.content}}{{/if}}</textarea
+		>
+	</sme-write>
+
+	<sme-view data-sm="1column">
+		<!-- <span data-sm="hide" data-lg="show left">HTML Preview</span> -->
+		<sme-view-toolbar data-sm="1column">
+			<!-- HELP -->
+			<buttons-group>
+				<!-- HELP BUTTON -->
+				<a href="https://simple-markdown-editor.pages.dev/docs">
+					<button type="button" class="sme-md-btn" title="Help">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="icon icon-tabler icon-tabler-info-square-rounded"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<title>Help</title>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M12 9h.01" />
+							<path d="M11 12h1v4h1" />
+							<path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+						</svg>
+					</button>
+				</a>
+			</buttons-group>
+		</sme-view-toolbar>
+		<sme-preview id="sme-preview" data-sm="pad"></sme-preview>
+	</sme-view>
+</sme-main>
+
+<script src="/static/admin/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+<script type="module" src="/static/admin/vendors/sme/scripts/index.js"></script>

@@ -1,0 +1,261 @@
+:root {
+	--sme-br: 5px;
+	--sme-gff: "Martian Mono", monospace;
+	--sme-light-editor-border: 5px solid var(--bd-3);
+}
+
+sme-main {
+	grid-template-columns: auto auto 1fr !important;
+}
+
+/* EDITOR AND PREVIEW */
+sme-write-toolbar,
+sme-view-toolbar {
+	background-color: var(--bd-10);
+	border: var(--sme-light-editor-border);
+	border-radius: 5px 5px 0 0;
+	position: sticky;
+	top: 0;
+}
+
+#sme-editor {
+	background-color: var(--bd-2);
+	border: var(--sme-light-editor-border);
+	border-radius: 0 0 5px 5px;
+	border-top: 0;
+	color: var(--bd-11);
+	height: 50vh;
+	line-height: 2;
+	font-family: var(--sme-gff); /* Monospaced font is mandatory to pretty print Markdown tables */
+
+	resize: none;
+}
+
+#sme-preview {
+	background-color: var(--bd-2);
+	border: var(--sme-light-editor-border);
+	border-radius: 0 0 5px 5px;
+	border-top: 0;
+	color: var(--bd-11);
+	height: 50vh;
+	overflow-y: auto;
+}
+
+#sme-preview a {
+	color: #043c88;
+}
+
+#sme-preview img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* BUTTONS GROUP*/
+buttons-group {
+	display: inline-block;
+	margin: 5px !important;
+}
+
+/* SME DROPDOWN */
+sme-dropdown {
+	display: inline-block;
+	position: relative;
+}
+
+sme-dropdown > input {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: fixed;
+	white-space: nowrap;
+	width: 1px;
+}
+
+sme-dropdown > label {
+	cursor: pointer;
+	display: block;
+	background: var(--bd-9); /* Opt */
+	border: 2px solid var(--bd-9); /* Opt */
+	border-radius: var(--sme-br); /* Opt */
+	color: var(--bd-1);
+}
+
+sme-dropdown > label:hover {
+	background: var(--bd-1); /* Opt */
+	color: var(--bd-9); /* Opt */
+}
+
+sme-dropdown > input:focus + label {
+	border-radius: var(--sme-br);
+	outline: solid red 2.5px;
+}
+
+sme-dropdown > label::after {
+	content: "▲";
+	vertical-align: super;
+}
+
+sme-dropdown > input:checked + label::after {
+	content: "▼";
+}
+
+sme-dropdown-content {
+	position: absolute;
+	background-color: var(--bd-4);
+	border-radius: var(--sme-br);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	color: var(--bd-10);
+	/* margin-left: 15px; */
+	min-width: 100%;
+	z-index: 1;
+}
+
+sme-dropdown > input:checked + label + sme-dropdown-content {
+	display: grid;
+	gap: 15px;
+	padding: 15px;
+}
+
+/* SME MARKDOWN BUTTON */
+.sme-md-btn {
+	background: var(--bd-9);
+	border: 2px solid var(--bd-9);
+	border-radius: var(--sme-br);
+	color: var(--bd-1);
+	cursor: pointer;
+	display: inline-block;
+	padding: 5px;
+	position: relative;
+	transition: all 0.3s ease;
+}
+.sme-md-btn:hover,
+.sme-md-btn:active,
+.sme-md-btn:focus {
+	background: var(--bd-1);
+	color: var(--bd-9);
+}
+
+.sme-md-btn[data-syntax="heading1"] {
+	font-size: xx-large;
+}
+.sme-md-btn[data-syntax="heading2"] {
+	font-size: larger;
+}
+.sme-md-btn[data-syntax="heading3"] {
+	font-size: x-large;
+}
+.sme-md-btn[data-syntax="heading4"] {
+	font-size: large;
+}
+.sme-md-btn[data-syntax="heading5"] {
+	font-size: medium;
+}
+
+.sme-md-btn[data-syntax="bold"] {
+	font-weight: bold;
+}
+.sme-md-btn[data-syntax="italic"] {
+	font-style: italic;
+}
+.sme-md-btn[data-syntax="underline"] {
+	text-decoration: underline;
+}
+.sme-md-btn[data-syntax="strikethrough"] {
+	text-decoration: line-through;
+}
+
+/* SWEET ALERT */
+div:where(.swal2-container) div:where(.swal2-popup) {
+	background-color: var(--bd-10) !important;
+	color: var(--bd-4) !important;
+}
+div:where(.swal2-container) input:where(.swal2-input) {
+	margin: 3px 2em 1em !important;
+}
+div:where(.swal2-container) input:where(.swal2-input)::placeholder {
+	color: var(--bd-4);
+}
+
+/* TABLE FOR ALERT AND PREVIEW */
+table {
+	border-collapse: collapse; /* Remove spacing between cells */
+	width: 100%; /* Full width */
+}
+
+th,
+td {
+	padding: 8px; /* Add padding around text */
+	border: 1px solid var(--bd-4); /* Add a light gray border */
+}
+
+th {
+	background-color: var(--bd-11); /* Dark gray background for headers */
+	font-weight: bold; /* Bold text for headers */
+}
+
+tr:nth-child(even) {
+	/* Even rows */
+	background-color: var(--bd-9); /* Lighter dark gray background for even rows */
+}
+
+#sme-preview th,
+#sme-preview td {
+	border: 2px solid var(--bd-1);
+}
+
+#sme-preview > table th {
+	color: var(--bd-4); /* Light gray text color for headers */
+}
+
+#sme-preview > table th a {
+	color: var(--bd-4); /* Light gray anchor color for headers */
+}
+
+#sme-preview > table tr:nth-child(even) {
+	/* Even rows */
+	color: var(--bd-4); /* Light gray text color for even rows */
+}
+
+#sme-preview > table tr:nth-child(even) a {
+	/* Even rows */
+	color: var(--bd-4); /* Light gray anchor color for even rows */
+}
+
+/* TABS */
+sme-main > input,
+sme-write > label {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+sme-main > label {
+	background-color: var(--bd-2);
+	border: var(--bd-7) 1px solid;
+	border-radius: var(--sme-br);
+	cursor: pointer;
+	padding: 5px;
+}
+
+sme-main > input:checked + label {
+	background-color: var(--bd-4);
+	border: 2.5px solid red;
+	color: var(--bd-11);
+	font-weight: bold;
+}
+
+sme-write,
+sme-view {
+	display: none !important;
+}
+
+#sme-write-tab:checked ~ sme-write,
+#sme-view-tab:checked ~ sme-view {
+	display: inherit !important;
+	grid-column: span 3;
+}

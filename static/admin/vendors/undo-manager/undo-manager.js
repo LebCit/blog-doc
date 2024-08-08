@@ -1,0 +1,7 @@
+/**
+ * Bundled by jsDelivr using Rollup v2.79.1 and Terser v5.19.2.
+ * Original file: /npm/undo-manager@1.1.1/lib/undomanager.js
+ *
+ * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
+ */
+var t,n={exports:{}};t=n,function(){let n=function(){let t,n=[],r=-1,e=0,o=!1;function u(t,n){return t&&"function"==typeof t[n]?(o=!0,t[n](),o=!1,this):this}return{add:function(u){return o||(n.splice(r+1,n.length-r),n.push(u),e&&n.length>e&&(s=0,f=-(e+1),(i=n).splice(s,!f||1+f-s+(!(f<0^s>=0)&&(f<0||-1)*i.length)),i.length),r=n.length-1,t&&t()),this;var i,s,f},setCallback:function(n){t=n},undo:function(){let e=n[r];if(!e)return this;const o=e.groupId;for(;e.groupId===o&&(u(e,"undo"),r-=1,e=n[r],e&&e.groupId););return t&&t(),this},redo:function(){let e=n[r+1];if(!e)return this;const o=e.groupId;for(;e.groupId===o&&(u(e,"redo"),r+=1,e=n[r+1],e&&e.groupId););return t&&t(),this},clear:function(){let e=n.length;n=[],r=-1,t&&e>0&&t()},hasUndo:function(){return-1!==r},hasRedo:function(){return r<n.length-1},getCommands:function(t){return t?n.filter((n=>n.groupId===t)):n},getIndex:function(){return r},setLimit:function(t){e=t}}};t.exports?t.exports=n:window.UndoManager=n}();var r=n.exports;export{r as default};
