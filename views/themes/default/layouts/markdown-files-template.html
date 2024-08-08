@@ -1,9 +1,9 @@
-<% if (!it.data.date) { %>
+<% if (!it.data.publish_date) { %>
 <div><%~ it.content %></div>
 <% } else { %>
 <p class="post-meta">
 	<span>Posted on</span>
-	<span class="posted-on"><time class="post-date"><%= it.data.date %></time></span>
+	<span class="posted-on"><time class="post-date"><%= it.data.publish_date %></time></span>
 	<% if (it.data.tags && it.data.tags.length) { /* If the post has a non empty `tags` key in his front-matter */ %>
 	<br />
 	<span>Tagged</span>
@@ -16,6 +16,6 @@
 </p>
 <div><%~ it.content %></div>
 <!--Start posts pagination-->
-<%~ include('../components/postsPagination.html', it.prevNext) %>
+<%~ include('../components/postsPagination.html', it) %>
 <!--End posts pagination-->
 <% } %>
