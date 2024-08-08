@@ -1,9 +1,9 @@
 ---
-title: What is Blog-Doc ?
-date: 2022/09/30
-description: A brief introduction to Blog-Doc.
-featuredImage: 
+title: "What is Blog-Doc?"
+description: "A brief introduction to Blog-Doc"
+publish_date: 2022-09-30
 tags: [Blog-Doc]
+published: true
 ---
 Blog-Doc is **The Simplest Node.js CMS & SSG**. The CMS (Content Management System) allows the user to CRUD (Create, Read, Update, Delete) and control every aspect of the application **from the front-end** while the SSG (Static Site Generator) build a static site out of the created content !  
 Blog-Doc is written in JavaScript ES6, using Eta as a templating language and Markdown to write and format the markup of the generated posts and pages.

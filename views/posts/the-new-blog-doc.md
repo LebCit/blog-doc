@@ -1,9 +1,9 @@
 ---
-title: The New Blog-Doc
-date: 2023/07/23
-description: A tiny flame in the darkness of error
-featuredImage: /static/images/tiny-flame.avif
-tags: [Blog-Doc,Hono,Eta,Marked]
+title: "The New Blog-Doc"
+description: "A tiny flame in the darkness of error"
+featuredImage: "/static/images/tiny-flame.avif"
+publish_date: 2023-07-26
+tags: [Blog-Doc, LiteNode, Marked]
 published: true
 ---
 

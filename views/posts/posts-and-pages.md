@@ -1,19 +1,11 @@
 ---
-title: Posts and Pages
-date: 2022/11/12
-description: Writing with Markdown
-featuredImage: /static/images/posts-and-pages.avif
-tags: [Blog-Doc,Posts,Pages,Server-Side]
+title: "Posts and Pages"
+description: "Writing with Markdown"
+featuredImage: "/static/images/posts-and-pages.avif"
+publish_date: 2022-11-12
+tags: [Posts, Pages, Server-Side]
+published: true
 ---
-This post intends to show you how to format a Markdown file to write a post or a page.<br />
-The bellow instructions are applicable if you want to create a post or a page  by yourself.  
-Otherwise, head over the [administration page to create](/admin-create) with ease.
-
-The most important tool for this task is the IDE, Integrated Development Environment, that you're using. I'm using the one and only [VS Code](https://code.visualstudio.com/), the best IDE in my opinion, with [Prettier](https://prettier.io/) as a well known extension for VS Code [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode). Another great VS Code extension to write in Markdown with ease is [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one). If you are using another IDE, look for an addon/plugin/extension to format your Markdown files while writing a post or a page.
-
-## Posts
-
-To write a post, head to the **posts** folder under the **views** folder and create a new Markdown file. A Markdown file ends with `.md`. If you are using VS Code, I've already setup snippets to generate Markdown front matter in the `.vscode` folder, all you have to do is press `Ctrl+spacebar` and choose the `Blog-Doc Post Frontmatter`, you'll be served with the following block:
 
 ```yaml
 ---

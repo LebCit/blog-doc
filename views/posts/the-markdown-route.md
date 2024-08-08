@@ -1,9 +1,10 @@
 ---
 title: The Markdown route
-date: 2022/11/11
+publish_date: 2022-11-11
 description: Rendering posts and pages
-featuredImage: /static/images/files-route.avif
-tags: [Blog-Doc,Server-Side]
+featuredImage: "/static/images/files-route.avif"
+tags: [Blog-Doc, Server-Side]
+published: true
 ---
 Under the routes folder lives the `markdownRoute.js` file, it's the most important file of the app, the heart and soul of [Blog-Doc](/posts/what-is-blog-doc). This file looks at two folders sitting under the **views** folder at the same time:
 

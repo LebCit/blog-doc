@@ -1,9 +1,10 @@
 ---
 title: The Main Route
-date: 2022/11/07
+publish_date: 2022-11-07
 description: The blog behind the curtains
-featuredImage: /static/images/the-main-route.avif
-tags: [Blog-Doc,Blog,Server-Side]
+featuredImage: "/static/images/the-main-route.avif"
+tags: [Blog, Server-Side]
+published: true
 ---
 The` mainRoute.js` file, under the **routes** folder, is where all the functionalities of the blog are defined. It collects, paginates and displays, all the Markdown files in the **posts** folder under the **views** folder.
 

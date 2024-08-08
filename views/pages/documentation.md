@@ -1,7 +1,6 @@
 ---
-title: Blog-Doc's documentation
-description: Why and how to use Blog-Doc?
-featuredImage:
+title: "Blog-Doc's documentation"
+description: "How to install and use Blog-Doc"
 published: true
 ---
 

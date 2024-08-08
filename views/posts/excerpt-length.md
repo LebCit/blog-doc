@@ -1,9 +1,10 @@
 ---
 title: Excerpt length
-date: 2022/08/12
+publish_date: 2022-08-12
 description: Testing the excerpt of posts
-featuredImage: https://c2.staticflickr.com/4/3676/12024271573_d266422362_h.jpg
+featuredImage: "https://c2.staticflickr.com/4/3676/12024271573_d266422362_h.jpg"
 tags: [Excerpt]
+published: true
 ---
 
 In this post, I'm just trying to type some random text to see if the excerpt length will stop when I reach 180 characters. I also want to see how it looks like when the post is rendered on the frontend.

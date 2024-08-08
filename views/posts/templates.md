@@ -1,9 +1,10 @@
 ---
-title: Templates
-date: 2022/11/13
-description: Using EJS for specific pages
-featuredImage: /static/images/templates.avif
-tags: [Blog-Doc,Templates,Server-Side]
+title: "Why Templates Are a Game Changer"
+description: "Using template engine for specific pages"
+featuredImage: "/static/images/templates.avif"
+publish_date: 2022-11-13
+tags: [Templates, Server-Side]
+published: true
 ---
 You may ask yourself the reason for a third option of files since we already can create posts and pages in Markdown. Well the reason is that a template can do much more than a Markdown file...<br />
 A template file have more capabilities and can render a totally different architecture and design than the predefined ones for a Markdown file.<br />

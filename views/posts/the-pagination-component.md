@@ -1,11 +1,10 @@
 ---
 title: The pagination component
-date: 2022/11/10
-description: Navigating between blog's pages
-featuredImage: /static/images/pagination-component.avif
-tags: [Blog-Doc,Blog,Pagination]
----
-One of the functionalities that we have seen in [The Main Route](/posts/the-main-route) is how the blog gets paginated under the hood. In this post, we will talk about the pagination component itself and see how it's rendered on the front-end.
+publish_date: 2022-11-10
+description: "Navigating between blog's pages"
+featuredImage: "/static/images/pagination-component.avif"
+tags: [Blog, Pagination]
+published: true
 
 The file `pagination.html` in the **components** folder under the **views** folder holds the logic behind the display and the look of the pagination component and is only used by the `index.html` file in the **layouts** folder under the **views** folder on line 72:
 

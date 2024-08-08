@@ -1,9 +1,10 @@
 ---
-title: The blog
-date: 2022/10/05
-description: How the blog works ?
-featuredImage: /static/images/the-blog.webp
-tags: [Blog-Doc,Blog]
+title: "The blog"
+description: "How the blog works?"
+featuredImage: "/static/images/the-blog.webp"
+publish_date: 2022-10-05
+tags: [Blog]
+published: true
 ---
 
 This post is an introduction to the blog design and functionalities. We'll explore how things are related and how they work together. We'll understand what's mandatory for the blog to work properly and what's optional.
