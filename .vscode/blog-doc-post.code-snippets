@@ -1,0 +1,17 @@
+{
+	"blog-doc-post-frontmatter": {
+		"prefix": "Blog-Doc Post Frontmatter",
+		"body": [
+			"---",
+			"title: $1",
+			"publish_date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}${2}",
+			"description: $3",
+			"featuredImage: '/static/images/$4'",
+			"tags: [$5]",
+			"published: true $6",
+			"---",
+			""
+		],
+		"description": "blog-doc-post-frontmatter"
+	}
+}

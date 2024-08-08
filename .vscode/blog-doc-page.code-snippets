@@ -1,15 +1,15 @@
 {
-	"blogDocPageFrontMatter": {
+	"blog-doc-page-frontmatter": {
 		"prefix": "Blog-Doc Page Frontmatter",
 		"body": [
 			"---",
 			"title: $1",
 			"description: $2",
-			"featuredImage: /static/images/$3",
+			"featuredImage: '/static/images/$3'",
 			"published: true $4",
 			"---",
 			""
 		],
-		"description": "blogDocPageFrontMatter"
+		"description": "blog-doc-page-frontmatter"
 	}
 }
