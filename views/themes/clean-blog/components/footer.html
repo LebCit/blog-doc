@@ -7,24 +7,24 @@
 					<li class="list-inline-item">
 						<a href="#!">
 							<span class="fa-stack fa-lg">
-								<i class="fas fa-circle fa-stack-2x"></i>
-								<i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+								<i class="fa-solid fa-circle fa-stack-2x"></i>
+								<i class="fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
 							</span>
 						</a>
 					</li>
 					<li class="list-inline-item">
 						<a href="#!">
 							<span class="fa-stack fa-lg">
-								<i class="fas fa-circle fa-stack-2x"></i>
-								<i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+								<i class="fa-solid fa-circle fa-stack-2x"></i>
+								<i class="fa-brands fa-facebook-f fa-stack-1x fa-inverse"></i>
 							</span>
 						</a>
 					</li>
 					<li class="list-inline-item">
 						<a href="#!">
 							<span class="fa-stack fa-lg">
-								<i class="fas fa-circle fa-stack-2x"></i>
-								<i class="fab fa-github fa-stack-1x fa-inverse"></i>
+								<i class="fa-solid fa-circle fa-stack-2x"></i>
+								<i class="fa-brands fa-github fa-stack-1x fa-inverse"></i>
 							</span>
 						</a>
 					</li>
@@ -35,17 +35,16 @@
 	</div>
 </footer>
 <%/* Bootstrap core JS */%>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/vendors/themes/clean-blog/bootstrap/bootstrap.bundle.min.js"></script>
 <%/* Core theme JS */%>
-<script src="/static/scripts/themes/clean-blog/clean-blog-scripts.js"></script>
+<script type="module" src="/static/scripts/themes/clean-blog/clean-blog-scripts.js"></script>
 <% if (it.build) { %>
 <script src="/static/scripts/search.js"></script>
 <% } %> <%/*
 <!-- Comment added for readability -->
 */%> <% if (it.mdRoute) { %>
-<script type="module">
-	import hljs from "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/es/highlight.min.js"
-
+<script src="/static/vendors/highlight/highlight.min.js"></script>
+<script>
 	hljs.highlightAll()
 </script>
 <% } %>

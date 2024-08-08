@@ -4,9 +4,11 @@
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<title><%= it.siteTitle %> | <%= it.data.title %></title>
-	<link rel="shortcut icon" href="<%= it.data.favicon %>" type="image/x-icon" />
+	<link rel="shortcut icon" href="<%= it.data.favicon %>" type="image/svg+xml" />
 	<%/* Font Awesome icons (free version) */%>
-	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+	<script src="/static/vendors/themes/clean-blog/fontawesome/brands.min.js"></script>
+	<script src="/static/vendors/themes/clean-blog/fontawesome/solid.min.js"></script>
+	<script src="/static/vendors/themes/clean-blog/fontawesome/fontawesome.min.js"></script>
 	<%/* Google fonts */%>
 	<link
 		href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic"
@@ -21,6 +23,6 @@
 	<%/* Core theme CSS (includes Bootstrap) */%>
 	<link href="/static/styles/themes/clean-blog/clean-blog-styles.css" rel="stylesheet" />
 	<% if (it.mdRoute) { %>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/atom-one-dark.min.css" />
+	<link rel="stylesheet" href="/static/vendors/highlight/atom-one-dark.min.css">
 	<% } %>
 </head>
