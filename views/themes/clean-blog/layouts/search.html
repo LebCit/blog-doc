@@ -7,7 +7,7 @@
 					<label for="searchInput" class="form-label">Searchbox at your service:</label>
 					<input
 						id="searchInput"
-						name="searchString"
+						name="query"
 						type="search"
 						class="form-control"
 						placeholder="Type your search's keyword(s) here..."
@@ -21,10 +21,7 @@
 
 <div id="searchResult" class="text-center mt-3">
 	<% if (!it.build) { %>
-	<script>
-		const searchInput = document.getElementById("searchInput")
-		searchInput.focus()
-	</script>
+		<script src="/static/admin/scripts/node-app-search.js"></script>
 	<% if (it.resultLength > 0) { %><%/*
 	<!-- Added comment for readability -->
 	*/%><% if (it.resultLength >= 2) { %>
