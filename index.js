@@ -1,62 +1,14 @@
-// Internal Functions
-import { initializeApp } from "./functions/initialize.js"
-const { app, eta } = initializeApp()
-
-// Settings
+import { app, eta } from "./functions/initialize.js"
 import { settings } from "./config/settings.js"
 
-// External modules
-import { serveStatic } from "@hono/node-server/serve-static"
-import { serve } from "@hono/node-server"
-import { env } from "hono/adapter"
-
-// Serve Static files
-app.use("/static/*", serveStatic({ root: "./" }))
-
-// Set the port value
-const port = env.PORT || 8080
-
-// Administration Routes
-import { adminRoutes, adminUpdateDelete } from "./routes/admin/adminRoute.js"
-import { adminCreateRoute } from "./routes/admin/adminCreateRoute.js"
-import { adminConfigRoute } from "./routes/admin/adminConfigRoute.js"
-import { adminGalleryRoute } from "./routes/admin/adminGalleryRoute.js"
-import { adminBuildRoute } from "./routes/admin/adminBuildRoute.js"
-import { adminPreviewRoute } from "./routes/admin/adminPreviewRoute.js"
-
-app.route("/", adminRoutes)
-app.route("/", adminUpdateDelete)
-app.route("/", adminCreateRoute)
-app.route("/", adminConfigRoute)
-app.route("/", adminGalleryRoute)
-app.route("/", adminBuildRoute)
-app.route("/", adminPreviewRoute)
-
-// Routes
-import { mainRoute } from "./routes/mainRoute.js"
-import { markdownRoute } from "./routes/markdownRoute.js"
-import { tagsRoute } from "./routes/tagsRoute.js"
-import { archiveRoute } from "./routes/archiveRoute.js"
-import { searchRoute } from "./routes/searchRoute.js"
-import { rssRoute } from "./routes/rssRoute.js"
-import { sitemapRoute } from "./routes/sitemapRoute.js"
-
-app.route("/", mainRoute)
-app.route("/", markdownRoute)
-app.route("/", tagsRoute)
-app.route("/", archiveRoute)
-app.route("/", searchRoute)
-app.route("/", rssRoute)
-app.route("/", sitemapRoute)
-
 // 404 Route
-app.notFound((c) => {
+app.notFound((req, res) => {
 	const data = {
 		title: "Page Not Found",
 		description: "The server cannot find the requested resource",
 		subTitle: "Nothing to land on here !",
 	}
-	const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
+	const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 		// Passing Route data
 		errorRoute: true,
 		// Passing document data
@@ -69,18 +21,18 @@ app.notFound((c) => {
 		menuLinks: settings.menuLinks,
 		footerCopyright: settings.footerCopyright,
 	})
-	return c.html(res, 404)
+	res.html(response, 404)
 })
 
 // 500 Route
-app.onError((err, c) => {
+app.onError((err, req, res) => {
 	console.error(`${err}`)
 	const data = {
 		title: "Internal Server Error",
 		description: "The server encountered an unexpected condition that prevented it from fulfilling the request",
 		subTitle: "Server is on a break here !",
 	}
-	const res = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
+	const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 		// Passing Route data
 		errorRoute: true,
 		// Passing document data
@@ -93,15 +45,13 @@ app.onError((err, c) => {
 		menuLinks: settings.menuLinks,
 		footerCopyright: settings.footerCopyright,
 	})
-	return c.html(res, 500)
+	res.html(response, 500)
 })
 
-serve(
-	{
-		fetch: app.fetch,
-		port: port,
-	},
-	({ port }) => {
-		console.log(`App @ http://localhost:${port}`)
-	}
-)
+// Routes
+import { loadAdminRoutes, loadThemeRoutes } from "./functions/loadRoutes.js"
+
+loadAdminRoutes()
+loadThemeRoutes()
+
+app.startServer()
