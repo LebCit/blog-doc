@@ -1,73 +1,56 @@
-// Internal Modules
-import { unlink } from "node:fs/promises"
-import { writeFile } from "fs"
-import { join } from "path"
+import { unlink, writeFile } from "node:fs/promises"
+import { formatFileName } from "./utils/formatFileName.js"
+import { adminMenuItems } from "./adminMenuItems.js"
+import { getImages } from "../../functions/helpers/getImages.js"
 
-// Internal Functions
-import { getIcons, getImages } from "../../functions/blog-doc.js"
-import { initializeApp } from "../../functions/initialize.js"
-const { app, eta } = initializeApp()
+export const adminGalleryRoute = async (app, settings, marked, join) => {
+	app.get("/bd-admin/set/images", async (req, res) => {
+		const parsedAdminGallery = app.parseMarkdownFile("themes/admin/pages/admin-gallery.md")
+		const { title, description } = parsedAdminGallery.frontmatter
+		const html_admin_content = marked.parse(parsedAdminGallery.content)
 
-// Settings
-import { settings } from "../../config/settings.js"
-
-// GALLERIES ROUTE. Since v2.5.0
-export const adminGalleryRoute = app
-	.get("/admin/gallery/:files", async (c) => {
-		const files = c.req.param("files")
-		const firstLetter = files.charAt(0)
-		const firstLetterCap = firstLetter.toUpperCase()
-		const remainingLetters = files.slice(1)
-		const capitalizedFiles = firstLetterCap + remainingLetters
-
-		const data = {
-			title: `${capitalizedFiles} gallery`,
-			description: `${settings.siteTitle} ${files} gallery page`,
-		}
-		const res = eta.render("admin/layouts/adminGallery.html", {
-			adminGallery: true,
-			adminIcons: files == "icons" ? true : false,
-			data: data,
-			images: files == "icons" ? await getIcons() : await getImages(),
+		res.render("themes/admin/layouts/index.html", {
+			title,
+			description,
+			menu: adminMenuItems,
+			html_admin_content,
+			images: await getImages("static/images"),
 			siteTitle: settings.siteTitle,
-			footerCopyright: settings.footerCopyright,
+			galleryRoute: true,
 		})
-		return c.html(res)
 	})
-
-	.post("/add/:imgType", async (c) => {
-		const imgType = c.req.param("imgType")
-
-		const { images } = await c.req.parseBody()
-
-		const arr = [images]
-
-		arr.forEach(async (image) => {
-			const buffer = await image.arrayBuffer()
-
-			writeFile(`${join(process.cwd())}/static/${imgType}s/${image.name}`, Buffer.from(buffer), (err) => {
-				if (err) throw err
-			})
-		})
-
-		return c.text("uploaded!")
-	})
-
-	.post("/save/:imgType", (c) => {
-		const imgType = c.req.param("imgType")
-
-		return c.redirect(`/admin/gallery/${imgType}s`)
-	})
-
-	.post("/erase/:imgType", async (c) => {
-		const imgType = c.req.param("imgType")
-		const { imageName } = await c.req.parseBody()
-		const imagePath = `${join(process.cwd())}/static/${imgType}s/${imageName}`
-
-		try {
-			await unlink(`${imagePath}`)
-			return c.redirect(`/admin/gallery/${imgType}s`)
-		} catch (error) {
-			console.error("there was an error:", error.message)
-		}
-	})
+		.post(
+			"/bd-admin/set-images",
+			async (req, res, data) => {
+				const { files } = data
+				try {
+					for (const file of files) {
+						const fileName = formatFileName(file.filename, true)
+						const fileFullPath = join(process.cwd(), `static/images/${fileName}`)
+						await writeFile(fileFullPath, file.body)
+					}
+					res.redirect("/bd-admin/set/images")
+				} catch (err) {
+					console.error("Error writing files:", err)
+					res.status(500).txt("Internal Server Error")
+				}
+			},
+			15
+		)
+		.post(
+			"/bd-admin/delete-image",
+			async (req, res, data) => {
+				const { imagePath } = data
+				const imageFullPath = join(process.cwd(), imagePath)
+				try {
+					await unlink(imageFullPath)
+					console.info(`Successfully delete ${imageFullPath}`)
+					res.redirect("/bd-admin/set/images")
+				} catch (err) {
+					console.error("Error deleting image:", err)
+					res.status(500).txt("Internal Server Error")
+				}
+			},
+			15
+		)
+}

@@ -1,107 +1,83 @@
-// Internal Modules
-import { join } from "path"
+import { existsSync } from "node:fs"
 import { writeFile } from "node:fs/promises"
+import { getImages } from "../../functions/helpers/getImages.js"
+import { adminMenuItems } from "./adminMenuItems.js"
+import { processTags } from "./utils/processTags.js"
+import { formatFileName } from "./utils/formatFileName.js"
+import { filterFrontmatter } from "./utils/filterFrontmatter.js"
+import { quoteSpecialFields } from "./utils/quoteSpecialFields.js"
 
-// Internal Functions
-import { getImages, getPages, getPosts } from "../../functions/blog-doc.js"
-import { initializeApp } from "../../functions/initialize.js"
-const { app, eta } = initializeApp()
+export const adminCreateRoute = (app, settings, marked, join) => {
+	app.get("/bd-admin/add/:newFile", async (req, res) => {
+		const newFile = req.params.newFile
 
-// Settings
-import { settings } from "../../config/settings.js"
-const { siteTitle, footerCopyright } = settings
+		const parsedAdminNewPage = await app.parseMarkdownFile("themes/admin/pages/admin-add-new-page.md")
+		const parsedAdminNewPost = await app.parseMarkdownFile("themes/admin/pages/admin-add-new-post.md")
 
-// Route to create a page or a post.
-const data = {
-	title: "Admin Create",
-	description: `${siteTitle} Creation Page`,
-}
+		const { title, description, href } =
+			newFile === "new-page" ? parsedAdminNewPage.frontmatter : parsedAdminNewPost.frontmatter
+		const html_admin_content =
+			newFile === "new-page" ? marked.parse(parsedAdminNewPage.content) : marked.parse(parsedAdminNewPost.content)
 
-export const adminCreateRoute = app
-	.get("/admin-create", async (c) => {
-		const res = eta.render("admin/layouts/adminCreate.html", {
-			adminCreate: true,
-			data: data,
-			images: await getImages(),
-			siteTitle: siteTitle,
-			footerCopyright: footerCopyright,
+		res.render("themes/admin/layouts/index.html", {
+			title,
+			description,
+			href,
+			menu: adminMenuItems,
+			html_admin_content,
+			images: await getImages("static/images"),
+			siteTitle: settings.siteTitle,
+			createRoute: true,
 		})
-		return c.html(res)
+	}).post("/bd-admin/create-file", async (req, res, data) => {
+		const { file } = data
+		const fileName = formatFileName(file.title)
+		const fileType = file.type
+		const fileFullPath = join(process.cwd(), "views", fileType, `${fileName}.md`)
+
+		// Check if the file already exists
+		const pageFullPath = join(process.cwd(), "views", "pages", `${fileName}.md`)
+		const postFullPath = join(process.cwd(), "views", "posts", `${fileName}.md`)
+		if (existsSync(pageFullPath) || existsSync(postFullPath)) {
+			return res.status(400).json({ error: "File already exists" })
+		}
+
+		let frontmatter = {
+			title: file.title.trim(),
+			description: file.description.trim(),
+			featuredImage: file.image,
+			publish_date: file.publish_date,
+			tags: file.tags ? processTags(file.tags) : undefined,
+			published: file.published,
+			//href: `${fileName}`,
+		}
+
+		frontmatter = quoteSpecialFields(frontmatter)
+		const filteredFrontmatter = filterFrontmatter(frontmatter)
+		const content = file.content
+
+		const markdownContent = `---
+${Object.entries(filteredFrontmatter)
+	.map(([key, value]) => {
+		if (key === "tags") {
+			return `${key}: [${value}]`
+		}
+		return `${key}: ${value}`
 	})
-
-	.get("/check-admin-create", async (c) => {
-		// Merge the pages and the posts arrays into a single array named mdFiles
-		const pages = await getPages()
-		const posts = await getPosts()
-		const mdFiles = pages.concat(posts)
-		// Create a new array called mdTitles populated by Markdown files titles
-		const mdTitles = mdFiles.map((x) => x[0])
-		// Send mdTitles array to the client
-		return c.body(JSON.stringify(mdTitles))
-	})
-
-	.post("/admin-create", async (c) => {
-		const {
-			fileType,
-			fileContents,
-			pageTitle,
-			pageDescription,
-			pageImage,
-			postTitle,
-			postDate,
-			postDescription,
-			postImage,
-			postTags,
-			published,
-		} = await c.req.parseBody()
-
-		const pageContents = `---
-title : ${pageTitle}
-description: ${pageDescription}
-featuredImage: ${pageImage}
-published: ${published}
+	.join("\n")}
 ---
-${fileContents}`
 
-		const postContents = `---
-title : ${postTitle}
-date: ${postDate.split("-").join("/")}
-description: ${postDescription}
-featuredImage: ${postImage}
-tags: [${postTags}]
-published: ${published}
----
-${fileContents}`
+${content}`
 
-		const createdFilePath = `${join(process.cwd())}/views/${fileType}s`
+		// Redirect depending on file published state
+		const redirectPath = file.published === "true" ? `/${fileType}/${fileName}` : `/${fileType}/preview/${fileName}`
 
-		if (fileType === "page") {
-			const path = published == "true" ? "/pages" : "/admin-preview"
-
-			const createdPageName = pageTitle
-				.toLowerCase()
-				.replace(/[^a-zA-Z0-9-_ ]/g, "") // Remove special characters except hyphen and underscore
-				.replace(/_+/g, "-") // Replace any number of underscore by one hyphen
-				.replace(/\s+/g, "-") // Replace any number of space by one hyphen
-				.replace(/^-+/, "") // Remove any number of hyphen at the beginning
-				.replace(/-+/g, "-") // Replace any number of hyphen by one hyphen only
-				.replace(/-+$/, "") // Remove any number of hyphen at the end
-
-			writeFile(`${createdFilePath}/${createdPageName}.md`, pageContents, "utf8")
-			return c.redirect(`/admin-create?created=${path}/${createdPageName}`)
-		} else {
-			const path = published == "true" ? "/posts" : "/admin-preview"
-
-			const createdPostName = postTitle
-				.toLowerCase()
-				.replace(/[^a-zA-Z0-9-_ ]/g, "") // Remove special characters except hyphen and underscore
-				.replace(/_+/g, "-") // Replace any number of underscore by one hyphen
-				.replace(/\s+/g, "-") // Replace any number of space by one hyphen
-				.replace(/^-+/, "") // Remove any number of hyphen at the beginning
-				.replace(/-+/g, "-") // Replace any number of hyphen by one hyphen only
-				.replace(/-+$/, "") // Remove any number of hyphen at the end
-
-			writeFile(`${createdFilePath}/${createdPostName}.md`, postContents, "utf8")
-			return c.redirect(`/admin-create?created=${path}/${createdPostName}`)
+		try {
+			await writeFile(fileFullPath, markdownContent)
+			res.redirect(redirectPath)
+		} catch (error) {
+			console.error("Error writing file:", error)
+			res.status(500).json({ error: "Error creating file" })
 		}
 	})
+}
