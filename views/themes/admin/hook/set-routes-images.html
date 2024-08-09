@@ -1,0 +1,14 @@
+<form action="/bd-admin/update/routes-images" method="post" id="routes-images-form">
+	{{#each routesImagesArray}}
+	<div class="form-group" style="margin-bottom: 20px;">
+		<label for="{{routeNameLow}}-image-hidden-input">{{routeName}}</label>
+		<button type="button" class="bd-button-light" id="{{routeNameLow}}-route-image">
+			{{routeName}} featured image
+		</button>
+		<input type="hidden" name="{{route}}" id="{{routeNameLow}}-image-hidden-input" value="{{routeImagePath}}" />
+	</div>
+	{{/each}}
+    <button type="submit" class="bd-button-grey">Submit</button>
+</form>
+
+{{include("themes/admin/hook/modals/images-modal.html")}}

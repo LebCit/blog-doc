@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="/static/admin/styles/table.css" />
+
+<table-container>
+	<label for="searchInput">Search:</label>
+
+	{{#if href == "/bd-admin/get/all-pages"}}
+	<input type="text" id="searchInput" placeholder="Search for pages..." />
+	{{#else}}
+	<input type="text" id="searchInput" placeholder="Search for posts..." />
+	{{/if}}
+
+	<table id="filesTable">
+		<thead>
+			<tr>
+				<th data-sort-type="string">
+					<div class="sort-header">
+						<div class="sort-buttons">
+							<button class="sort-button" aria-label="Sort by Title ascending">&#9650;</button>
+							<button class="sort-button" aria-label="Sort by Title descending">&#9660;</button>
+						</div>
+						Title
+					</div>
+				</th>
+				<th data-sort-type="string">
+					<div class="sort-header">
+						<div class="sort-buttons">
+							<button class="sort-button" aria-label="Sort by Description ascending">&#9650;</button>
+							<button class="sort-button" aria-label="Sort by Description descending">&#9660;</button>
+						</div>
+						Description
+					</div>
+				</th>
+				{{#if href == "/bd-admin/get/all-posts"}}
+				<th data-sort-type="string">
+					<div class="sort-header">
+						<div class="sort-buttons">
+							<button class="sort-button" aria-label="Sort by Tags ascending">&#9650;</button>
+							<button class="sort-button" aria-label="Sort by Tags descending">&#9660;</button>
+						</div>
+						Tags
+					</div>
+				</th>
+				<th data-sort-type="date">
+					<div class="sort-header">
+						<div class="sort-buttons">
+							<button class="sort-button" aria-label="Sort by Publish date ascending">&#9650;</button>
+							<button class="sort-button" aria-label="Sort by Publish date descending">&#9660;</button>
+						</div>
+						Publish date
+					</div>
+				</th>
+				{{/if}}
+				<th data-sort-type="string">
+					<div class="sort-header">
+						<div class="sort-buttons">
+							<button class="sort-button" aria-label="Sort by Published ascending">&#9650;</button>
+							<button class="sort-button" aria-label="Sort by Published descending">&#9660;</button>
+						</div>
+						Published
+					</div>
+				</th>
+				<th class="no-sort">Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each filesData}}
+			<tr>
+				<td><a href="/bd-admin/edit/{{fileName}}" data-path="{{filePath}}">{{title}}</a></td>
+				<td>{{description}}</td>
+				{{#if href == "/bd-admin/get/all-posts"}}
+				<td>
+					{{#each1 tags}}
+					<span>{{this}}</span>
+					{{/each1}}
+				</td>
+				<td>{{publish_date}}</td>
+				{{/if}}
+				<td>{{published}}</td>
+				<td class="no-sort"><button class="delete-button" aria-label="Delete">&#128465;</button></td>
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</table-container>
+
+<div id="paginationControls"></div>
+
+{{include("themes/admin/hook/modals/delete-file-modal.html")}}
+
+<script type="module">
+	import { sortAndSearchTable } from "../../../../static/admin/scripts/sortAndSearchTable.js"
+
+	sortAndSearchTable("filesTable", "searchInput")
+</script>

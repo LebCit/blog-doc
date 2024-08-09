@@ -1,0 +1,100 @@
+<form action="/bd-admin/edit-file" method="post" id="file-form-edit">
+	<input type="hidden" name="file[path]" value="{{file.filePath}}" />
+	<input type="hidden" name="file[directory]" value="{{file.fileDir}}" />
+	<input type="hidden" name="file[href]" value="{{file.fileBaseName}}" />
+
+	<div class="form-group">
+		<label for="file-title">Title</label>
+		<input
+			type="text"
+			name="file[title]"
+			id="file-title"
+			value="{{file.frontmatter.title}}"
+			placeholder="Type title here"
+			required
+		/>
+	</div>
+
+	<div class="form-group">
+		<label for="file-description">Description</label>
+		{{#if file.frontmatter.description != undefined}}
+		<input
+			type="text"
+			name="file[description]"
+			id="file-description"
+			value="{{file.frontmatter.description}}"
+			placeholder="Describe content here"
+		/>
+		{{#else}}
+		<input
+			type="text"
+			name="file[description]"
+			id="file-description"
+			value=""
+			placeholder="Describe content here"
+		/>
+		{{/if}}
+	</div>
+
+	{{include("themes/admin/hook/modals/images-modal.html")}}
+	<button type="button" class="bd-button-light" id="file-image">Add an Image</button>
+
+	{{#if file.frontmatter.featuredImage != undefined}}
+	<input type="hidden" name="file[image]" id="file-image-hidden-input" value="{{file.frontmatter.featuredImage}}" />
+	{{#else}}
+	<input type="hidden" name="file[image]" id="file-image-hidden-input" />
+	{{/if}}
+
+	<!-- Dynamic markup separator-->
+	{{#if file.fileDir == "posts"}}
+	<div class="form-group">
+		<label for="file-publish-date">Date</label>
+		<input
+			type="date"
+			name="file[publish_date]"
+			id="file-publish-date"
+			value="{{file.frontmatter.publish_date}}"
+			required
+		/>
+	</div>
+
+	<div class="form-group">
+		<label for="file-tags">Tags</label>
+		<input
+			type="text"
+			name="file[tags]"
+			id="file-tags"
+			value="{{#each file.frontmatter.tags}}{{this}}, {{/each}}"
+			placeholder="Tag1, Tag2, Tag3..."
+		/>
+	</div>
+	{{/if}}
+
+	<fieldset>
+		<legend>Publish or save as draft?</legend>
+		<div>
+			{{#if file.frontmatter.published}}
+			<input type="radio" name="file[published]" id="file-published-true" value="true" checked />
+			<label for="file-published-true">Publish</label>
+
+			<input type="radio" name="file[published]" id="file-published-false" value="false" required />
+			<label for="file-published-false">Save as draft</label>
+			{{#else}}
+			<input type="radio" name="file[published]" id="file-published-true" value="true" required />
+			<label for="file-published-true">Publish</label>
+
+			<input type="radio" name="file[published]" id="file-published-false" value="false" checked />
+			<label for="file-published-false">Save as draft</label>
+			{{/if}}
+		</div>
+	</fieldset>
+
+	{{include("themes/admin/hook/sme.html")}}
+
+	<!-- Dynamic markup separator -->
+	{{#if file.fileDir == "pages"}}
+	<input class="bd-button-grey" type="submit" value="Update page" />
+	{{#else}}
+	<input class="bd-button-grey" type="submit" value="Update post" />
+	{{/if}}
+</form>

@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/static/admin/styles/gallery.css" />
+<style>
+	.image-gallery {
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+	}
+	.image-card__img-wrapper {
+		height: 200px !important;
+	}
+	.image-card__radio {
+		width: 20px;
+		height: 20px;
+	}
+	.image-card__name {
+		font-size: 1em !important;
+	}
+</style>
+
+<div class="image-gallery">
+	{{#each images}}
+	<div class="image-card">
+		<div class="image-card__img-wrapper">
+			<input
+				type="radio"
+				name="themes"
+				class="image-card__radio"
+				id="radio-{{@index}}"
+				data-theme-name="{{imageBaseName}}"
+			/>
+			<label for="radio-{{@index}}" class="image-card__label">Thumbnail of {{imageName}} theme</label>
+			<img src="/{{imagePath}}" alt="Thumbnail of {{imageName}} theme" class="image-card__img" />
+		</div>
+		<div class="image-card__info">
+			<h3 class="image-card__name">{{imageName}}</h3>
+		</div>
+	</div>
+	{{/each}}
+</div>
+
+<form id="selected-theme-form" action="/bd-admin/update/theme" method="post">
+	<input type="hidden" name="currentTheme" value="{{activeTheme}}" />
+	<button type="submit" class="bd-button-grey">Activate Selected Theme</button>
+</form>
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const selectedThemeInput = document.querySelector("input[name='currentTheme']")
+		const themesInputs = document.querySelectorAll("input[name='themes']")
+		const form = document.getElementById("selected-theme-form")
+
+		// Set the initial checked radio button
+		themesInputs.forEach((input) => {
+			if (selectedThemeInput.value === input.dataset.themeName) {
+				input.checked = true
+			}
+		})
+
+		// Function to get the checked radio button from a group
+		function getCheckedRadio(name) {
+			return document.querySelector(`input[name="${name}"]:checked`)
+		}
+
+		// Handle form submission
+		form.addEventListener("submit", (e) => {
+			const selectedTheme = getCheckedRadio("themes")
+			if (selectedTheme) {
+				selectedThemeInput.value = selectedTheme.dataset.themeName
+			} else {
+				e.preventDefault() // Prevent form submission if no radio button is checked
+				alert("Please select a theme before submitting.")
+			}
+		})
+	})
+</script>

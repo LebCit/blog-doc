@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="/static/admin/styles/menu.css" />
+
+<div id="menu-settings" data-sm="column center">
+	<ul id="menu">
+		{{#each frontEndMenuArray}}
+		<li class="menu-item" data-key="{{linkTarget}}" data-value="{{linkTitle}}">
+			<div class="menu-item-header">
+				<span class="drag-handle" draggable="true">☰</span>
+				<button class="expandable-summary" aria-expanded="false">{{linkTitle}}</button>
+			</div>
+			<div class="expandable-content form-group">
+				<label>
+					Link Title:
+					<input type="text" value="{{linkTitle}}" class="link-title" />
+				</label>
+				<label>
+					Link Target:
+					<input type="text" value="{{linkTarget}}" class="link-target" />
+				</label>
+				<button class="remove-item bd-button-red">Remove</button>
+			</div>
+		</li>
+		{{/each}}
+	</ul>
+
+	<button id="addItem" class="bd-button-light" data-sm="left">Add Item</button>
+</div>
+
+<button id="saveOrder" class="bd-button-grey" data-sm="left">Save Menu</button>
+
+{{include("themes/admin/hook/modals/delete-menu-item-modal.html")}}
+{{include("themes/admin/hook/modals/validation-error-modal.html")}}
+
+<script type="module" src="/static/admin/scripts/menu.js"></script>

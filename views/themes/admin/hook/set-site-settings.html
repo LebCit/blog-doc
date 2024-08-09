@@ -1,0 +1,194 @@
+<style>
+	.site-settings-button {
+		margin-top: 16px;
+	}
+
+	hr {
+		margin: 25px 0;
+	}
+
+	/* Basic styling for the select element */
+	select {
+		padding: 8px 12px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		background-color: #fff;
+		font-size: 16px;
+		color: #333;
+		cursor: pointer;
+		outline: none;
+	}
+
+	/* Styling for the dropdown arrow */
+	select::-ms-expand {
+		display: none; /* For Internet Explorer */
+	}
+
+	/* Hover effect */
+	select:hover {
+		border-color: #888;
+	}
+
+	/* Focus effect */
+	select:focus {
+		border-color: #0056b3;
+		box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.2);
+	}
+
+	@media (max-width: 768px) {
+		#site-settings-form {
+			width: 100%;
+		}
+		.form-group {
+			display: block;
+		}
+		.form-group input {
+			width: 100%;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		#site-settings-form {
+			width: 80%;
+		}
+	}
+
+	@media (min-width: 1200px) {
+		#site-settings-form {
+			width: 60%;
+		}
+	}
+</style>
+
+<form id="site-settings-form" action="/bd-admin/update/site-settings" method="post">
+	<div class="form-group">
+		<label for="site-title">
+			Site Title
+			<strong>*</strong>
+			:
+		</label>
+		<input type="text" name="siteTitle" id="site-title" value="{{settings.siteTitle}}" required />
+	</div>
+
+	<div class="form-group">
+		<label for="site-description">
+			Site Description
+			<strong>*</strong>
+			:
+		</label>
+		<input type="text" name="siteDescription" id="site-description" value="{{settings.siteDescription}}" required />
+	</div>
+
+	<div class="form-group">
+		<label for="site-url">
+			Site URL
+			<strong>*</strong>
+			:
+		</label>
+		<input type="text" name="siteURL" id="site-url" value="{{settings.siteURL}}" required />
+	</div>
+
+	<button type="button" class="bd-button-grey site-settings-button">Site Favicon</button>
+	<input type="text" name="favicon" id="site-favicon" value="{{settings.favicon}}" hidden />
+
+	<hr />
+
+	<div class="form-group">
+		<label for="site-posts-per-page">
+			Posts Per Page
+			<strong>*</strong>
+			:
+		</label>
+		<input
+			type="number"
+			min="1"
+			max="10"
+			name="postsPerPage"
+			id="site-posts-per-page"
+			value="{{settings.postsPerPage}}"
+			required
+		/>
+	</div>
+
+	<button type="button" class="bd-button-grey site-settings-button">Post Preview Fallback Image</button>
+	<input
+		type="text"
+		name="postPreviewFallbackImage"
+		id="site-post-preview-fallback-image"
+		value="{{settings.postPreviewFallbackImage}}"
+		hidden
+	/>
+
+	<hr />
+
+	<div>
+		<label for="site-search-feature">
+			Search Feature
+			<strong>*</strong>
+			:
+		</label>
+
+		{{#if settings.searchFeature}}
+		<select name="searchFeature" id="site-search-feature" required>
+			<option value="">Please choose a value</option>
+			<option value="true" selected>True</option>
+			<option value="false">False</option>
+		</select>
+		{{#else}}
+		<select name="searchFeature" id="site-search-feature" required>
+			<option value="">Please choose a value</option>
+			<option value="true">True</option>
+			<option value="false" selected>False</option>
+		</select>
+		{{/if}}
+	</div>
+
+	<hr />
+
+	<div class="form-group">
+		<label for="site-footer-copyright">
+			Footer Copyright
+			<strong>*</strong>
+			:
+		</label>
+		<input
+			type="text"
+			name="footerCopyright"
+			id="site-footer-copyright"
+			value="{{settings.footerCopyright}}"
+			required
+		/>
+	</div>
+
+	<hr />
+
+	<div class="form-group">
+		<label for="rss-site-language">
+			RSS Site Language
+			<strong>*</strong>
+			:
+		</label>
+		<input
+			type="text"
+			name="rssSiteLanguage"
+			id="rss-site-language"
+			value="{{settings.rssSiteLanguage}}"
+			required
+		/>
+	</div>
+
+	<div class="form-group">
+		<label for="site-rss-copyright">
+			RSS Copyright
+			<strong>*</strong>
+			:
+		</label>
+		<input type="text" name="rssCopyright" id="site-rss-copyright" value="{{settings.rssCopyright}}" required />
+	</div>
+
+	<hr />
+
+	<button type="submit" class="bd-button-dark">Update Site Settings</button>
+</form>
+
+{{include("themes/admin/hook/modals/images-modal.html")}}
