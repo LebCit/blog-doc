@@ -1,10 +1,8 @@
 import { join } from "path"
-import { Hono } from "hono"
+import { LiteNode } from "litenode"
 import { Eta } from "eta"
 
-export function initializeApp() {
-	const app = new Hono()
-	const eta = new Eta({ views: join(process.cwd(), "views") })
+const app = new LiteNode()
+const eta = new Eta({ views: join(process.cwd(), "views") })
 
-	return { app, eta }
-}
+export { app, eta }
