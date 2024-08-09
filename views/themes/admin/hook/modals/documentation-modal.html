@@ -1,0 +1,20 @@
+<button id="documentation-modal-button" class="bd-button-darker" data-sm="left">Click to open documentation</button>
+
+<div id="documentation-modal" class="modal-overlay">
+	<div
+		class="modal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="documentationModalTitle"
+		aria-describedby="documentationModalDescription"
+	>
+		<div class="modal-header">
+			<h2 id="documentationModalTitle">Documentation for: {{title}}</h2>
+			<button class="close" aria-label="Close">&times;</button>
+		</div>
+		<div class="modal-body" id="documentationModalDescription">{{html_admin_content}}</div>
+		<div class="modal-footer">
+			<button class="cancel bd-button-grey">Close modal</button>
+		</div>
+	</div>
+</div>

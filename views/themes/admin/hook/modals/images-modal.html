@@ -1,0 +1,67 @@
+<style>
+	.image-gallery {
+		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
+	}
+	.image-card__img-wrapper {
+		height: 100px !important;
+	}
+</style>
+<link rel="stylesheet" href="/static/admin/styles/gallery.css" />
+
+<div id="images-modal" class="modal-overlay">
+	<div
+		class="modal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="imagesModalTitle"
+		aria-describedby="imagesModalDescription"
+	>
+		<div class="modal-header">
+			<h2 id="imagesModalTitle">Choose a featured image from the gallery</h2>
+			<button type="button" class="close" aria-label="Close">&times;</button>
+		</div>
+		<div class="modal-body" id="imagesModalDescription">
+			<!-- URL input -->
+			<div class="image-url-input-wrapper">
+				<div class="image-url-label">Use an image from the web:</div>
+				<div class="image-url-input-group form-group">
+					<div class="radio-box">
+						<input type="radio" name="selectedImage" class="image-card__radio" id="radio-url" />
+					</div>
+					<input type="url" id="image-url-input" placeholder="Enter image URL" class="image-url-input" />
+				</div>
+			</div>
+
+			<div class="image-gallery">
+				<div class="image-card">
+					<div class="image-card__img-wrapper">
+						<input type="radio" name="selectedImage" class="image-card__radio" id="photo-off-icon" />
+						<label
+							for="photo-off-icon"
+							class="image-card__label"
+							title="Choose this to opt for no image"
+						>Select no image</label>
+						<img
+							src="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/icons/photo-off.svg"
+							alt="Select no image"
+							class="image-card__img"
+						/>
+					</div>
+				</div>
+				{{#each images}}
+				<div class="image-card">
+					<div class="image-card__img-wrapper">
+						<input type="radio" name="selectedImage" class="image-card__radio" id="radio-{{@index}}" />
+						<label for="radio-{{@index}}" class="image-card__label">{{imageName}}</label>
+						<img src="/{{imagePath}}" alt="{{imageName}}" class="image-card__img" />
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="cancel bd-button-grey">Close modal</button>
+			<button type="button" class="confirm bd-button-dark">Apply image</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,39 @@
+<div id="delete-file-modal" class="modal-overlay">
+	<div
+		class="modal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="deleteFileModalTitle"
+		aria-describedby="deleteFileModalDescription"
+	>
+		<div class="modal-header">
+			<h2 id="deleteFileModalTitle">
+				{{#if href == "/bd-admin/get/all-pages"}}Delete page?!{{#else}}Delete post?!{{/if}}
+			</h2>
+			<button class="close" aria-label="Close">&times;</button>
+		</div>
+		<div class="modal-body" id="deleteFileModalDescription">
+			<h3>File title</h3>
+			<p>
+				By clicking on the
+				<strong>Delete</strong>
+				button, {{#if href == "/bd-admin/get/all-pages"}}the page{{#else}}the post{{/if}} and all its associated
+				data will be permanently erased!
+				<br />
+				Please note that deleted {{#if href == "/bd-admin/get/all-pages"}}pages{{#else}}posts{{/if}} cannot be
+				recovered!
+				<br />
+				This action is irreversible, the {{#if href == "/bd-admin/get/all-pages"}}page{{#else}}post{{/if}} will
+				be forever lost if you confirm the deletion!
+			</p>
+
+			<form id="file-form-delete" action="/bd-admin/delete-file" method="post" hidden>
+				<input type="text" name="filePath" id="file-href" />
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="cancel bd-button-grey">Cancel</button>
+			<button class="confirm bd-button-red" type="submit" form="file-form-delete">Delete</button>
+		</div>
+	</div>
+</div>

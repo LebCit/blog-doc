@@ -1,0 +1,24 @@
+<div id="validation-error-modal" class="modal-overlay">
+	<div
+		class="modal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="validationErrorModalTitle"
+		aria-describedby="validationErrorModalDescription"
+	>
+		<div class="modal-header">
+			<h2 id="validationErrorModalTitle">Validation Error</h2>
+			<button class="close" aria-label="Close">&times;</button>
+		</div>
+		<div class="modal-body" id="validationErrorModalDescription">
+			{{#if setMenu}}
+			<p>All link titles and link targets must be filled out!</p>
+			{{#else}}
+			<p>A file with the same name already exists!</p>
+			{{/if}}
+		</div>
+		<div class="modal-footer">
+			<button class="cancel bd-button-grey">Cancel</button>
+		</div>
+	</div>
+</div>
