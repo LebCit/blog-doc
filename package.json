@@ -37,10 +37,9 @@
   },
   "homepage": "https://blog-doc.pages.dev/",
   "dependencies": {
-    "@hono/node-server": "^1.11.0",
-    "adm-zip": "^0.5.12",
+    "adm-zip": "^0.5.14",
     "eta": "^3.4.0",
-    "hono": "^4.2.5",
-    "marked": "^12.0.2"
+    "litenode": "^3.5.0",
+    "marked": "^13.0.2"
   }
 }
