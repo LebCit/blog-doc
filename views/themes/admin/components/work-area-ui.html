@@ -1,0 +1,49 @@
+<work-area-ui data-sm="column gap">
+	{{#if mainRoute || buildStaticSite}}
+	<!-- Include documentation of main route  -->
+	{{html_admin_content}}
+	<!-- Dynamic markup separator -->
+	{{#else}}
+	<!-- Include documentation inside modal  -->
+	{{include("themes/admin/hook/modals/documentation-modal.html")}}
+	<!-- Dynamic markup separator -->
+	{{/if}}
+
+	<!-- Dynamic markup separator -->
+	{{#if tableRoute}}
+	<!-- Include table for pages and posts -->
+	{{include("themes/admin/hook/table.html")}}
+	<!-- Dynamic markup separator -->
+	{{#elseif createRoute}}
+	<!-- Include form to create a file -->
+	{{include("themes/admin/hook/file-form-create.html")}}
+	<!-- Dynamic markup separator -->
+	{{#elseif editRoute}}
+	<!-- Include form to edit a file -->
+	{{include("themes/admin/hook/file-form-edit.html")}}
+	<!-- Dynamic markup separator -->
+	{{#elseif galleryRoute}}
+	<!-- Include gallery to manage images -->
+	{{include("themes/admin/hook/gallery.html")}}
+	<!-- Dynamic markup separator -->
+	{{#elseif setRoutesImages}}
+	<!-- Include routes images interface -->
+	{{include("themes/admin/hook/set-routes-images.html")}}
+	<!-- Dynamic markup separator -->
+	{{#elseif setTheme}}
+	<!-- Include themes interface -->
+	{{include("themes/admin/hook/set-theme.html")}}
+	<!-- Dynamic markup separator -->
+	{{#elseif setMenu}}
+	<!-- Include menu management interface -->
+	{{include("themes/admin/hook/set-menu.html")}}
+	<!-- Dynamic markup separator -->
+	{{#elseif setSiteSettings}}
+	<!-- Include site settings interface -->
+	{{include("themes/admin/hook/set-site-settings.html")}}
+	<!-- Dynamic markup separator -->
+	{{/if}}
+
+	<!-- Dynamic markup separator -->
+	{{include("themes/admin/hook/modals/build-await-modal.html")}}
+</work-area-ui>

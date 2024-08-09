@@ -1,0 +1,18 @@
+<mobile-menu-header data-sm="2column" data-lg="hide">
+	<h2 data-sm="left middle">Blog-Doc Menu</h2>
+	<button data-sm="right" class="bd-button-dark close-mobile-menu"><span>✖</span></button>
+</mobile-menu-header>
+
+<nav>
+	<li><a href="/bd-admin">Dashboard</a></li>
+	{{#each menu}}
+	<details open>
+		<summary>{{key}}</summary>
+		<ul>
+			{{#each1 values}}
+			<li><a href="/bd-admin/{{href}}">{{item}}</a></li>
+			{{/each1}}
+		</ul>
+	</details>
+	{{/each}}
+</nav>
