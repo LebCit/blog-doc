@@ -1,0 +1,97 @@
+#menu {
+	list-style-type: none;
+	padding: 0;
+}
+
+#menu .menu-item {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #ccc;
+	margin-bottom: 5px;
+}
+
+.menu-item-header {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 10px;
+}
+
+.dragging {
+	opacity: 0.5;
+	background-color: #93c5fd;
+}
+
+.expandable-content {
+	display: none;
+	padding: 10px;
+	flex-direction: column;
+	width: 90%;
+    align-self: center;
+    align-items: inherit;
+}
+
+.expandable-content.active {
+	display: flex;
+}
+
+.expandable-summary {
+	cursor: pointer;
+	background: none;
+	border: none;
+	text-align: left;
+	width: 100%;
+	font-size: 1em;
+	flex-grow: 1;
+	position: relative;
+}
+
+.expandable-summary::after {
+	content: "▼";
+	position: absolute;
+	right: 25px;
+	transition: transform 0.3s;
+}
+
+.expandable-summary[aria-expanded="true"]::after {
+	content: "▲";
+}
+
+.drag-handle {
+	cursor: grab;
+	padding: 10px;
+	margin-right: 10px;
+}
+
+.menu-item .expandable-content label {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.menu-item .expandable-content input {
+	margin-left: 10px;
+	flex-grow: 1;
+}
+
+.menu-item .expandable-content button {
+	align-self: flex-start;
+}
+
+@media (max-width: 768px) {
+	#menu-settings {
+		width: 80%;
+	}
+}
+
+@media (min-width: 1024px) {
+	#menu-settings {
+		width: 70%;
+	}
+}
+
+@media (min-width: 1200px) {
+	#menu-settings {
+		width: 60%;
+	}
+}
