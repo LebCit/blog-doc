@@ -32,6 +32,10 @@
   ],
   "author": "LebCit (https://lebcit.github.io/)",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LebCit/blog-doc/issues"
+  },
+  "homepage": "https://blog-doc.pages.dev/",
   "dependencies": {
     "@hono/node-server": "^1.11.0",
     "adm-zip": "^0.5.12",
