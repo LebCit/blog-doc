@@ -1,4 +1,9 @@
+import { updateExternalLinks } from "../../updateExternalLinks.js"
+
 window.addEventListener("DOMContentLoaded", () => {
+	updateExternalLinks()
+
+	// Hide and show the main menu when scrolling on large screens
 	let scrollPos = 0
 	const mainNav = document.getElementById("mainNav")
 	const headerHeight = mainNav.clientHeight
@@ -30,24 +35,4 @@ window.addEventListener("DOMContentLoaded", () => {
 			image.classList.add("img-fluid")
 		})
 	}
-
-	// Detect external links
-	const isExternalLink = (url) => {
-		const tmp = document.createElement("a")
-		tmp.href = url
-		return tmp.host !== window.location.host
-	}
-	// Select all links
-	const allLinks = document.querySelectorAll("a")
-	// Add attributes and icon to each external link
-	allLinks.forEach((link) => {
-		if (isExternalLink(link)) {
-			link.setAttribute("target", "_blank")
-			link.setAttribute("rel", "external noopener noreferrer")
-			link.insertAdjacentHTML(
-				"beforeend",
-				` <i class="fa-solid fa-arrow-up-right-from-square" title="External link"></i>`
-			)
-		}
-	})
 })
