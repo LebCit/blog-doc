@@ -1,23 +1,19 @@
 // Helper functions
-import { ensureFoldersExist } from "../helpers/ensureFoldersExist.js"
-import { writeFileWithHandling } from "../helpers/writeFileWithHandling.js"
+import { ensureFoldersExist } from "../../helpers/ensureFoldersExist.js"
+import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
-import { sitemap } from "../../sitemap.js"
-import { initializeApp } from "../../initialize.js"
-const { eta } = initializeApp()
-
-// Settings
-import { settings } from "../../../config/settings.js"
+import { eta } from "../../../initialize.js"
+import { sitemap } from "../../../sitemap.js"
 
 /**
  * Function to create the sitemap
  * ==============================
  */
-export const sitemapRoute = async () => {
+export const sitemapRoute = async (app, settings) => {
 	try {
 		const sitemapXML = eta.render(`themes/${settings.currentTheme}/layouts/sitemap.html`, {
-			urls: sitemap(),
+			urls: await sitemap(app),
 		})
 
 		await ensureFoldersExist(["_site"])

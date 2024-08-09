@@ -1,15 +1,15 @@
 // Helper functions
-import { ensureFoldersExist } from "../helpers/ensureFoldersExist.js"
-import { readFileWithHandling } from "../helpers/readFileWithHandling.js"
-import { writeFileWithHandling } from "../helpers/writeFileWithHandling.js"
+import { ensureFoldersExist } from "../../helpers/ensureFoldersExist.js"
+import { readFileWithHandling } from "../../helpers/readFileWithHandling.js"
+import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
 import { getPosts } from "../../blog-doc.js"
-import { initializeApp } from "../../initialize.js"
+import { initializeApp } from "../../../initialize.js"
 const { eta } = initializeApp()
 
 // Settings
-import { settings } from "../../../config/settings.js"
+import { settings } from "../../../../config/settings.js"
 
 /**
  * Function to create the search page

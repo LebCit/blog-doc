@@ -1,34 +1,32 @@
 // Helper functions
-import { ensureFoldersExist } from "../helpers/ensureFoldersExist.js"
-import { writeFileWithHandling } from "../helpers/writeFileWithHandling.js"
+import { ensureFoldersExist } from "../../helpers/ensureFoldersExist.js"
+import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
-import { getPosts, postsByTagList } from "../../blog-doc.js"
-import { initializeApp } from "../../initialize.js"
-const { eta } = initializeApp()
-
-// Settings
-import { settings } from "../../../config/settings.js"
+import { eta } from "../../../initialize.js"
+import { getPostsByTag } from "../../../helpers/processPostsTags.js"
 
 /**
  * Function to create a page for each tag
  * ======================================
  */
-export const tagRoute = async () => {
+export const tagRoute = async (app, settings) => {
 	try {
-		const posts = await getPosts()
-
-		const allTagsArray = posts.flatMap((post) => post[1].frontmatter.tags).sort()
-		const tagsArray = [...new Set(allTagsArray)]
+		// Get all published posts
+		const posts = (await app.parseMarkdownFileS("posts")).filter((page) => page.frontmatter.published === true)
+		// Extract all tags from each post
+		const tagsFromPosts = posts.flatMap((post) => post.frontmatter.tags)
+		// Remove duplicate tags and sort them
+		const uniqueSortedTags = [...new Set(tagsFromPosts)].sort()
 
 		await Promise.all(
-			tagsArray.map(async (tag) => {
+			uniqueSortedTags.map(async (tag) => {
 				// If tag is not undefined:
 				if (tag) {
 					// Create a folder for each tag
 					await ensureFoldersExist([`_site/tags/${tag}`])
 
-					const postsByTag = await postsByTagList(tag)
+					const postsByTag = await getPostsByTag(app, tag)
 
 					const data = {
 						title: postsByTag.length > 1 ? `Posts Tagged "${tag}"` : `Post Tagged "${tag}"`,

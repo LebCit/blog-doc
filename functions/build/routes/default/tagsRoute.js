@@ -1,20 +1,16 @@
 // Helper functions
-import { ensureFoldersExist } from "../helpers/ensureFoldersExist.js"
-import { writeFileWithHandling } from "../helpers/writeFileWithHandling.js"
+import { ensureFoldersExist } from "../../helpers/ensureFoldersExist.js"
+import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
-import { postsByTagCount } from "../../blog-doc.js"
-import { initializeApp } from "../../initialize.js"
-const { eta } = initializeApp()
-
-// Settings
-import { settings } from "../../../config/settings.js"
+import { eta } from "../../../initialize.js"
+import { countPostsByTag } from "../../../helpers/processPostsTags.js"
 
 /**
  * Function to create the tags list page
  * =====================================
  */
-export const tagsRoute = async () => {
+export const tagsRoute = async (app, settings) => {
 	try {
 		const data = {
 			title: "Tags",
@@ -26,7 +22,7 @@ export const tagsRoute = async () => {
 		const tagsHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 			tagsRoute: true,
 			data: data,
-			posts: await postsByTagCount(),
+			posts: await countPostsByTag(app),
 			siteTitle: settings.siteTitle,
 			menuLinks: settings.menuLinks,
 			footerCopyright: settings.footerCopyright,

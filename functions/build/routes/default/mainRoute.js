@@ -1,27 +1,22 @@
 // Helper functions
-import { ensureFoldersExist } from "../helpers/ensureFoldersExist.js"
-import { writeFileWithHandling } from "../helpers/writeFileWithHandling.js"
+import { ensureFoldersExist } from "../../helpers/ensureFoldersExist.js"
+import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
-import { getPosts } from "../../blog-doc.js"
-import { paginator } from "../../helpers.js"
-import { initializeApp } from "../../initialize.js"
-const { eta } = initializeApp()
-
-// Settings
-import { settings } from "../../../config/settings.js"
+import { eta } from "../../../initialize.js"
+import { processMarkdownPosts } from "../../../helpers/processMarkdownPosts.js"
 
 /**
  * Function to create the blog
  * ===========================
  */
-export const mainRoute = async () => {
+export const mainRoute = async (app, settings) => {
 	try {
-		const posts = await getPosts()
-		const paginatedPosts = paginator(posts, 1, settings.postsPerPage)
+		const posts = await processMarkdownPosts(app)
+		const paginatedPosts = await app.paginateMarkdownFiles(posts, 1, settings.postsPerPage)
 		const newestPosts = paginatedPosts.data
 		const lastPage = paginatedPosts.total_pages - 1
-		const postsLength = paginatedPosts.total
+		const postsLength = paginatedPosts.total_items
 
 		const data = {
 			title: "Home",
@@ -54,7 +49,11 @@ export const mainRoute = async () => {
 			await ensureFoldersExist([`_site/page/${i}`])
 
 			// Paginated array from the list of posts without the newest X posts
-			const paginatedPostsList = paginator(posts.slice(settings.postsPerPage), i, settings.postsPerPage)
+			const paginatedPostsList = await app.paginateMarkdownFiles(
+				posts.slice(settings.postsPerPage),
+				i,
+				settings.postsPerPage
+			)
 
 			const dynamicIndexHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				mainRoute: true,
