@@ -1,0 +1,135 @@
+.image-gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 16px;
+	padding: 16px;
+}
+
+/* Specific styles for the URL input section */
+.image-url-input-wrapper {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 16px;
+}
+
+.image-url-label {
+	margin-bottom: 8px;
+	font-size: 1em;
+	color: #333;
+}
+
+.image-url-input-group {
+	display: flex;
+	align-items: center;
+}
+
+.radio-box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-right: 8px;
+}
+
+.image-url-input-wrapper .image-card__radio {
+	position: static; /* Remove the absolute positioning for the URL input radio */
+	/* margin-right: 0; */ /* Reset the margin */
+}
+
+.image-url-input {
+	flex: 1;
+	/* padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 1em; */
+}
+
+.image-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 100%;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	background-color: #fff;
+	position: relative;
+}
+
+.image-card__img-wrapper {
+	width: 100%;
+	height: 150px;
+	overflow: hidden;
+	position: relative;
+}
+
+.image-card__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: filter 0.3s;
+}
+
+.image-card__radio {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	z-index: 2;
+}
+
+.image-card__label {
+	color: transparent;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	
+}
+
+.image-card__info {
+	padding: 16px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex-grow: 1;
+}
+
+.image-card__name {
+	margin-bottom: 12px;
+	font-size: 0.5em;
+	color: #333;
+}
+
+/* Blur effect for unselected images */
+.blurred {
+	filter: blur(5px);
+}
+
+/* Basic styling for the native file input */
+input[type="file"] {
+	font-family: inherit;
+	font-size: inherit;
+	padding: 6px 10px;
+	border: 1px solid var(--bd-6);
+	border-radius: 4px;
+	background-color: #f8f9fa;
+	cursor: pointer;
+	color: inherit;
+}
+
+/* Add some margin for spacing */
+input[type="file"] {
+	margin: 10px 0;
+}
+
+/* Change background color on hover */
+input[type="file"]:hover {
+	background-color: #e2e6ea;
+}
