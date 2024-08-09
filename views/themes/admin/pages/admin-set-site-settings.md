@@ -50,6 +50,7 @@ After making your changes, click the "Update Site Settings" button. Then, naviga
 
 -   **Description**: Change the copyright information displayed in your site's footer.
 -   **Usage**: Important for legal and branding purposes.
+-   **Important**: HTML attributes MUST be single quoted otherwise your app will break!
 
 ### RSS Site Language
 
