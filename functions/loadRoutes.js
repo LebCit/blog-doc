@@ -39,3 +39,33 @@ async function loadThemeRoutes() {
 	}
 }
 
+/**
+ * Asynchronously loads the admin routes.
+ *
+ * This function dynamically imports the admin route aggregator file
+ * and initializes the admin routes.
+ *
+ * @async
+ * @function loadAdminRoutes
+ * @returns {Promise<void>} A promise that resolves when the admin routes are successfully loaded.
+ */
+async function loadAdminRoutes() {
+	const adminRoutesDir = join(process.cwd(), "routes", "admin")
+	const adminRoutesPath = pathToFileURL(join(adminRoutesDir, "aggregator.js")).href
+
+	try {
+		// Dynamically import the admin routes module
+		const adminRoutesModule = await import(adminRoutesPath)
+		const initializeAdminRoutes = adminRoutesModule.default
+
+		// If the imported module is a function, call it to initialize routes
+		if (typeof initializeAdminRoutes === "function") {
+			initializeAdminRoutes(app, settings)
+		}
+
+		console.log(`Admin routes loaded successfully from "admin" folder.`)
+	} catch (error) {
+		console.error(`Failed to load admin routes:`, error)
+	}
+}
+
