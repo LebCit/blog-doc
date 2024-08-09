@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	{{include("themes/admin/components/head.html")}}
+	<body data-sm="column">
+		{{include("themes/admin/components/header.html")}}
+
+		<main data-sm="column childPad" data-lg="2column">
+			<mobile-menu-trigger data-sm="pad" data-lg="hide">
+				<button class="bd-button-dark"><span>☰ Blog-Doc Menu</span></button>
+				<span>➤</span>
+			</mobile-menu-trigger>
+
+			<aside>{{include("themes/admin/components/menu.html")}}</aside>
+
+			<work-area>{{include("themes/admin/components/work-area-ui.html")}}</work-area>
+		</main>
+
+		<footer data-sm="column pad gap" data-lg="2column noPad noGap">
+			<img data-sm="center" data-lg="left" src="/static/admin/images/logo.svg" alt="Blog-Doc SVG Logo" />
+			<blog-doc-footer data-sm="column gap" data-lg="2column noGap">
+				<blog-doc-footer-copyright data-sm="textC" data-lg="left">
+					<a href="https://github.com/LebCit/blog-doc/blob/master/LICENSE">MIT</a>
+					&copy; 2022-Present .
+					<a href="https://github.com/LebCit/blog-doc/releases/tag/v3.0.0">Version 3.0.0</a>
+				</blog-doc-footer-copyright>
+
+				<blog-doc-footer-links data-sm="textC" data-lg="right">
+					<span>
+						Proudly created with
+						<br data-lg="hide" />
+						<a href="https://www.npmjs.com/package/litenode">LiteNode</a>
+						by
+						<a href="https://lebcit.github.io/">LebCit</a>
+					</span>
+				</blog-doc-footer-links>
+			</blog-doc-footer>
+		</footer>
+
+		<script src="/static/vendors/highlight/highlight.min.js"></script>
+		<script>
+			hljs.highlightAll()
+		</script>
+		<script type="module" src="/static/admin/scripts/admin.js"></script>
+	</body>
+</html>
