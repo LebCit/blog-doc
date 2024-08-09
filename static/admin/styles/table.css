@@ -1,0 +1,107 @@
+table-container {
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 8px;
+	text-align: left;
+	border: 1px solid var(--bd-5);
+}
+
+th {
+	cursor: pointer;
+}
+
+th.no-sort,
+td.no-sort {
+	cursor: default;
+}
+
+tr:nth-child(even) {
+	background-color: var(--bd-3);
+}
+
+#searchInput {
+	margin-bottom: 10px;
+	padding: 8px;
+}
+
+/* Container for the pagination controls */
+#paginationControls {
+	display: flex;
+	justify-content: center;
+	margin: 20px 0;
+}
+
+/* Style for the pagination buttons */
+.page-button {
+	border: 1px solid var(--bd-5);
+	padding: 8px 16px;
+	margin: 0 4px;
+	cursor: pointer;
+	background-color: var(--bd-1);
+	color: var(--bd-9);
+	transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover effect for the pagination buttons */
+.page-button:hover {
+	background-color: var(--bd-5);
+}
+
+/* Active page button style */
+.page-button.active {
+	background-color: #1e40af;
+	color: var(--bd-1);
+	border-color: #1e40af;
+}
+
+/* Container for the sort buttons and the header title */
+.sort-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* Container for the sort buttons */
+.sort-buttons {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+/* Style for sort buttons */
+.sort-button {
+	border: none;
+	background: none;
+	cursor: pointer;
+	font-size: 1em;
+	margin: 2px 0; /* Adjust margin as needed for spacing */
+	padding: 0;
+}
+
+.sort-button:focus {
+	outline: none;
+	color: #007bff;
+}
+
+/* Style for delete buttons */
+.delete-button {
+	border: none;
+	background: none;
+	cursor: pointer;
+	color: #991b1b;
+	font-size: x-large;
+	padding: 0;
+}
+
+.delete-button:focus {
+	outline: none;
+	color: #d32f2f;
+}
