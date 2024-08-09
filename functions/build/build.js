@@ -10,14 +10,7 @@ import { copyStaticFolderWithFilters } from "./helpers/copyStaticFolderWithFilte
 import { settings } from "../../config/settings.js"
 
 // Routes
-import { archiveRoute } from "./routes/archiveRoute.js"
-import { mainRoute } from "./routes/mainRoute.js"
-import { markdownRoute } from "./routes/markdownRoute.js"
-import { rssRoute } from "./routes/rssRoute.js"
-import { searchRoute } from "./routes/searchRoute.js"
-import { sitemapRoute } from "./routes/sitemapRoute.js"
-import { tagRoute } from "./routes/tagRoute.js"
-import { tagsRoute } from "./routes/tagsRoute.js"
+import { loadThemeBuildRoutes } from "../loadRoutes.js"
 
 /**
  * Function to generate a static site
@@ -26,7 +19,7 @@ import { tagsRoute } from "./routes/tagsRoute.js"
 async function build() {
 	try {
 		// Remove admin link from menu
-		delete settings.menuLinks.admin
+		delete settings.menuLinks["bd-admin"]
 
 		// Remove existing "_site" directory if it exists
 		await rm("_site", { recursive: true, force: true })
@@ -46,14 +39,7 @@ async function build() {
 		await cp("static", "_site/static", { recursive: true, filter: copyStaticFolderWithFilters })
 
 		// Execute the route creation functions
-		markdownRoute()
-		mainRoute()
-		archiveRoute()
-		tagsRoute()
-		tagRoute()
-		rssRoute()
-		sitemapRoute()
-		settings.searchFeature ? searchRoute() : delete settings.menuLinks.search
+		loadThemeBuildRoutes()
 
 		// Remove empty folders at the end of a build
 		await removeEmptyFolders("_site")
