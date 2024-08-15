@@ -1,47 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-	<%~ include('../components/head.html', it) %>
+	{{include("themes/clean-blog/components/head.html")}}
+
 	<body>
 		<!-- Navigation -->
-		<%~ include('../components/menu.html', it) %>
+		{{include("themes/clean-blog/components/menu.html")}}
 
-		<!-- Page Header -->
-		<%~ include('../components/header.html', it) %>
+		<!-- Header -->
+		{{include("themes/clean-blog/components/header.html")}}
 
 		<!-- Main Content -->
-		<%/*
-		<!--MAIN, ARCHIVE AND TAG ROUTE-->
-		*/%> <% if (it.mainRoute || it.archiveRoute || it.tagRoute) { %>
+		{{#if mainRoute || archiveRoute || tagRoute}}
 		<!-- Start Post(s) Listing -->
-		<%~ include('./index.html', it) %>
+		{{include("themes/clean-blog/layouts/index.html")}}
 		<!-- End Post(s) Listing -->
-		<% } %> <%/*
-		<!--MARKDOWN ROUTE-->
-		*/%> <% if (it.mdRoute) { %>
+		{{#elseif mdRoute}}
 		<!-- Start Markdown file content -->
-		<%~ include('./markdown-files-template.html', it) %>
+		{{include("themes/clean-blog/layouts/markdown-files-template.html")}}
 		<!-- End Markdown file content -->
-		<% } %> <%/*
-		<!--TAGS ROUTE-->
-		*/%> <% if (it.tagsRoute) { %>
+		{{#elseif tagsRoute}}
 		<!-- Start list of tags with count -->
-		<%~ include('./count-posts-by-tag.html', it) %>
+		{{include("themes/clean-blog/layouts/count-posts-by-tag.html")}}
 		<!-- End list of tags with count -->
-		<% } %> <%/*
-		<!--SEARCH ROUTE-->
-		*/%> <% if (it.searchRoute) { %>
+		{{#elseif searchRoute}}
 		<!-- Start search page content -->
-		<%~ include('./search.html', it) %>
+		{{include("themes/clean-blog/layouts/search.html")}}
 		<!-- End search page content -->
-		<% } %> <%/*
-		<!-- ERROR ROUTE -->
-		*/%> <% if (it.errorRoute) { %>
+		{{#elseif errorRoute}}
 		<!-- Start error route content -->
-		<%~ include('../components/back-to-home.html') %>
+		{{include("themes/clean-blog/components/back-to-home.html")}}
 		<!-- End error route content -->
-		<% } %>
+		{{/if}}
 
 		<!-- Footer -->
-		<%~ include('../components/footer.html', it) %>
+		{{include("themes/clean-blog/components/footer.html")}}
 	</body>
 </html>

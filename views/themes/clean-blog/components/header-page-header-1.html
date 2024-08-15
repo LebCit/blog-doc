@@ -1,0 +1,14 @@
+<!-- Page header -->
+{{#if errorRoute}}
+<header class="masthead" style="background-image: url({{imageSrc}})">
+	{{include("themes/clean-blog/components/header-page-header-2.html")}}
+</header>
+{{#elseif data.featuredImage}}
+<header class="masthead" style="background-image: url({{data.featuredImage}})">
+	{{include("themes/clean-blog/components/header-page-header-2.html")}}
+</header>
+{{#else}}
+<header class="masthead">
+	{{include("themes/clean-blog/components/header-page-header-2.html")}}
+</header>
+{{/if}}

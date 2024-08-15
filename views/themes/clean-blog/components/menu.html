@@ -1,7 +1,7 @@
-<%/* Navigation */%>
+<!--Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
 	<div class="container px-4 px-lg-5">
-		<a class="navbar-brand" href="/"><%= it.siteTitle %></a>
+		<a class="navbar-brand" href="/">{{siteTitle}}</a>
 		<button
 			class="navbar-toggler"
 			type="button"
@@ -16,21 +16,11 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ms-auto py-4 py-lg-0">
-				<% for (let link in it.menuLinks) { %><%/*
-				<!-- Get each menu link value -->
-				*/%><% let linkValue = it.menuLinks[link] %><%/*
-				<!-- If a link refers to an external URL -->
-				*/%><% if (link.startsWith('http')) { %>
+				{{#each menuLinks}}
 				<li class="nav-item">
-					<a href="<%= link %>" class="nav-link px-lg-3 py-3 py-lg-4"><%= linkValue %></a>
+					<a href="{{linkTarget}}" class="nav-link px-lg-3 py-3 py-lg-4">{{linkTitle}}</a>
 				</li>
-				<% } else { %>
-				<li class="nav-item">
-					<a href="/<%= link %>" class="nav-link px-lg-3 py-3 py-lg-4"><%= linkValue %></a>
-				</li>
-				<% } %><%/*
-				<!-- End of for loop -->
-				*/%><% } %>
+				{{/each}}
 			</ul>
 		</div>
 	</div>

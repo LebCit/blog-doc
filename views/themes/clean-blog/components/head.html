@@ -1,15 +1,17 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta name="description" content="" />
+	<meta name="description" content="{{data.description}}" />
 	<meta name="author" content="" />
-	<title><%= it.siteTitle %> | <%= it.data.title %></title>
-	<link rel="shortcut icon" href="<%= it.data.favicon %>" type="image/svg+xml" />
-	<%/* Font Awesome icons (free version) */%>
+	<title>{{siteTitle}} | {{data.title}}</title>
+	<link rel="shortcut icon" href="{{data.favicon}}" type="image/svg+xml" />
+
+	<!--Font Awesome icons (free version)-->
 	<script src="/static/vendors/themes/clean-blog/fontawesome/brands.min.js"></script>
 	<script src="/static/vendors/themes/clean-blog/fontawesome/solid.min.js"></script>
 	<script src="/static/vendors/themes/clean-blog/fontawesome/fontawesome.min.js"></script>
-	<%/* Google fonts */%>
+
+	<!--Google fonts-->
 	<link
 		href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic"
 		rel="stylesheet"
@@ -20,9 +22,10 @@
 		rel="stylesheet"
 		type="text/css"
 	/>
-	<%/* Core theme CSS (includes Bootstrap) */%>
+
+	<!--Core theme CSS (includes Bootstrap)-->
 	<link href="/static/styles/themes/clean-blog/clean-blog-styles.css" rel="stylesheet" />
-	<% if (it.mdRoute) { %>
-	<link rel="stylesheet" href="/static/vendors/highlight/atom-one-dark.min.css">
-	<% } %>
+	{{#if mdRoute}}
+	<link rel="stylesheet" href="/static/vendors/highlight/atom-one-dark.min.css" />
+	{{/if}}
 </head>

@@ -1,36 +1,23 @@
-<% if (!it.data.publish_date) { %>
-<main id="main" class="mb-4">
-	<div class="container px-4 px-lg-5">
-		<div class="row gx-4 gx-lg-5 justify-content-center">
-			<% if (it.editable) { %>
-			<a href="/bd-admin/edit/<%= it.editLink %>" class="text-center">
-				<button class="btn btn-warning">
-					<i class="fa fa-edit"></i>
-					Edit
-				</button>
-			</a>
-			<% } %>
-			<div class="col-md-10 col-lg-8 col-xl-7"><%~ it.content %></div>
-		</div>
-	</div>
-</main>
-<% } else { %>
+{{#if data.publish_date}}
 <article id="main" class="mb-4">
 	<div class="container px-4 px-lg-5">
 		<div class="row gx-4 gx-lg-5 justify-content-center">
-			<% if (it.editable) { %>
-			<a href="/bd-admin/edit/<%= it.editLink %>" class="text-center">
-				<button class="btn btn-warning">
-					<i class="fa fa-edit"></i>
-					Edit
-				</button>
-			</a>
-			<% } %>
-			<div class="col-md-10 col-lg-8 col-xl-7"><%~ it.content %></div>
+			{{include("themes/clean-blog/layouts/markdown-files-template-editable.html")}}
+			<div class="col-md-10 col-lg-8 col-xl-7">{{html_content}}</div>
 		</div>
 	</div>
+
 	<!--Start posts pagination-->
-	<%~ include('../components/postsPagination.html', it) %>
+	{{include("themes/clean-blog/components/postsPagination.html")}}
 	<!--End posts pagination-->
-	<% } %>
 </article>
+{{#else}}
+<main id="main" class="mb-4">
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 gx-lg-5 justify-content-center">
+			{{include("themes/clean-blog/layouts/markdown-files-template-editable.html")}}
+			<div class="col-md-10 col-lg-8 col-xl-7">{{html_content}}</div>
+		</div>
+	</div>
+</main>
+{{/if}}

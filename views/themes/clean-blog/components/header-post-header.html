@@ -1,0 +1,20 @@
+<div class="container position-relative px-4 px-lg-5">
+	<div class="row gx-4 gx-lg-5 justify-content-center">
+		<div class="col-md-10 col-lg-8 col-xl-7">
+			<div class="post-heading">
+				<h1>{{data.title}}</h1>
+				<h2 class="subheading">{{data.description}}</h2>
+				<span class="meta">
+					Posted on {{data.publish_date}}
+
+					<br />
+
+					<!-- Post tag(s) -->
+					Tagged: {{#each data.tags}}
+					<a href="/tags/{{this}}"><span>{{this}}</span></a>
+					{{/each}}
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

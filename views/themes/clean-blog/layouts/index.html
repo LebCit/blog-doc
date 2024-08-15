@@ -1,50 +1,39 @@
 <div id="main" class="container px-4 px-lg-5">
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 		<div class="col-md-10 col-lg-8 col-xl-7">
-			<% it.posts.forEach((post) => { %> <%/*
-			<!-- Get the Markdown filename without it's extension -->
-			*/%> <% const postFilename = post.fileName.replace(/\.[^/.]+$/, "") %> <%/*
-			<!-- Get the Markdown post title from it's front matter -->
-			*/%> <% const postTitle = post.frontmatter.title %> <%/*
-			<!-- Get the post date from it's front matter -->
-			*/%> <% const postDate = post.frontmatter.publish_date %> <%/*
-			<!-- Get the post description from it's front matter -->
-			*/%> <% const postDescription = post.frontmatter.description %> <%/*
-			<!-- Get the post tags from it's front matter -->
-			*/%> <% const postTags = post.frontmatter.tags %>
-
-			<!-- Post preview -->
+			{{#each posts}}
 			<div class="post-preview">
-				<a href="/posts/<%= postFilename %>" rel="bookmark">
-					<h2 class="post-title"><%= postTitle %></h2>
-					<h3 class="post-subtitle"><%= postDescription ? postDescription : "" %></h3>
+				<a href="/posts/{{fileBaseName}}" rel="bookmark">
+					<h2 class="post-title">{{frontmatter.title}}</h2>
+					<h3 class="post-subtitle">{{frontmatter.description}}</h3>
 				</a>
+
 				<p class="post-meta">
-					Posted on <%= postDate %>
-					<!-- Post tag(s) -->
-					<% if (postTags && postTags.length) { %>
+					Posted on {{frontmatter.publish_date}}
 					<br />
-					Tagged: <% postTags.forEach(tag => { %>
-					<a href="/tags/<%= tag %>"><span><%= tag %></span></a>
-					<% }) %> <% } %>
+					<!-- Post tag(s) -->
+					{{#each1 frontmatter.tags}} Tagged:
+					<a href="/tags/{{this}}"><span>{{this}}</span></a>
+					{{/each1}}
 				</p>
 			</div>
+
 			<!-- Divider-->
 			<hr class="my-4" />
-
-			<% }) %>
+			{{/each}}
 
 			<!--Start Pagination-->
-			<% if (it.paginated) { %>
+			{{#if paginated}}
 			<!--Start include Pagination-->
-			<%~ include('../components/pagination.html', it) %>
+			{{include("themes/clean-blog/components/pagination.html")}}
 			<!--End include Pagination-->
+
 			<p class="archive-link">
 				All the posts can be found in the
 				<a href="/posts">archive</a>
 				📦
 			</p>
-			<% } %>
+			{{/if}}
 			<!--End Pagination-->
 		</div>
 	</div>

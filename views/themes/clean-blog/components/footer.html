@@ -1,4 +1,3 @@
-<%/* Footer */%>
 <footer class="border-top">
 	<div class="container px-4 px-lg-5">
 		<div class="row gx-4 gx-lg-5 justify-content-center">
@@ -29,22 +28,19 @@
 						</a>
 					</li>
 				</ul>
-				<div class="small text-center text-muted fst-italic"><%~ it.footerCopyright %></div>
+				<div class="small text-center text-muted fst-italic">{{html_footerCopyright}}</div>
 			</div>
 		</div>
 	</div>
 </footer>
-<%/* Bootstrap core JS */%>
+
+<!--Bootstrap core JS-->
 <script src="/static/vendors/themes/clean-blog/bootstrap/bootstrap.bundle.min.js"></script>
-<%/* Core theme JS */%>
+
+<!--Bootstrap core JS-->
 <script type="module" src="/static/scripts/themes/clean-blog/clean-blog-scripts.js"></script>
-<% if (it.build) { %>
-<script src="/static/scripts/search.js"></script>
-<% } %> <%/*
-<!-- Comment added for readability -->
-*/%> <% if (it.mdRoute) { %>
-<script src="/static/vendors/highlight/highlight.min.js"></script>
-<script>
-	hljs.highlightAll()
-</script>
-<% } %>
+
+{{#if mdRoute}}
+<script src="/static/vendors/highlight/highlight.min.js" onload="hljs.highlightAll()"></script>
+{{/if}}
+

@@ -1,8 +1,7 @@
 <div class="container px-4 px-lg-5">
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 		<div class="col-md-10 col-lg-8 col-xl-7">
-			<form id="searchForm" class="row g-3" <% if (it.build) { %>
-				action="/search/index.html" method="GET" <% } else { %> action="/search" method="POST" <% } %> >
+			<form id="searchForm" class="row g-3" action="/search" method="POST">
 				<div>
 					<label for="searchInput" class="form-label">Searchbox at your service:</label>
 					<input
@@ -13,31 +12,29 @@
 						placeholder="Type your search's keyword(s) here..."
 					/>
 				</div>
-				<button type="submit" class="btn btn-primary">CLICK TO LAUNCH YOUR SEARCH!</button>
+				<button type="submit" class="btn btn-info">CLICK TO LAUNCH YOUR SEARCH!</button>
 			</form>
 		</div>
 	</div>
 </div>
 
 <div id="searchResult" class="text-center mt-3">
-	<% if (!it.build) { %>
-		<script src="/static/admin/scripts/node-app-search.js"></script>
-	<% if (it.resultLength > 0) { %><%/*
-	<!-- Added comment for readability -->
-	*/%><% if (it.resultLength >= 2) { %>
-	<h3>Your search returned <%= it.resultLength %> posts</h3>
-	<% } else { %>
-	<h3>Your search returned 1 post</h3>
-	<% } %> <% } %> <% } %>
+	{{#not build}}
+	<script src="/static/admin/scripts/node-app-search.js"></script>
+	{{#if resultLength > 0 && resultLength == 1 }}
+	<p>Your search returned 1 post</p>
+	{{#elseif resultLength > 1}}
+	<p>Your search returned {{resultLength}} posts</p>
+	{{/if}}
+	<!--Dynamic Markup Separator-->
+	{{/not}}
 </div>
 
-<% if (it.results) { %> <%/*
-<!-- Added comment for readability -->
-*/%> <%~ include('./index.html', it) %> <%/*
-<!-- Added comment for readability -->
-*/%> <% } %> <%/*
-<!-- Added comment for readability -->
-*/%> <% if (it.noResults) { %>
+{{#if results}}
+<!--Include the index template-->
+{{include("themes/clean-blog/layouts/index.html")}}
+<!--Dynamic Markup Separator-->
+{{#elseif noResults}}
 <p class="text-center">
 	Sorry, your search didn't return any result.
 	<br />
@@ -47,14 +44,4 @@
 	<a class="archive-link" href="/posts">archive</a>
 	📦
 </p>
-<% } %><%/*
-<!-- Added comment for readability -->
-*/%> <% if (it.build) { %>
-<div id="main" class="container px-4 px-lg-5">
-	<div class="row gx-4 gx-lg-5 justify-content-center">
-		<div class="col-md-10 col-lg-8 col-xl-7">
-			<div id="content"></div>
-		</div>
-	</div>
-</div>
-<% } %>
+{{/if}}
