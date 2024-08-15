@@ -1,7 +1,7 @@
 import { marked } from "marked"
 import { LiteNode } from "litenode"
-import { eta } from "../../functions/initialize.js"
 import { processMarkdownPosts } from "../../functions/helpers/processMarkdownPosts.js"
+import { transformLinksToObjects } from "../../functions/helpers/transformLinksToObjects.js"
 
 // Markdown Route
 export const markdownRoute = (app, settings) => {
@@ -20,23 +20,20 @@ export const markdownRoute = (app, settings) => {
 			fileData.favicon = settings.favicon
 			fileData.fileDir = currentFile.fileDir
 			const fileContent = marked.parse(currentFile.content)
-			const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-				// Passing Route data
+
+			res.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				mdRoute: true,
-				// Passing Markdown file data
 				data: fileData,
-				content: fileContent,
+				postPreviewFallbackImage: settings.postPreviewFallbackImage,
+				html_content: fileContent,
 				prevPost: currentFile.fileDir === "posts" ? currentFile.prevPost : null,
 				nextPost: currentFile.fileDir === "posts" ? currentFile.nextPost : null,
-				// Passing data to edit the file
 				editable: true,
 				editLink: req.params.filename,
-				// Passing needed settings for the template
 				siteTitle: settings.siteTitle,
-				menuLinks: settings.menuLinks,
-				footerCopyright: settings.footerCopyright,
+				menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+				html_footerCopyright: settings.footerCopyright,
 			})
-			res.html(response)
 		} else {
 			// Proceed to the 404 route if no file is found
 			res.redirect("/404")

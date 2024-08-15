@@ -1,6 +1,6 @@
 import { LiteNode } from "litenode"
-import { eta } from "../../functions/initialize.js"
 import { processMarkdownPosts } from "../../functions/helpers/processMarkdownPosts.js"
+import { transformLinksToObjects } from "../../functions/helpers/transformLinksToObjects.js"
 
 // Render the search form on the search route
 export const searchRoute = (app, settings) => {
@@ -14,17 +14,13 @@ export const searchRoute = (app, settings) => {
 				favicon: settings.favicon,
 			}
 
-			const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-				// Passing Route data
+			res.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				searchRoute: true,
-				// Passing document data
 				data: data,
-				// Passing needed settings for the template
 				siteTitle: settings.siteTitle,
-				menuLinks: settings.menuLinks,
-				footerCopyright: settings.footerCopyright,
+				menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+				html_footerCopyright: settings.footerCopyright,
 			})
-			res.html(response)
 		} else {
 			res.redirect("/404")
 		}
@@ -69,41 +65,31 @@ export const searchRoute = (app, settings) => {
 				if (result.length > 0) {
 					const resultLength = result.length
 					// Render the search page with the resultant post(s)
-					const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-						// Passing Route data
+					res.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 						searchRoute: true,
-						// Passing document data
 						data: data,
 						posts: result,
 						resultLength: resultLength,
 						results: true,
 						paginated: false,
-						// Passing document image data
-						postPreviewFallbackImage: settings.postPreviewFallbackImage,
-						// Passing needed settings for the template
 						siteTitle: settings.siteTitle,
-						menuLinks: settings.menuLinks,
-						footerCopyright: settings.footerCopyright,
+						menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+						html_footerCopyright: settings.footerCopyright,
 					})
-					res.html(response)
 				} else {
 					/**
 					 * If the result array is empty,
 					 * render the search page,
 					 * with a message.
 					 */
-					const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-						// Passing Route data
+					res.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 						searchRoute: true,
-						// Passing document data
 						data: data,
 						noResults: true,
-						// Passing needed settings for the template
 						siteTitle: settings.siteTitle,
-						menuLinks: settings.menuLinks,
-						footerCopyright: settings.footerCopyright,
+						menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+						html_footerCopyright: settings.footerCopyright,
 					})
-					res.html(response)
 				}
 			} else {
 				res.redirect("/404")
@@ -130,8 +116,7 @@ export const searchRoute = (app, settings) => {
 				res.json({ query })
 			} catch (error) {
 				console.error("Error:", error)
-				res.writeHead(400, { "Content-Type": "application/json" })
-				res.end(JSON.stringify({ error: error.message }))
+				res.status(400).json({ error: error.message })
 			}
 		})
 }

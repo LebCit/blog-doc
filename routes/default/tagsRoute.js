@@ -1,9 +1,15 @@
-import { eta } from "../../functions/initialize.js"
 import { countPostsByTag, getPostsByTag } from "../../functions/helpers/processPostsTags.js"
+import { transformLinksToObjects } from "../../functions/helpers/transformLinksToObjects.js"
 
 // TAGS ROUTE
 export const tagsRoute = (app, settings) => {
 	app.get("/tags", async (req, res) => {
+		const postsByTag = await countPostsByTag(app)
+		const tagsCount = Object.entries(postsByTag).map(([key, value]) => ({
+			tagName: key,
+			tagCount: `${key} (${value} post${value > 1 ? "s" : ""})`,
+		}))
+
 		// Tags Route data
 		const data = {
 			title: "Tags",
@@ -11,18 +17,15 @@ export const tagsRoute = (app, settings) => {
 			featuredImage: settings.tagsImage,
 			favicon: settings.favicon,
 		}
-		const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-			// Passing Route data
+
+		res.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 			tagsRoute: true,
-			// Passing document data
 			data: data,
-			posts: await countPostsByTag(app),
-			// Passing needed settings for the template
+			posts: tagsCount,
 			siteTitle: settings.siteTitle,
-			menuLinks: settings.menuLinks,
-			footerCopyright: settings.footerCopyright,
+			menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+			html_footerCopyright: settings.footerCopyright,
 		})
-		res.html(response)
 	})
 
 		// SINGLE TAG ROUTE
@@ -41,21 +44,16 @@ export const tagsRoute = (app, settings) => {
 					subTitle:
 						postsByTag.length > 1 ? `${postsByTag.length} posts with this tag` : `1 post with this tag`,
 				}
-				const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-					// Passing Route data
+
+				res.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 					tagRoute: true,
-					// Passing document data
 					data: data,
 					posts: postsByTag,
 					paginated: false,
-					// Passing document image data
-					postPreviewFallbackImage: settings.postPreviewFallbackImage,
-					// Passing needed settings for the template
 					siteTitle: settings.siteTitle,
-					menuLinks: settings.menuLinks,
-					footerCopyright: settings.footerCopyright,
+					menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+					html_footerCopyright: settings.footerCopyright,
 				})
-				res.html(response)
 			} else {
 				// Proceed to the 404 route if no tag is found
 				res.redirect("/404")

@@ -1,5 +1,5 @@
-import { eta } from "../../functions/initialize.js"
 import { processMarkdownPosts } from "../../functions/helpers/processMarkdownPosts.js"
+import { transformLinksToObjects } from "../../functions/helpers/transformLinksToObjects.js"
 
 // Render, at most, the newest X posts from the list of posts on the Main Route.
 export const mainRoute = (app, settings) => {
@@ -18,25 +18,17 @@ export const mainRoute = (app, settings) => {
 			favicon: settings.favicon,
 		}
 
-		const templatePath = `themes/${settings.currentTheme}/layouts/base.html`
-
-		const response = eta.render(templatePath, {
-			// Passing Route data
+		res.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 			mainRoute: true,
 			firstPage: true,
-			// Passing document data
 			data: data,
 			posts: newestPosts,
 			lastPage: lastPage,
 			paginated: postsLength > settings.postsPerPage ? true : false, // To display or not the pagination component on the main route.
-			// Passing document image data
-			postPreviewFallbackImage: settings.postPreviewFallbackImage,
-			// Passing needed settings for the template
 			siteTitle: settings.siteTitle,
-			menuLinks: settings.menuLinks,
-			footerCopyright: settings.footerCopyright,
+			menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+			html_footerCopyright: settings.footerCopyright,
 		})
-		res.html(response)
 	})
 
 		// Dynamic route to display the list of posts without the newest X posts
@@ -62,23 +54,17 @@ export const mainRoute = (app, settings) => {
 				settings.postsPerPage
 			)
 
-			const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-				// Passing Route data
+			res.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				mainRoute: true,
 				firstPage: false,
 				data: data,
-				// Passing document data
 				posts: paginatedPostsList.data,
 				paginatedPostsList: paginatedPostsList,
 				lastPage: lastPage,
 				paginated: true, // To display the pagination component on each blog page route
-				// Passing document image data
-				postPreviewFallbackImage: settings.postPreviewFallbackImage,
-				// Passing needed settings for the template
 				siteTitle: settings.siteTitle,
-				menuLinks: settings.menuLinks,
-				footerCopyright: settings.footerCopyright,
+				menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+				html_footerCopyright: settings.footerCopyright,
 			})
-			res.html(response)
 		})
 }

@@ -1,5 +1,5 @@
-import { eta } from "../../functions/initialize.js"
 import { processMarkdownPosts } from "../../functions/helpers/processMarkdownPosts.js"
+import { transformLinksToObjects } from "../../functions/helpers/transformLinksToObjects.js"
 
 // Render all the posts from the list of posts on the Archive Route.
 export const archiveRoute = (app, settings) => {
@@ -12,20 +12,15 @@ export const archiveRoute = (app, settings) => {
 			featuredImage: settings.archiveImage,
 			favicon: settings.favicon,
 		}
-		const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-			// Passing Route data
+
+		res.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 			archiveRoute: true,
 			data: data,
-			// Passing document data
 			posts: posts,
 			paginated: false, // To hide the pagination component on the archive route.
-			// Passing document image data
-			postPreviewFallbackImage: settings.postPreviewFallbackImage,
-			// Passing needed settings for the template
 			siteTitle: settings.siteTitle,
-			menuLinks: settings.menuLinks,
-			footerCopyright: settings.footerCopyright,
+			menuLinks: transformLinksToObjects(settings.menuLinks, 'linkTarget', 'linkTitle'),
+			html_footerCopyright: settings.footerCopyright,
 		})
-		res.html(response)
 	})
 }
