@@ -1,27 +1,28 @@
 export function processImages(imagesPaths) {
+	const excludedPaths = [
+		"static/images/404-not-found-error.png",
+		"static/images/500-internal-server-error.png",
+		"static/images/chevron-left.svg",
+		"static/images/chevron-right.svg",
+		"static/images/date-post-details.svg",
+		"static/images/tag-post-details.svg",
+	]
+
 	return imagesPaths
-		.filter(
-			(path) =>
-				path !== "static/images/404-not-found-error.png" &&
-				path !== "static/images/500-internal-server-error.png" &&
-				path !== "static/images/chevron-left.svg" &&
-				path !== "static/images/chevron-right.svg" &&
-				path !== "static/images/date-post-details.svg" &&
-				path !== "static/images/tag-post-details.svg"
-		)
+		.filter((path) => !excludedPaths.includes(path))
 		.map((path) => {
-			const pathParts = path.split("/")
-			const fileName = pathParts[pathParts.length - 1]
-			const baseName = fileName.split(".")[0]
-			const imageName = baseName.replace(/[-_]/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())
+			const [imageMainDir, imageBaseDir, ...rest] = path.split("/")
+			const imageFileName = rest[rest.length - 1]
+			const imageBaseName = imageFileName.split(".")[0]
+			const imageName = imageBaseName.replace(/[-_]/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())
 
 			return {
 				imagePath: path,
-				imageMainDir: pathParts[0],
-				imageBaseDir: pathParts[1],
-				imageFileName: fileName,
-				imageBaseName: baseName,
-				imageName: imageName,
+				imageMainDir,
+				imageBaseDir,
+				imageFileName,
+				imageBaseName,
+				imageName,
 			}
 		})
 }
