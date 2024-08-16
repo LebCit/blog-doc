@@ -13,11 +13,7 @@
 	<button type="button" class="bd-button-light" id="file-image">Add an Image</button>
 	<input type="hidden" name="file[image]" id="file-image-hidden-input" />
 
-	{{#if file.frontmatter.featuredImage != undefined}}
-	<input type="hidden" name="file[image]" id="file-image-hidden-input" value="{{file.frontmatter.featuredImage}}" />
-	{{#else}}
 	<input type="hidden" name="file[image]" id="file-image-hidden-input" />
-	{{/if}}
 
 	<!-- Dynamic markup separator-->
 	{{#if href == "/bd-admin/add/new-post"}}
