@@ -4,26 +4,22 @@ import { readFileWithHandling } from "../../helpers/readFileWithHandling.js"
 import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
-import { getPosts } from "../../blog-doc.js"
-import { initializeApp } from "../../../initialize.js"
-const { eta } = initializeApp()
-
-// Settings
-import { settings } from "../../../../config/settings.js"
+import { processMarkdownPosts } from "../../../helpers/processMarkdownPosts.js"
+import { transformLinksToObjects } from "../../../helpers/transformLinksToObjects.js"
 
 /**
  * Function to create the search page
  * ==================================
  */
-export const searchRoute = async () => {
+export const searchRoute = async (app, settings) => {
 	try {
-		const posts = await getPosts()
+		const posts = await processMarkdownPosts(app)
 
 		let allPosts = JSON.parse(JSON.stringify(posts))
 		allPosts.forEach((post) => {
 			delete post.date
-			delete post.dir
-			delete post.path
+			delete post.fileDir
+			delete post.filePath
 		})
 
 		const postsJSON = JSON.stringify(allPosts)
@@ -46,20 +42,20 @@ export const searchRoute = async () => {
 			favicon: settings.favicon,
 		}
 
-		const searchHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-			build: true,
-			searchRoute: true,
-			data: data,
-			postPreviewFallbackImage: settings.postPreviewFallbackImage,
-			siteTitle: settings.siteTitle,
-			menuLinks: settings.menuLinks,
-			footerCopyright: settings.footerCopyright,
-		})
-
 		await ensureFoldersExist(["_site", "_site/search"])
 
-		// Create HTML file for the search page
-		await writeFileWithHandling(`_site/search/index.html`, searchHTML, "utf8")
+		await app.renderToFile(
+			`themes/${settings.currentTheme}/layouts/base.html`,
+			{
+				build: true,
+				searchRoute: true,
+				data: data,
+				siteTitle: settings.siteTitle,
+				menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+				html_footerCopyright: settings.footerCopyright,
+			},
+			"_site/search/index.html" // Create HTML file for the search page
+		)
 	} catch (error) {
 		console.error("Error in searchRoute:", error)
 		throw error

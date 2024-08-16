@@ -3,8 +3,7 @@ import { ensureFoldersExist } from "../../helpers/ensureFoldersExist.js"
 import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
-import { eta } from "../../../initialize.js"
-import { sitemap } from "../../../sitemap.js"
+import { sitemap } from "../../../helpers/sitemap.js"
 
 /**
  * Function to create the sitemap
@@ -12,14 +11,26 @@ import { sitemap } from "../../../sitemap.js"
  */
 export const sitemapRoute = async (app, settings) => {
 	try {
-		const sitemapXML = eta.render(`themes/${settings.currentTheme}/layouts/sitemap.html`, {
-			urls: await sitemap(app),
-		})
+		const urls = await sitemap(app)
+
+		const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${urls
+		.filter((url) => url.urlLocation && url.urlLastMod && !isNaN(new Date(url.urlLastMod).getTime())) // Filter out invalid entries
+		.map(
+			(url) => `
+    <url>
+      <loc>${url.urlLocation}</loc>
+      <lastmod>${new Date(url.urlLastMod).toISOString()}</lastmod> 
+    </url>`
+		)
+		.join("")}
+</urlset>`
 
 		await ensureFoldersExist(["_site"])
 
 		// Create XML file for the sitemap
-		await writeFileWithHandling(`_site/sitemap.xml`, sitemapXML, "utf8")
+		await writeFileWithHandling(`_site/sitemap.xml`, xmlContent, "utf8")
 	} catch (error) {
 		console.error("Error in sitemapRoute:", error)
 		throw error

@@ -1,10 +1,9 @@
 // Helper functions
 import { ensureFoldersExist } from "../../helpers/ensureFoldersExist.js"
-import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
-import { eta } from "../../../initialize.js"
 import { processMarkdownPosts } from "../../../helpers/processMarkdownPosts.js"
+import { transformLinksToObjects } from "../../../helpers/transformLinksToObjects.js"
 
 /**
  * Function to create the archive page
@@ -21,21 +20,21 @@ export const archiveRoute = async (app, settings) => {
 			favicon: settings.favicon,
 		}
 
-		const archiveHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-			archiveRoute: true,
-			data: data,
-			posts: posts,
-			paginated: false,
-			postPreviewFallbackImage: settings.postPreviewFallbackImage,
-			siteTitle: settings.siteTitle,
-			menuLinks: settings.menuLinks,
-			footerCopyright: settings.footerCopyright,
-		})
-
 		await ensureFoldersExist(["_site", "_site/posts"])
 
-		// Create HTML file for the archive page
-		await writeFileWithHandling(`_site/posts/index.html`, archiveHTML, "utf8")
+		await app.renderToFile(
+			`themes/${settings.currentTheme}/layouts/base.html`,
+			{
+				archiveRoute: true,
+				data: data,
+				posts: posts,
+				paginated: false,
+				siteTitle: settings.siteTitle,
+				menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+				html_footerCopyright: settings.footerCopyright,
+			},
+			"_site/posts/index.html" // Create HTML file for the archive page
+		)
 	} catch (error) {
 		console.error("Error in archiveRoute:", error)
 		throw error

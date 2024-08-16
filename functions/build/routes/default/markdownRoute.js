@@ -1,10 +1,9 @@
 // Helper functions
 import { ensureFoldersExist } from "../../helpers/ensureFoldersExist.js"
-import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
-import { eta } from "../../../initialize.js"
 import { processMarkdownPosts } from "../../../helpers/processMarkdownPosts.js"
+import { transformLinksToObjects } from "../../../helpers/transformLinksToObjects.js"
 
 // External modules
 import { marked } from "marked"
@@ -28,20 +27,22 @@ export const markdownRoute = async (app, settings) => {
 				// Create a folder for each file
 				await ensureFoldersExist([`_site/${file.fileDir}/${file.fileBaseName}`])
 
-				const fileHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-					mdRoute: true,
-					data: fileData,
-					content: fileContent,
-					prevPost: file.fileDir === "posts" ? file.prevPost : null,
-					nextPost: file.fileDir === "posts" ? file.nextPost : null,
-					filename: file.fileBaseName,
-					siteTitle: settings.siteTitle,
-					menuLinks: settings.menuLinks,
-					footerCopyright: settings.footerCopyright,
-				})
-
-				// Create HTML file out of each Markdown file
-				await writeFileWithHandling(`_site/${file.fileDir}/${file.fileBaseName}/index.html`, fileHTML, "utf8")
+				await app.renderToFile(
+					`themes/${settings.currentTheme}/layouts/base.html`,
+					{
+						mdRoute: true,
+						data: fileData,
+						postPreviewFallbackImage: settings.postPreviewFallbackImage,
+						html_content: fileContent,
+						prevPost: file.fileDir === "posts" ? file.prevPost : null,
+						nextPost: file.fileDir === "posts" ? file.nextPost : null,
+						filename: file.fileBaseName,
+						siteTitle: settings.siteTitle,
+						menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+						html_footerCopyright: settings.footerCopyright,
+					},
+					`_site/${file.fileDir}/${file.fileBaseName}/index.html` // Create HTML file out of each Markdown file
+				)
 			})
 		)
 	} catch (error) {

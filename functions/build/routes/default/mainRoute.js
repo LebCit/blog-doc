@@ -1,10 +1,9 @@
 // Helper functions
 import { ensureFoldersExist } from "../../helpers/ensureFoldersExist.js"
-import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
-import { eta } from "../../../initialize.js"
 import { processMarkdownPosts } from "../../../helpers/processMarkdownPosts.js"
+import { transformLinksToObjects } from "../../../helpers/transformLinksToObjects.js"
 
 /**
  * Function to create the blog
@@ -25,23 +24,23 @@ export const mainRoute = async (app, settings) => {
 			favicon: settings.favicon,
 		}
 
-		const indexHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-			mainRoute: true,
-			firstPage: true,
-			data: data,
-			posts: newestPosts,
-			lastPage: lastPage,
-			paginated: postsLength > settings.postsPerPage,
-			postPreviewFallbackImage: settings.postPreviewFallbackImage,
-			siteTitle: settings.siteTitle,
-			menuLinks: settings.menuLinks,
-			footerCopyright: settings.footerCopyright,
-		})
-
 		await ensureFoldersExist(["_site"])
 
-		// Create HTML file for the main route of the blog
-		await writeFileWithHandling(`_site/index.html`, indexHTML, "utf8")
+		await app.renderToFile(
+			`themes/${settings.currentTheme}/layouts/base.html`,
+			{
+				mainRoute: true,
+				firstPage: true,
+				data: data,
+				posts: newestPosts,
+				lastPage: lastPage,
+				paginated: postsLength > settings.postsPerPage,
+				siteTitle: settings.siteTitle,
+				menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+				html_footerCopyright: settings.footerCopyright,
+			},
+			"_site/index.html" // Create HTML file for the main route of the blog
+		)
 
 		// Loop to create the pages of the blog after its main route
 		for (let i = 1; i <= lastPage; i++) {
@@ -55,22 +54,23 @@ export const mainRoute = async (app, settings) => {
 				settings.postsPerPage
 			)
 
-			const dynamicIndexHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-				mainRoute: true,
-				firstPage: false,
-				data: data,
-				posts: paginatedPostsList.data,
-				paginatedPostsList: paginatedPostsList,
-				lastPage: lastPage,
-				paginated: true,
-				postPreviewFallbackImage: settings.postPreviewFallbackImage,
-				siteTitle: settings.siteTitle,
-				menuLinks: settings.menuLinks,
-				footerCopyright: settings.footerCopyright,
-			})
-
-			// Create HTML file for each page after the main route of the blog
-			await writeFileWithHandling(`_site/page/${i}/index.html`, dynamicIndexHTML, "utf8")
+			await app.renderToFile(
+				`themes/${settings.currentTheme}/layouts/base.html`,
+				{
+					mainRoute: true,
+					firstPage: false,
+					data: data,
+					posts: paginatedPostsList.data,
+					paginatedPostsList: paginatedPostsList,
+					lastPage: lastPage,
+					paginated: true,
+					postPreviewFallbackImage: settings.postPreviewFallbackImage,
+					siteTitle: settings.siteTitle,
+					menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+					html_footerCopyright: settings.footerCopyright,
+				},
+				`_site/page/${i}/index.html` // Create HTML file for each page after the main route of the blog
+			)
 		}
 	} catch (error) {
 		console.error("Error in mainRoute:", error)

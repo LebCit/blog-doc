@@ -1,10 +1,9 @@
 // Helper functions
 import { ensureFoldersExist } from "../../helpers/ensureFoldersExist.js"
-import { writeFileWithHandling } from "../../helpers/writeFileWithHandling.js"
 
 // Internal functions
-import { eta } from "../../../initialize.js"
 import { getPostsByTag } from "../../../helpers/processPostsTags.js"
+import { transformLinksToObjects } from "../../../helpers/transformLinksToObjects.js"
 
 /**
  * Function to create a page for each tag
@@ -37,19 +36,19 @@ export const tagRoute = async (app, settings) => {
 						favicon: settings.favicon,
 					}
 
-					const tagHTML = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-						tagRoute: true,
-						data: data,
-						posts: postsByTag,
-						paginated: false,
-						postPreviewFallbackImage: settings.postPreviewFallbackImage,
-						siteTitle: settings.siteTitle,
-						menuLinks: settings.menuLinks,
-						footerCopyright: settings.footerCopyright,
-					})
-
-					// Create HTML file for each tag
-					await writeFileWithHandling(`_site/tags/${tag}/index.html`, tagHTML, "utf8")
+					await app.renderToFile(
+						`themes/${settings.currentTheme}/layouts/base.html`,
+						{
+							tagRoute: true,
+							data: data,
+							posts: postsByTag,
+							paginated: false,
+							siteTitle: settings.siteTitle,
+							menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+							html_footerCopyright: settings.footerCopyright,
+						},
+						`_site/tags/${tag}/index.html` // Create HTML file for each tag
+					)
 				}
 			})
 		)
