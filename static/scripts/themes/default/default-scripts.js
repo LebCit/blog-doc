@@ -31,4 +31,11 @@ window.addEventListener("DOMContentLoaded", () => {
 			}
 		})
 	}
+
+	// Add class to posts cards
+	const postsCards = document.querySelectorAll('div[id^="post-card-"]')
+	postsCards.forEach((postCard, index) => {
+		// Even post, add 'blog-card' class | Odd post, add 'blog-card alt' classes
+		index % 2 === 0 ? postCard.classList.add("blog-card") : postCard.classList.add("blog-card", "alt")
+	})
 })
