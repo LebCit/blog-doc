@@ -1,5 +1,5 @@
 import { LiteNode } from "litenode"
-import { eta } from "../../functions/initialize.js"
+import { transformLinksToObjects } from "../../functions/helpers/transformLinksToObjects.js"
 
 // Markdown Route
 export const adminPreviewRoute = (app, settings, marked, join = null) => {
@@ -16,26 +16,24 @@ export const adminPreviewRoute = (app, settings, marked, join = null) => {
 		if (currentFile) {
 			const fileData = currentFile.frontmatter
 			fileData.favicon = settings.favicon
+			fileData.description = fileData.description || " "
 			fileData.fileDir = currentFile.fileDir
 			const fileContent = marked.parse(currentFile.content)
-			const response = eta.render(`themes/${settings.currentTheme}/layouts/base.html`, {
-				// Passing Route data
+			res.render(`themes/${settings.currentTheme}/layouts/base.html`, {
 				mdRoute: true,
 				previewRoute: true,
-				// Passing Markdown file data
 				data: fileData,
-				content: fileContent,
+				html_content: fileContent,
 				prevPost: null,
 				nextPost: null,
-				// Passing data to edit the file
 				editable: true,
 				editLink: req.params.filename,
-				// Passing needed settings for the template
 				siteTitle: settings.siteTitle,
-				menuLinks: settings.menuLinks,
-				footerCopyright: settings.footerCopyright,
+				siteDescription: settings.siteDescription, // For Midday
+				menuLinks: transformLinksToObjects(settings.menuLinks, "linkTarget", "linkTitle"),
+				html_footerCopyright: settings.footerCopyright,
+				currentYear: new Date().getFullYear(), // For Midday
 			})
-			res.html(response)
 		} else {
 			// Proceed to the 404 route if no file is found
 			res.redirect("/404")
