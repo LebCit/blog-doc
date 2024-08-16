@@ -1,6 +1,7 @@
 import { writeFile } from "node:fs/promises"
 import { adminMenuItems } from "./adminMenuItems.js"
 import { getImages } from "../../functions/helpers/getImages.js"
+import { loadThemeRoutes } from "../../functions/loadRoutes.js"
 
 export const adminSetTheme = async (app, settings, marked, join) => {
 	app.get("/bd-admin/set/theme", async (req, res) => {
@@ -31,9 +32,11 @@ export const adminSetTheme = async (app, settings, marked, join) => {
 
 			// Write the formatted JSON to settings.json in config directory
 			await writeFile(settingsFullPath, formattedJson, "utf8")
-			res.redirect("/bd-admin/set/theme")
-
 			console.log("Theme has been saved in JSON settings file!")
+
+			loadThemeRoutes()
+
+			res.redirect("/bd-admin/set/theme")
 		} catch (error) {
 			console.error("Error saving Theme in JSON settings file:", error)
 		}
