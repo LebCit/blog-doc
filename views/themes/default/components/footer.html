@@ -1,20 +1,13 @@
 <div class="footer">
 	<div class="pure-g">
 		<div class="pure-u-1">
-			<p class="copyright"><%~ it.footerCopyright %></p>
+			<p class="copyright">{{html_footerCopyright}}</p>
 		</div>
 	</div>
 </div>
 
-<% if (it.build) { %>
-<script src="/static/scripts/search.js"></script>
-<% } %> <%/*
-<!-- Comment added for readability -->
-*/%> <% if (it.mdRoute) { %>
-<script src="/static/vendors/highlight/highlight.min.js"></script>
-<script>
-	hljs.highlightAll()
-</script>
-<% } %>
+{{#if mdRoute}}
+<script src="/static/vendors/highlight/highlight.min.js" onload="hljs.highlightAll()"></script>
+{{/if}}
 
 <script type="module" src="/static/scripts/themes/default/default-scripts.js"></script>

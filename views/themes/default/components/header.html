@@ -1,11 +1,7 @@
-<% if (it.data.featuredImage) { %>
+{{#if data.featuredImage != postPreviewFallbackImage}}
 <style>
 	.post-header {
-		background-image: url("<%=it.data.featuredImage%>");
-	}
-</style>
-<style>
-	.post-header {
+		background-image: url("{{data.featuredImage}}");
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;
@@ -26,14 +22,8 @@
 </style>
 
 <div class="header post-header">
-	<div class="overlay">
-		<h1><%= it.mainRoute ? it.siteTitle : it.data.title %></h1>
-		<h2><%= it.tagRoute || it.errorRoute ? it.data.subTitle : it.data.description ? it.data.description : "" %></h2>
-	</div>
+	<div class="overlay">{{include("themes/default/components/header-headings.html")}}</div>
 </div>
-<% } else { %>
-<div class="header">
-	<h1><%= it.mainRoute ? it.siteTitle : it.data.title %></h1>
-	<h2><%= it.tagRoute || it.errorRoute ? it.data.subTitle : it.data.description ? it.data.description : "" %></h2>
-</div>
-<% } %>
+{{#else}}
+<div class="header">{{include("themes/default/components/header-headings.html")}}</div>
+{{/if}}

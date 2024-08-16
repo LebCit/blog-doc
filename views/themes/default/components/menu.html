@@ -1,34 +1,24 @@
-<%/* Menu toggle */%>
+<!--Menu toggle-->
 <span id="menuLink" class="menu-link" tabindex="0">
-	<%/* Hamburger icon */%>
+	<!--Hamburger icon-->
 	<span></span>
 </span>
 
-<%/* Menu */%>
+<!--Menu-->
 <div id="menu">
 	<div class="pure-menu">
-		<a href="/" class="pure-menu-heading"><%= it.siteTitle %></a>
+		<a href="/" class="pure-menu-heading">{{siteTitle}}</a>
 
 		<ul class="pure-menu-list">
-			<% for (let link in it.menuLinks) { %><%/*
-			<!-- Get each menu link value -->
-			*/%><% let linkValue = it.menuLinks[link] %><%/*
-			<!-- If a link refers to an external URL -->
-			*/%><% if (link.startsWith('http')) { %>
+			{{#each menuLinks}}
 			<li class="pure-menu-item">
-				<a href="<%= link %>" class="pure-menu-link"><%= linkValue %></a>
+				<a href="{{linkTarget}}" class="pure-menu-link">{{linkTitle}}</a>
 			</li>
-			<% } else { %>
-			<li class="pure-menu-item">
-				<a href="/<%= link %>" class="pure-menu-link"><%= linkValue %></a>
-			</li>
-			<% } %><%/*
-			<!-- End of for loop -->
-			*/%><% } %>
+			{{/each}}
 		</ul>
 	</div>
 
-	<% if (it.editable) { %>
+	{{#if editable}}
 	<style>
 		.edit-div {
 			position: absolute;
@@ -55,11 +45,11 @@
 	</style>
 	<div class="pure-menu edit-div">
 		<li class="pure-menu-item">
-			<a href="/bd-admin/edit/<%= it.editLink %>" class="pure-menu-link edit-link">
+			<a href="/bd-admin/edit/{{editLink}}" class="pure-menu-link edit-link">
 				EDIT
 				<span>&#9998;</span>
 			</a>
 		</li>
 	</div>
-	<% } %>
+	{{/if}}
 </div>

@@ -1,14 +1,7 @@
 <ol class="tags">
-	<% for (const property in it.posts) { %> <%/*
-	<!-- To avoid displaying a null or undefined tag in the list of tags if one or more post have no tag(s) -->
-	*/%> <% if (property !== "null" && property !== "undefined") { %>
+	{{#each posts}}
 	<li class="tag">
-		<a class="tag-link" href="/tags/<%= property %>"><%= property %></a>
-		<% if (it.posts[property] == 1) { %>
-		<span>(1 post)</span>
-		<% } else { %>
-		<span>(<%= it.posts[property] %> posts)</span>
-		<% } %>
+		<a class="tag-link" href="/tags/{{tagName}}">{{tagCount}}</a>
 	</li>
-	<% } %> <% } %>
+	{{/each}}
 </ol>

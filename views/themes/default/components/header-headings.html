@@ -1,0 +1,5 @@
+<h1>{{#if mainRoute}} {{siteTitle}} {{#else}} {{data.title}} {{/if}}</h1>
+<h2>
+	{{#if tagRoute || errorRoute}} {{data.subTitle}} {{#elseif data.description}} {{data.description}} {{#else}} ""
+	{{/if}}
+</h2>

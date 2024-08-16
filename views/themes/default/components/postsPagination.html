@@ -61,32 +61,34 @@
 
 <nav aria-label="pagination">
 	<ul class="pagination">
-		<% if (it.prevPost !== null) { %>
+		{{#if prevPost !== null}}
 		<li>
 			<a
 				class="post-link prev"
 				role="button"
-				href="/posts/<%=it.prevPost.fileBaseName%>"
+				href="/posts/{{prevPost.fileBaseName}}"
 				aria-label="Go to the previous post"
 			>
-				<span aria-hidden="true">Previous: <%=it.prevPost.frontmatter.title%></span>
+				<span aria-hidden="true">Previous: {{prevPost.title}}</span>
 				<span class="hidden">Go to the previous post</span>
 			</a>
 		</li>
-		<% } %> <%/*
-		<!-- Added comment for readability -->
-		*/%> <% if (it.nextPost !== null) { %>
+		{{/if}}
+
+		<!--Dynamic Markup Separator-->
+
+		{{#if nextPost !== null}}
 		<li>
 			<a
 				class="post-link next"
 				role="button"
-				href="/posts/<%=it.nextPost.fileBaseName%>"
+				href="/posts/{{nextPost.fileBaseName}}"
 				aria-label="Go to the next post"
 			>
-				<span aria-hidden="true">Next: <%=it.nextPost.frontmatter.title%></span>
+				<span aria-hidden="true">Next: {{nextPost.title}}</span>
 				<span class="hidden">Go to the next post</span>
 			</a>
 		</li>
-		<% } %>
+		{{/if}}
 	</ul>
 </nav>

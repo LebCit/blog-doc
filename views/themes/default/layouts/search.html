@@ -11,8 +11,7 @@
 		text-decoration: underline;
 	}
 </style>
-<form id="searchForm" class="pure-form pure-g" <% if (it.build) { %>
-	action="/search/index.html" method="GET" <% } else { %> action="/search" method="POST" <% } %> >
+<form id="searchForm" class="pure-form pure-g" action="/search" method="POST">
 	<div class="pure-u-1">
 		<label for="searchInput">Searchbox at your service :</label>
 		<input
@@ -27,27 +26,23 @@
 </form>
 
 <div id="searchResult">
-	<% if (!it.build) { %>
+	{{#not build}}
 	<script src="/static/admin/scripts/node-app-search.js"></script>
-	<% if (it.resultLength > 0) { %><%/*
-	<!-- Added comment for readability -->
-	*/%><% if (it.resultLength >= 2) { %>
-	<h3>Your search returned <%= it.resultLength %> posts</h3>
-	<% } else { %>
-	<h3>Your search returned 1 post</h3>
-	<% } %> <% } %> <% } else {%>
-	<span id="post-preview-fallback-image" hidden><%= JSON.stringify(it.postPreviewFallbackImage) %></span>
-	<%} %>
+	{{#if resultLength > 0 && resultLength == 1 }}
+	<p>Your search returned 1 post</p>
+	{{#elseif resultLength > 1}}
+	<p>Your search returned {{resultLength}} posts</p>
+	{{/if}}
+	<!--Dynamic Markup Separator-->
+	{{/not}}
 </div>
 
-<% if (it.results) { %> <%/*
-<!-- Added comment for readability -->
-*/%> <%~ include('./index.html', it) %> <%/*
-<!-- Added comment for readability -->
-*/%> <% } %> <%/*
-<!-- Added comment for readability -->
-*/%> <% if (it.noResults) { %>
-<p>
+{{#if results}}
+<!--Include the index template-->
+{{include("themes/default/layouts/index.html")}}
+<!--Dynamic Markup Separator-->
+{{#elseif noResults}}
+<p class="text-center">
 	Sorry, your search didn't return any result.
 	<br />
 	Please try some other keyword(s) or,
@@ -56,4 +51,4 @@
 	<a class="archive-link" href="/posts">archive</a>
 	📦
 </p>
-<% } %>
+{{/if}}

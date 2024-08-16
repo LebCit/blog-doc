@@ -1,49 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-	<%~ include('../components/head.html', it) %>
+	{{include("themes/default/components/head.html")}}
 	<body>
 		<div id="layout">
-			<%~ include('../components/menu.html', it) %>
+			{{include("themes/default/components/menu.html")}}
+
 			<div id="main">
-				<%~ include('../components/header.html', it) %>
-				<div <% if (it.build) { %>
-					id="content" <% } %> class="content"> <%/*
-					<!--MAIN, ARCHIVE AND TAG ROUTE-->
-					*/%> <% if (it.mainRoute || it.archiveRoute || it.tagRoute) { %>
+				{{include("themes/default/components/header.html")}}
+
+				<div class="content">
+					{{#if mainRoute || archiveRoute || tagRoute}}
 					<!-- Start Post(s) Listing -->
-					<%~ include('./index.html', it) %>
+					{{include("themes/default/layouts/index.html")}}
 					<!-- End Post(s) Listing -->
-					<% } %> <%/*
-					<!--MARKDOWN ROUTE-->
-					*/%> <% if (it.mdRoute) { %>
+					{{#elseif mdRoute}}
 					<!-- Start Markdown file content -->
-					<%~ include('./markdown-files-template.html', it) %>
+					{{include("themes/default/layouts/markdown-files-template.html")}}
 					<!-- End Markdown file content -->
-					<% } %> <%/*
-					<!--TAGS ROUTE-->
-					*/%> <% if (it.tagsRoute) { %>
+					{{#elseif tagsRoute}}
 					<!-- Start list of tags with count -->
-					<%~ include('./count-posts-by-tag.html', it) %>
+					{{include("themes/default/layouts/count-posts-by-tag.html")}}
 					<!-- End list of tags with count -->
-					<% } %> <%/*
-					<!--SEARCH ROUTE-->
-					*/%> <% if (it.searchRoute) { %>
+					{{#elseif searchRoute}}
 					<!-- Start search page content -->
-					<%~ include('./search.html', it) %>
+					{{include("themes/default/layouts/search.html")}}
 					<!-- End search page content -->
-					<% } %> <%/*
-					<!-- ERROR ROUTE -->
-					*/%> <% if (it.errorRoute) { %>
+					{{#elseif errorRoute}}
 					<!-- Start error route content -->
-					<img src="<%= it.imageSrc %>" alt="<%= it.imageAlt %>" />
-					<%~ include('../components/back-to-home.html') %>
+					<img src="{{imageSrc}}" alt="{{imageAlt}}" />
+					{{include("themes/default/components/back-to-home.html")}}
 					<!-- End error route content -->
-					<% } %>
+					{{/if}}
 				</div>
 			</div>
 		</div>
 		<!--Start footer-->
-		<%~ include('../components/footer.html', it) %>
+		{{include("themes/default/components/footer.html")}}
 		<!--End footer-->
 	</body>
 </html>

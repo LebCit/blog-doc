@@ -1,58 +1,37 @@
 <link rel="stylesheet" href="/static/styles/themes/default/default-single-post-preview.css" />
 
-<% it.posts.forEach((post, index) => { %> <%/*
-<!-- Get the Markdown filename without its extension -->
-*/%> <% const postFilename = post.fileName.replace(/\.[^/.]+$/, "") %> <%/*
-<!-- Get the Markdown post title from its front matter -->
-*/%> <% const postTitle = post.frontmatter.title %> <%/*
-<!-- Get the post featured image from its front matter -->
-*/%> <% const postFeaturedImage = post.frontmatter.featuredImage %> <%/*
-<!-- Get the post date from its front matter -->
-*/%> <% const postDate = post.frontmatter.publish_date %> <%/*
-<!-- Get the post description from its front matter -->
-*/%> <% const postDescription = post.frontmatter.description %> <%/*
-<!-- Get the post tags from its front matter -->
-*/%> <% const postTags = post.frontmatter.tags %> <%/*
-<!-- Get the post content -->
-*/%> <% const postContent = post.content %> <%/*
-<!-- Create an excerpt from the post content -->
-*/%> <% const postExcerpt = postContent.substring(0, 180)+"..." %> <%/*
-<!-- Single post preview -->
-*/%>
-<div class="<%= index % 2 === 0 ? 'blog-card' : 'blog-card alt' %>">
+{{#each posts}}
+<div id="post-card-{{@index}}">
 	<div class="meta">
-		<%/* Display the featured image if any, otherwise fallback to a default one */%>
-		<div
-			class="photo"
-			style="background-image: url('<%= postFeaturedImage ? postFeaturedImage : it.postPreviewFallbackImage %>')"
-		></div>
+		<!--Display the featured image if any, otherwise fallback to a default one-->
+
+		<div class="photo" style="background-image: url({{frontmatter.featuredImage}})"></div>
 
 		<ul class="details">
-			<li class="date"><span><%= postDate %></span></li>
-			<% if (postTags && postTags.length) { %>
+			<li class="date"><span>{{frontmatter.publish_date}}</span></li>
+
 			<li class="tags">
 				<ul>
-					<% postTags.forEach(tag => { %>
+					{{#each1 frontmatter.tags}}
 					<li>
-						<a href="/tags/<%= tag %>"><span><%= tag %></span></a>
+						<a href="/tags/{{this}}"><span>{{this}}</span></a>
 					</li>
-					<% }) %>
+					{{/each1}}
 				</ul>
 			</li>
-			<% } %>
 		</ul>
 	</div>
 
 	<div class="description">
 		<h1>
-			<a href="/posts/<%= postFilename %>" rel="bookmark"><%= postTitle %></a>
+			<a href="/posts/{{fileBaseName}}" rel="bookmark">{{frontmatter.title}}</a>
 		</h1>
-		<h2><%= postDescription ? postDescription : "" %></h2>
-		<p><%= postExcerpt %></p>
+		<h2>{{frontmatter.description}}</h2>
+		<p>{{postExcerpt}}</p>
 		<p class="read-more">
 			<a
-				href="/posts/<%= postFilename %>"
-				aria-label="Read more about <%= postTitle %>"
+				href="/posts/{{fileBaseName}}"
+				aria-label="Read more about {{frontmatter.title}}"
 				tabindex="0"
 				role="button"
 				class="btn info"
@@ -65,18 +44,16 @@
 </div>
 
 <hr />
-
-<% }) %>
+{{/each}}
 
 <!--Start Pagination-->
-<% if (it.paginated) { %>
+{{#if paginated}}
 <!--Start include Pagination-->
-<%~ include('../components/pagination.html', it) %>
+{{include("themes/default/components/pagination.html")}}
 <!--End include Pagination-->
 <p class="archive-link">
 	All the posts can be found in the
 	<a href="/posts">archive</a>
 	📦
 </p>
-<% } %>
-<!--End Pagination-->
+{{/if}}
