@@ -1,0 +1,33 @@
+<style>
+	.tags {
+		list-style: none;
+	}
+
+	.tag__link {
+		padding: 5px 5px 0;
+		transition: 0.3s;
+		text-decoration: none;
+		color: #ee4266;
+	}
+
+	.tag__link:focus,
+	.tag__link:hover {
+		color: black;
+		box-shadow: inset 0 -1.3em 0 0 #ee4266;
+	}
+	@media screen and (min-width: 64em) {
+		.tag__link {
+			font-size: 2em;
+		}
+	}
+</style>
+
+<h1>A list of all the tags 🏷️</h1>
+
+{{#each posts}}
+<ul class="tags">
+	<li class="tag">
+		<a class="tag__link" href="/tags/{{tagName}}">{{tagCount}}</a>
+	</li>
+</ul>
+{{/each}}

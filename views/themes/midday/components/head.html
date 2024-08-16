@@ -1,0 +1,17 @@
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="{{data.description}}" />
+
+	<title>{{data.title}} | {{siteTitle}}</title>
+
+	<link rel="shortcut icon" href="{{data.favicon}}" type="image/svg+xml" />
+	<link rel="stylesheet" href="/static/styles/themes/midday/midday-styles-min.css" />
+
+	{{#if mdRoute}}
+	<link rel="stylesheet" href="/static/vendors/highlight/atom-one-dark.min.css" />
+	{{/if}}
+
+	<!-- COMMON STYLES -->
+	{{include("themes/midday/components/common-styles.html")}}
+</head>

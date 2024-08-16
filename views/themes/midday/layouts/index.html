@@ -1,0 +1,100 @@
+<style>
+	.postList-article {
+		padding-bottom: 0.5em;
+		margin-top: 2rem;
+	}
+	.postList-article > p {
+		margin-bottom: 0;
+	}
+	/* .postList-article:first-child {
+		margin-top: 0;
+	} */
+	.postList-description {
+		color: #444;
+		line-height: 1.8em;
+	}
+	.postList-description a {
+		color: #000036;
+		text-decoration-line: underline;
+		text-decoration-color: #ea215a;
+		text-decoration-style: double;
+		text-decoration-thickness: 0.125em;
+		text-underline-offset: 1.5px;
+		text-decoration-skip-ink: none;
+		transition: 0.5s;
+	}
+	.postList-description a:hover,
+	.postList-description a:focus,
+	.postList-description a:active {
+		text-decoration: none;
+		color: white;
+		box-shadow: inset 0 -1.3em 0 0 #000;
+		outline: thin dotted #ea215a;
+	}
+</style>
+
+{{#if archiveRoute}}
+<h1>A list of all the posts 📃</h1>
+{{#elseif tagRoute}}
+<h1>{{data.title}}</h1>
+<p>{{data.subTitle}}</p>
+{{/if}}
+
+<!-- List of posts -->
+{{#each posts}}
+<article class="postList-article">
+	<header class="post-header">
+		<h2 class="post-title">
+			<a href="/posts/{{fileBaseName}}" class="postList-link" rel="bookmark">{{frontmatter.title}}</a>
+		</h2>
+		<p class="post-meta">
+			<span>Posted on</span>
+			<span class="posted-on">
+				<time class="postList-date" datetime="{{frontmatter.publish_date}}">{{frontmatter.publish_date}}</time>
+			</span>
+
+			<br />
+			<span>Tagged</span>
+			{{#each1 frontmatter.tags}}
+			<span class="post-tag">
+				<a href="/tags/{{this}}">{{this}}</a>
+			</span>
+			{{/each1}}
+		</p>
+	</header>
+
+	<div class="postList-description">
+		<p>{{postExcerpt}}</p>
+	</div>
+
+	<p>
+		<a
+			href="/posts/{{fileBaseName}}"
+			class="read-more-link"
+			aria-label="Read More about {{frontmatter.title}}"
+			tabindex="0"
+			role="button"
+			target="_self"
+		>
+			Read The Post
+		</a>
+	</p>
+</article>
+{{/each}}
+
+<!-- Dynamic Markup Separator -->
+{{#if paginated}}
+<!-- Blog pagination → Main route! -->
+{{include("themes/midday/components/pagination.html")}}
+<p>
+	All posts can be found in
+	<a href="/posts">the archive</a>
+	📦
+</p>
+{{#elseif tagRoute}}
+<p>
+	Check the list of all
+	<a href="/tags">tags</a>
+	🏷️
+</p>
+{{/if}}

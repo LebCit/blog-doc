@@ -1,0 +1,82 @@
+<style>
+	.author-greetings {
+		color: #000;
+		line-height: normal;
+	}
+</style>
+
+<header class="post-header">
+	<h1 class="post-title">{{data.title}}</h1>
+	{{#if data.publish_date}}
+	<p class="post-meta">
+		<span>Posted on</span>
+		<span class="posted-on">
+			<time class="postList-date" datetime="{{data.publish_date}}">{{data.publish_date}}</time>
+		</span>
+
+		{{include("themes/midday/layouts/markdown-files-template-tags.html")}}
+	</p>
+	{{/if}}
+
+	<!--Dynamic Markup Separator-->
+	{{#if editable}}
+	<!--Start edit link-->
+	<style>
+		.edit-div {
+			margin-top: 15px;
+		}
+		.edit-div li {
+			list-style: none;
+		}
+		.edit-link {
+			background-color: #ffc10d;
+			color: #000000;
+			border: 5px solid #000000;
+			border-radius: 5px;
+			font-weight: bold;
+		}
+		.edit-link:hover,
+		.edit-link:focus,
+		.edit-link:active {
+			background-color: #000000;
+			color: #ffffff;
+			border: 5px solid #ffc10d;
+			text-decoration: underline;
+		}
+		.edit-link span {
+			display: inline-block;
+			transform: rotate(90deg);
+		}
+	</style>
+	<div class="edit-div">
+		<a href="/bd-admin/edit/{{editLink}}" class="edit-link">
+			EDIT
+			<span>&#9998;</span>
+		</a>
+	</div>
+	<!--End edit link-->
+	{{/if}}
+</header>
+
+<div class="post-content">
+	{{#if data.description}}
+	<p>
+		<em>{{data.description}}</em>
+	</p>
+	{{/if}}
+
+	<!--Content-->
+	{{html_content}}
+
+	<p class="author-greetings">
+		SYA,
+		<br />
+		LebCit.
+	</p>
+</div>
+
+{{#if data.publish_date}}
+<!-- Start posts pagination -->
+{{include("themes/midday/components/postsPagination.html")}}
+<!-- End posts pagination -->
+{{/if}}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	{{include("themes/midday/components/head.html")}}
+
+	<body>
+		<!--Start page-->
+		<div id="page" class="site grid">
+			<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+			<!--Start menu-->
+			{{include("themes/midday/components/menu.html")}}
+			<!--End menu-->
+
+			<!--Start masthead-->
+			{{include("themes/midday/components/masthead.html")}}
+			<!--End masthead-->
+
+			<!--Start content-->
+			<div id="content" class="site-content unit-1 unit-lg-3-5">
+				{{#if mainRoute || archiveRoute || tagRoute}}
+				<main class="site-main">
+					<!-- Start Post(s) Listing -->
+					{{include("themes/midday/layouts/index.html")}}
+					<!-- End Post(s) Listing -->
+				</main>
+				{{#elseif mdRoute}}
+				<!-- MARKDOWN ROUTE -->
+				<main class="single-post">
+					<!-- Start Markdown file content -->
+					{{include("themes/midday/layouts/markdown-files-template.html")}}
+					<!-- End Markdown file content -->
+				</main>
+				{{#elseif tagsRoute}}
+				<!-- TAGS ROUTE -->
+				<main class="single-post">
+					<!-- Start Tag(s) Listing -->
+					{{include("themes/midday/layouts/count-posts-by-tag.html")}}
+					<!-- End Tag(s) Listing -->
+				</main>
+				{{#elseif searchRoute}}
+				<!-- SEARCH ROUTE -->
+				<main class="site-main">
+					<!--Start search-->
+					{{include("themes/midday/layouts/search.html")}}
+					<!--End search-->
+				</main>
+				{{#else}}
+				<!-- ERROR ROUTE -->
+				<main class="single-post">
+					<!--Start error page-->
+					{{include("themes/midday/layouts/error.html")}}
+					<!--End error page-->
+				</main>
+				{{/if}}
+			</div>
+			<!--End content-->
+
+			<!--Start footer-->
+			{{include("themes/midday/components/footer.html")}}
+			<!--End footer-->
+		</div>
+		<!--End page-->
+
+		{{#if mdRoute}}
+		<script src="/static/vendors/highlight/highlight.min.js" onload="hljs.highlightAll()"></script>
+		{{/if}}
+
+		<script type="module" src="/static/scripts/themes/midday/midday-scripts.js"></script>
+	</body>
+</html>

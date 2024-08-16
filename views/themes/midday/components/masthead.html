@@ -1,0 +1,202 @@
+<style>
+	/* SITE HEADER */
+	.site-header {
+		background: rgb(61, 79, 93);
+		color: #fff;
+	}
+
+	.sidebar {
+		margin: 1em;
+	}
+
+	.site-title,
+	.site-description {
+		margin: 0;
+		line-height: 1.2;
+	}
+
+	.site-title a {
+		color: #fff;
+		text-decoration: none;
+	}
+
+	.site-title a:hover,
+	.site-title a:focus {
+		text-decoration: underline;
+	}
+
+	.site-description {
+		font-weight: 300;
+		color: rgb(176, 202, 219);
+		margin: 0.5em 0 2em 0;
+	}
+
+	/* MENU BUTTON */
+	.nav-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.nav-item {
+		display: inline-block;
+	}
+
+	.nav-item a {
+		background: black;
+		border: 2px solid rgb(176, 202, 219);
+		border-radius: 2px;
+		color: #fff;
+		padding: 0.5em 1em;
+		margin-top: 1em;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		font-size: 85%;
+	}
+
+	.nav-item a:hover,
+	.nav-item a:focus {
+		border: 2px solid rgb(61, 146, 201);
+		text-decoration: none;
+	}
+
+	.nav-item a svg {
+		fill: aliceblue;
+		vertical-align: bottom;
+		padding: 4px 0 2px;
+	}
+
+	@media screen and (max-width: 35.5em) {
+		.nav-item a svg {
+			padding-top: 14px;
+		}
+	}
+
+	@media screen and (min-width: 35.5em) and (max-width: 48em) {
+		.nav-item a svg {
+			padding-top: 12px;
+		}
+	}
+
+	@media screen and (min-width: 48em) and (max-width: 63.938em) {
+		.nav-item a svg {
+			padding-top: 10px;
+		}
+	}
+
+	/* more then 1023px an less then 1024px */
+	@media (max-width: 63.969em) {
+		.site-header.bio {
+			background-image: none !important;
+		}
+		.nav {
+			position: fixed;
+			top: 15px;
+			right: 10px;
+			z-index: 1;
+		}
+	}
+
+	@media (min-width: 64em) {
+		.site-header {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			overflow-y: auto;
+		}
+
+		.site-header.bio {
+			background-repeat: no-repeat;
+			background-position: top;
+			background-size: cover;
+		}
+
+		.site-header.bio .site-header-overlay {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.6);
+		}
+
+		/* The emerging W3C standard
+ that is currently Firefox-only */
+		.site-header {
+			scrollbar-width: thin;
+		}
+
+		/* Works on Chrome/Edge/Safari */
+		.site-header::-webkit-scrollbar {
+			width: 7px;
+		}
+
+		.site-header::-webkit-scrollbar-track {
+			background: #313d48;
+		}
+
+		.site-header::-webkit-scrollbar-thumb {
+			background-color: #81898f;
+		}
+
+		.sidebar {
+			margin: 10% 2em;
+			text-align: left;
+		}
+
+		.site-header.bio .sidebar {
+			position: sticky;
+		}
+	}
+</style>
+
+<!-- Start #masthead -->
+{{#if data.featuredImage && data.featuredImage != postPreviewFallbackImage}}
+<header id="masthead" class="site-header unit-1 unit-lg-2-5 bio" style="background-image: url({{data.featuredImage}})">
+	{{#else}}
+	<header id="masthead" class="site-header unit-1 unit-lg-2-5 no-bio">
+		{{/if}}
+
+		<div class="site-header-overlay"></div>
+		<!-- Start .sidebar-->
+		<div class="sidebar">
+			<div class="site-branding">
+				<h1 class="site-title">
+					<a href="/">{{siteTitle}}</a>
+				</h1>
+				<p class="site-description">{{siteDescription}}</p>
+			</div>
+
+			<!-- Menu button start -->
+			<nav id="nav" class="nav" aria-label="MENU">
+				<ul class="nav-list">
+					<li class="nav-item">
+						<a id="menu-button" aria-controls="main-nav" aria-haspopup="true" tabindex="0" role="button">
+							<span>MENU</span>
+							<span class="menu-icon" aria-hidden="true">
+								<svg
+									version="1.1"
+									x="0px"
+									y="0px"
+									width="30px"
+									height="30px"
+									viewbox="0 0 30 30"
+									enable-background="new 0 0 30 30"
+								>
+									<rect width="30" height="5" />
+									<rect y="24" width="30" height="5" />
+									<rect y="12" width="30" height="5" />
+								</svg>
+							</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<!-- Menu button end -->
+		</div>
+		<!-- End .sidebar-->
+	</header>
+	<!-- End #masthead-->
+</header>

@@ -1,0 +1,142 @@
+<style>
+	.post-title {
+		font-size: 2em;
+		color: #222;
+		margin-bottom: 0.2em;
+	}
+
+	.post-content {
+		color: #444;
+		line-height: 1.8em;
+	}
+
+	.post-content a {
+		color: #000036;
+		text-decoration-line: underline;
+		text-decoration-color: #ea215a;
+		text-decoration-style: double;
+		text-decoration-thickness: 0.125em;
+		text-underline-offset: 1.5px;
+		text-decoration-skip-ink: none;
+		transition: 0.5s;
+	}
+
+	.post-content a:hover,
+	.post-content a:focus,
+	.post-content a:active {
+		text-decoration: none;
+		color: white;
+		box-shadow: inset 0 -1.3em 0 0 #000;
+		outline: thin dotted #ea215a;
+	}
+</style>
+
+{{#if mdRoute}}
+<style>
+	.single-post :not(pre) code {
+		background-color: #272822;
+		color: #f8f8f2;
+		border-radius: 0.3rem;
+		padding: 4px 5px 5px;
+	}
+</style>
+{{/if}}
+
+<!-- Dynamic Markup Separator -->
+{{#if mdRoute || errorRoute}}
+<style>
+	@media screen and (min-width: 48em) and (max-width: 63.938em) {
+		.post-title {
+			font-size: 3em;
+			margin-top: 0;
+		}
+	}
+
+	@media (min-width: 64em) {
+		.post-title {
+			/* will affect single-post*/
+			font-size: 4em;
+			margin-top: 0;
+		}
+	}
+</style>
+{{/if}}
+
+<!-- Dynamic Markup Separator -->
+{{#if mainRoute || archiveRoute || tagRoute || searchRoute}}
+<style>
+	@media screen and (min-width: 48em) and (max-width: 63.938em) {
+		.post-title {
+			font-size: 2.5em;
+			margin-bottom: 0.1em;
+		}
+	}
+
+	@media (min-width: 64em) {
+		.post-title {
+			font-size: 3em;
+			margin-bottom: 0.1em;
+		}
+	}
+</style>
+{{/if}}
+
+<!-- Dynamic Markup Separator -->
+{{#if mainRoute || archiveRoute || tagRoute || searchRoute || mdRoute}}
+<style>
+	.post-meta {
+		color: #16663d;
+		font-size: 90%;
+		margin: 0;
+	}
+
+	.posted-on {
+		color: #ad1a36;
+	}
+
+	.post-tag {
+		margin: 0 0.1em;
+		padding: 0.2em 0.8em;
+		background: #ad1a36;
+		font-size: 80%;
+	}
+
+	.post-tag a {
+		color: #fff;
+	}
+</style>
+{{/if}}
+
+<!-- Dynamic Markup Separator -->
+{{#if mainRoute || archiveRoute || tagRoute || searchRoute || errorRoute}}
+<style>
+	.read-more-link {
+		display: inline-block;
+		border: 2px solid rgb(61, 79, 93);
+		background: rgb(61, 79, 93);
+		padding: 0.7rem 0.9rem;
+		font-size: 1rem;
+		line-height: 1;
+		border-radius: 3px;
+		color: #fff;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.read-more-link:hover {
+		color: #fff;
+		box-shadow: 0 0.25em rgb(61, 79, 93);
+	}
+
+	.read-more-link:active,
+	.read-more-link:focus {
+		color: #fff;
+		box-shadow: 0.25em 0.25em rgb(61, 79, 93);
+		outline: 0.1em solid;
+	}
+
+	.read-more-link:visited {
+		color: #fff;
+	}
+</style>
+{{/if}}

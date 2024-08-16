@@ -1,0 +1,54 @@
+<style>
+	form#searchForm {
+		display: grid;
+	}
+	#searchInput {
+		width: 100%;
+		margin: 10px 0;
+		padding: 10px;
+	}
+	.archive-link {
+		text-decoration: none;
+	}
+
+	.archive-link:hover,
+	.archive-link:focus {
+		text-decoration: underline;
+	}
+</style>
+<h1>Make a research in the site's posts.</h1>
+<form id="searchForm" action="/search" method="POST">
+	<div>
+		<label for="searchInput">Searchbox at your service:</label>
+		<input id="searchInput" name="query" type="search" placeholder="Type your search's keyword(s) here..." />
+	</div>
+	<button type="submit" class="read-more-link">CLICK ME TO LAUNCH YOUR SEARCH!</button>
+</form>
+
+<div id="searchResult">
+	{{#not build}}
+	<script src="/static/admin/scripts/node-app-search.js"></script>
+	{{#if resultLength > 0 && resultLength == 1 }}
+	<p>Your search returned 1 post</p>
+	{{#elseif resultLength > 1}}
+	<p>Your search returned {{resultLength}} posts</p>
+	{{/if}}
+	<!--Dynamic Markup Separator-->
+	{{/not}}
+</div>
+
+{{#if results}}
+<!--Include the index template-->
+{{include("themes/midday/layouts/index.html")}}
+<!--Dynamic Markup Separator-->
+{{#elseif noResults}}
+<p>
+	Sorry, your search didn't return any result.
+	<br />
+	Please try some other keyword(s) or,
+	<br />
+	browse the posts in the
+	<a class="archive-link" href="/posts">archive</a>
+	📦
+</p>
+{{/if}}

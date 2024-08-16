@@ -1,0 +1,11 @@
+{{#if data.tags}}
+<br />
+<span>Tagged</span>
+<!--Start tag(s)-->
+{{#each data.tags}}
+<span class="post-tag">
+	<a href="/tags/{{this}}">{{this}}</a>
+</span>
+{{/each}}
+<!--End tag(s)-->
+{{/if}}

@@ -1,0 +1,66 @@
+<style>
+	.post-navigation {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 1fr;
+		grid-column-gap: 16px;
+	}
+
+	.post-navigation a {
+		margin: 1.5em 0;
+		border: 2px solid #000;
+		background: #000;
+		display: inline-block;
+		padding: 0.7rem 0.9rem;
+		font-size: 1rem;
+		line-height: 1;
+		border-radius: 3px;
+		color: #fff;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.post-navigation .next-post {
+		grid-column-end: -1;
+	}
+
+	.post-navigation a:hover {
+		color: #fff;
+		box-shadow: 0 0.25em #000;
+	}
+
+	.post-navigation a:active,
+	.post-navigation a:focus {
+		color: #fff;
+		box-shadow: 0.25em 0.25em #000;
+		outline: 0.1em solid;
+	}
+
+	@media screen and (max-width: 48em) {
+		.post-navigation {
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: repeat(2, 1fr);
+			grid-row-gap: 16px;
+		}
+
+		.post-navigation a {
+			margin: 0;
+		}
+	}
+</style>
+
+<nav class="post-navigation" aria-label="Post navigation">
+	{{#if prevPost != null}}
+	<a href="/posts/{{prevPost.fileBaseName}}" class="prev-post" rel="prev" aria-label="Go to the previous post">
+		Previous: {{prevPost.title}}
+	</a>
+	{{/if}}
+
+	<!--Dynamic Markup Separator-->
+	{{#if nextPost != null}}
+	<a href="/posts/{{nextPost.fileBaseName}}" class="prev-post" rel="prev" aria-label="Go to the previous post">
+		Next: {{nextPost.title}}
+	</a>
+	{{/if}}
+</nav>

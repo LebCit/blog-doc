@@ -1,0 +1,96 @@
+<style>
+	.pagination {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 1fr;
+		grid-column-gap: 16px;
+	}
+
+	.pagination a {
+		font-size: 1.5rem !important;
+		margin: 1.5em 0;
+		border: 2px solid #000;
+		background: #000;
+		display: inline-block;
+		padding: 0.7rem 0.9rem;
+		font-size: 1rem;
+		line-height: 1;
+		border-radius: 3px;
+		color: #fff;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.pagination .next-page {
+		grid-column-end: -1;
+	}
+
+	.pagination a:hover {
+		color: #fff;
+		box-shadow: 0 0.25em #000;
+	}
+
+	.pagination a:active,
+	.pagination a:focus {
+		color: #fff;
+		box-shadow: 0.25em 0.25em #000;
+		outline: 0.1em solid;
+	}
+
+	@media screen and (max-width: 48em) {
+		.pagination {
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: repeat(2, 1fr);
+			grid-row-gap: 16px;
+		}
+
+		.pagination a {
+			margin: 0;
+		}
+	}
+</style>
+
+{{#if firstPage && lastPage > 0}}
+<nav class="pagination" aria-label="Blog pagination">
+	<a
+		href="/page/1"
+		class="prev-page"
+		aria-label="Go to the previous set
+		of posts"
+	>
+		Older Posts
+	</a>
+</nav>
+{{/if}}
+
+<!--Dynamic Markup Separator-->
+{{#not firstPage}}
+<nav class="pagination" aria-label="Blog pagination">
+	<!-- Older posts -->
+	{{#if paginatedPostsList.next_page}}
+	<a
+		href="/page/{{paginatedPostsList.next_page}}"
+		class="prev-page"
+		aria-label="Go to the previous set of
+		posts"
+	>
+		Older Posts
+	</a>
+	{{/if}}
+
+	<!-- Newer posts -->
+	{{#if paginatedPostsList.prev_page}}
+	<a
+		href="/page/{{paginatedPostsList.prev_page}}"
+		class="next-page"
+		aria-label="Go to the next set of
+		posts"
+	>
+		Newer Posts
+	</a>
+	{{#else}}
+	<a href="/" class="next-page" aria-label="Go to the next set of posts">Newer Posts</a>
+	{{/if}}
+</nav>
+{{/not}}
