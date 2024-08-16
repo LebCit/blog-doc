@@ -21,7 +21,7 @@ export async function processMarkdownPosts(app) {
 			)
 
 			frontmatter.featuredImage = frontmatter.featuredImage || postPreviewFallbackImage
-			frontmatter.description = frontmatter.description || ""
+			frontmatter.description = frontmatter.description || " " // Space prevents "" (empty quotes) from rendering
 
 			post.pubDate = new Date(frontmatter.publish_date)
 
