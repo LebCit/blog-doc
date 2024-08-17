@@ -2,6 +2,7 @@
 import { cp, rm } from "node:fs/promises"
 
 // Helper functions
+import { renameKey } from "./helpers/renameKey.js"
 import { ensureFoldersExist } from "./helpers/ensureFoldersExist.js"
 import { removeEmptyFolders } from "./helpers/removeEmptyFolders.js"
 import { copyStaticFolderWithFilters } from "./helpers/copyStaticFolderWithFilters.js"
@@ -18,8 +19,16 @@ import { loadThemeBuildRoutes } from "../loadRoutes.js"
  */
 async function build() {
 	try {
+		// Extract menuLinks from settings
+		let menuLinks = settings.menuLinks
 		// Remove admin link from menu
-		delete settings.menuLinks["bd-admin"]
+		delete menuLinks["bd-admin"]
+		// Rename 'rss' to 'rss.xml' in the menuLinks object
+		menuLinks = renameKey(menuLinks, "rss", "rss.xml")
+		// Rename 'sitemap' to 'sitemap.xml' in the menuLinks object
+		menuLinks = renameKey(menuLinks, "sitemap", "sitemap.xml")
+		// Reassign menuLinks to settings
+		settings.menuLinks = menuLinks
 
 		// Remove existing "_site" directory if it exists
 		await rm("_site", { recursive: true, force: true })
