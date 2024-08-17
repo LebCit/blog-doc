@@ -1,10 +1,6 @@
 import { stat } from "node:fs/promises"
-import { processMarkdownPosts } from "./processMarkdownPosts.js"
-import { settings } from "../../config/settings.js"
 import { getFiles } from "./getFiles.js"
-
-// Settings
-const { siteURL, postsPerPage } = settings
+import { processMarkdownPosts } from "./processMarkdownPosts.js"
 
 /**
  * Gets the last modification time of a file.
@@ -24,7 +20,7 @@ async function getPostLastMod(filePath) {
  */
 async function createPostsObj(array, url) {
 	const modDates = await Promise.all(array.map((post) => getPostLastMod(post.filePath)))
-	const lastMod = new Date(Math.max(...modDates)).toLocaleDateString()
+	const lastMod = new Date(Math.max(...modDates)).toUTCString()
 	return { urlLocation: url, urlLastMod: lastMod }
 }
 
@@ -32,31 +28,31 @@ async function createPostsObj(array, url) {
  * Generates a sitemap with URLs and their last modification dates.
  * @returns {Promise<Array>} An array of objects representing the sitemap.
  */
-async function sitemap(app) {
+export async function sitemap(app, settings) {
 	const urlsData = []
 	const viewsFiles = await getFiles("views")
 	const posts = await processMarkdownPosts(app)
 
 	// MAIN ROUTE
-	const newestPosts = posts.slice(0, postsPerPage)
-	urlsData.push(await createPostsObj(newestPosts, siteURL))
+	const newestPosts = posts.slice(0, settings.postsPerPage)
+	urlsData.push(await createPostsObj(newestPosts, settings.siteURL))
 
 	// ARCHIVE ROUTE
-	urlsData.push(await createPostsObj(posts, `${siteURL}archive`))
+	urlsData.push(await createPostsObj(posts, `${settings.siteURL}archive`))
 
 	// TAGS ROUTE
-	urlsData.push(await createPostsObj(posts, `${siteURL}tags`))
+	urlsData.push(await createPostsObj(posts, `${settings.siteURL}tags`))
 
 	// BLOG ROUTES
-	if (posts.length > postsPerPage) {
+	if (posts.length > settings.postsPerPage) {
 		const chunkedPosts = []
-		for (let i = 0; i < posts.length; i += postsPerPage) {
-			chunkedPosts.push(posts.slice(i, i + postsPerPage))
+		for (let i = 0; i < posts.length; i += settings.postsPerPage) {
+			chunkedPosts.push(posts.slice(i, i + settings.postsPerPage))
 		}
 		chunkedPosts.shift() // Remove the first chunk corresponding to the main route
 
 		const blogRoutes = await Promise.all(
-			chunkedPosts.map((chunk, idx) => createPostsObj(chunk, `${siteURL}page/${idx + 1}`))
+			chunkedPosts.map((chunk, idx) => createPostsObj(chunk, `${settings.siteURL}page/${idx + 1}`))
 		)
 		urlsData.push(...blogRoutes)
 	}
@@ -70,8 +66,8 @@ async function sitemap(app) {
 				.pop()
 				.replace(/\.[^/.]+$/, "")
 			const fileDir = file.split("/")[1]
-			const lastMod = new Date((await stat(file)).mtimeMs).toLocaleDateString()
-			return { urlLocation: `${siteURL + fileDir}/${fileTitle}`, urlLastMod: lastMod }
+			const lastMod = new Date((await stat(file)).mtimeMs).toUTCString()
+			return { urlLocation: `${settings.siteURL + fileDir}/${fileTitle}`, urlLastMod: lastMod }
 		})
 	)
 	urlsData.push(...filesData)
@@ -86,13 +82,11 @@ async function sitemap(app) {
 				return tags && tags.includes(tag)
 			})
 			const modDates = await Promise.all(taggedPosts.map((post) => getPostLastMod(post.filePath)))
-			const lastMod = new Date(Math.max(...modDates)).toLocaleDateString()
-			return { urlLocation: `${siteURL}tags/${tag}`, urlLastMod: lastMod }
+			const lastMod = new Date(Math.max(...modDates)).toUTCString()
+			return { urlLocation: `${settings.siteURL}tags/${tag}`, urlLastMod: lastMod }
 		})
 	)
 	urlsData.push(...tagsData)
 
 	return urlsData
 }
-
-export { sitemap }
