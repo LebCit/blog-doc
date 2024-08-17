@@ -11,7 +11,7 @@ import { sitemap } from "../functions/helpers/sitemap.js"
 // Global Sitemap Route
 export const sitemapRoute = (app, settings) => {
 	app.get("/sitemap", async (req, res) => {
-		const urls = await sitemap(app)
+		const urls = await sitemap(app, settings)
 
 		const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
