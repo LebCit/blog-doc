@@ -1,4 +1,4 @@
-{{#if data.featuredImage != postPreviewFallbackImage}}
+{{#if data.featuredImage && data.featuredImage != postPreviewFallbackImage}}
 <style>
 	.post-header {
 		background-image: url("{{data.featuredImage}}");
