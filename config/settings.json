@@ -20,6 +20,8 @@
         "tags": "Tags",
         "search": "Search",
         "pages/documentation": "Documentation",
+        "rss": "RSS",
+        "sitemap": "Sitemap",
         "https://github.com/LebCit/blog-doc": "GitHub Repo",
         "bd-admin": "Admin ⚡"
     }
