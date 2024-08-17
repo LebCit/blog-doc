@@ -8,7 +8,7 @@ published: true
 
 Blog-Doc is **the simplest Node.js CMS & SSG** around! With Blog-Doc, you can easily Create, Read, Update, and Delete (CRUD) content through its intuitive [administration interface](/bd-admin). Plus, it transforms your content into a static site using its Static Site Generator (SSG) feature!
 
-Written in JavaScript ES6, Blog-Doc includes the `default` and `clean-blog` themes that use [STE](https://litenode.pages.dev/docs/rendering-templates/) for templating and Markdown for formatting posts and pages.
+Written in JavaScript ES6, Blog-Doc includes the `default`, `clean-blog` and `midday` themes that use [STE](https://litenode.pages.dev/docs/rendering-templates/) as a template engine and Markdown for formatting posts and pages.
 
 <h2>Motivation</h2>
 
