@@ -155,48 +155,55 @@
 <!-- Start #masthead -->
 {{#if data.featuredImage && data.featuredImage != postPreviewFallbackImage}}
 <header id="masthead" class="site-header unit-1 unit-lg-2-5 bio" style="background-image: url({{data.featuredImage}})">
-	{{#else}}
-	<header id="masthead" class="site-header unit-1 unit-lg-2-5 no-bio">
-		{{/if}}
+	{{#elseif errorRoute}}
+	<header id="masthead" class="site-header unit-1 unit-lg-2-5 bio" style="background-image: url({{imageSrc}})">
+		{{#else}}
+		<header id="masthead" class="site-header unit-1 unit-lg-2-5 no-bio">
+			{{/if}}
 
-		<div class="site-header-overlay"></div>
-		<!-- Start .sidebar-->
-		<div class="sidebar">
-			<div class="site-branding">
-				<h1 class="site-title">
-					<a href="/">{{siteTitle}}</a>
-				</h1>
-				<p class="site-description">{{siteDescription}}</p>
+			<div class="site-header-overlay"></div>
+			<!-- Start .sidebar-->
+			<div class="sidebar">
+				<div class="site-branding">
+					<h1 class="site-title">
+						<a href="/">{{siteTitle}}</a>
+					</h1>
+					<p class="site-description">{{siteDescription}}</p>
+				</div>
+
+				<!-- Menu button start -->
+				<nav id="nav" class="nav" aria-label="MENU">
+					<ul class="nav-list">
+						<li class="nav-item">
+							<a
+								id="menu-button"
+								aria-controls="main-nav"
+								aria-haspopup="true"
+								tabindex="0"
+								role="button"
+							>
+								<span>MENU</span>
+								<span class="menu-icon" aria-hidden="true">
+									<svg
+										version="1.1"
+										x="0px"
+										y="0px"
+										width="30px"
+										height="30px"
+										viewbox="0 0 30 30"
+										enable-background="new 0 0 30 30"
+									>
+										<rect width="30" height="5" />
+										<rect y="24" width="30" height="5" />
+										<rect y="12" width="30" height="5" />
+									</svg>
+								</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<!-- Menu button end -->
 			</div>
-
-			<!-- Menu button start -->
-			<nav id="nav" class="nav" aria-label="MENU">
-				<ul class="nav-list">
-					<li class="nav-item">
-						<a id="menu-button" aria-controls="main-nav" aria-haspopup="true" tabindex="0" role="button">
-							<span>MENU</span>
-							<span class="menu-icon" aria-hidden="true">
-								<svg
-									version="1.1"
-									x="0px"
-									y="0px"
-									width="30px"
-									height="30px"
-									viewbox="0 0 30 30"
-									enable-background="new 0 0 30 30"
-								>
-									<rect width="30" height="5" />
-									<rect y="24" width="30" height="5" />
-									<rect y="12" width="30" height="5" />
-								</svg>
-							</span>
-						</a>
-					</li>
-				</ul>
-			</nav>
-			<!-- Menu button end -->
-		</div>
-		<!-- End .sidebar-->
-	</header>
-	<!-- End #masthead-->
-</header>
+			<!-- End .sidebar-->
+		</header>
+		<!-- End #masthead-->
