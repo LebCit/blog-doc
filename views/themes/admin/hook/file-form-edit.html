@@ -53,7 +53,7 @@
 			type="date"
 			name="file[publish_date]"
 			id="file-publish-date"
-			value="{{file.frontmatter.publish_date}}"
+			value="{{file.frontmatter.publish_date | dateFormat('YYYY-MM-DD')}}"
 			required
 		/>
 	</div>

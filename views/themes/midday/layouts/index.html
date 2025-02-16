@@ -50,7 +50,9 @@
 		<p class="post-meta">
 			<span>Posted on</span>
 			<span class="posted-on">
-				<time class="postList-date" datetime="{{frontmatter.publish_date}}">{{frontmatter.publish_date}}</time>
+				<time class="postList-date" datetime="{{frontmatter.publish_date}}">
+					{{frontmatter.publish_date| dateFormat('YYYY-MM-DD')}}
+				</time>
 			</span>
 
 			<br />

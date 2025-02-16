@@ -73,7 +73,7 @@
 					<span>{{this}}</span>
 					{{/each1}}
 				</td>
-				<td>{{publish_date}}</td>
+				<td>{{publish_date | dateFormat("YYYY-MM-DD")}}</td>
 				{{/if}}
 				<td>{{published}}</td>
 				<td class="no-sort"><button class="delete-button" aria-label="Delete">&#128465;</button></td>

@@ -9,7 +9,7 @@
 				</a>
 
 				<p class="post-meta">
-					Posted on {{frontmatter.publish_date}}
+					Posted on {{frontmatter.publish_date | dateFormat('YYYY-MM-DD')}}
 					<br />
 					<!-- Post tag(s) -->
 					{{#each1 frontmatter.tags}} Tagged:

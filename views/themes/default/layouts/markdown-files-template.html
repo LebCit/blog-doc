@@ -1,7 +1,7 @@
 {{#if data.publish_date}}
 <p class="post-meta">
 	<span>Posted on</span>
-	<span class="posted-on"><time class="post-date">{{data.publish_date}}</time></span>
+	<span class="posted-on"><time class="post-date">{{data.publish_date | dateFormat('YYYY-MM-DD')}}</time></span>
 
 	<br />
 	<span>Tagged</span>

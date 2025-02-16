@@ -8,7 +8,7 @@
 		<div class="photo" style="background-image: url({{frontmatter.featuredImage}})"></div>
 
 		<ul class="details">
-			<li class="date"><span>{{frontmatter.publish_date}}</span></li>
+			<li class="date"><span>{{frontmatter.publish_date | dateFormat('YYYY-MM-DD')}}</span></li>
 
 			<li class="tags">
 				<ul>

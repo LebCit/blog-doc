@@ -11,7 +11,9 @@
 	<p class="post-meta">
 		<span>Posted on</span>
 		<span class="posted-on">
-			<time class="postList-date" datetime="{{data.publish_date}}">{{data.publish_date}}</time>
+			<time class="postList-date" datetime="{{data.publish_date}}">
+				{{data.publish_date | dateFormat('YYYY-MM-DD')}}
+			</time>
 		</span>
 
 		{{#include("themes/midday/layouts/markdown-files-template-tags.html")}}
