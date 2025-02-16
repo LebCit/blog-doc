@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center mb-4">
-	{{#if prevPost !== null}}
+	{{#if prevPost}}
 	<a
 		class="btn btn-info text-uppercase m-1"
 		href="/posts/{{prevPost.fileBaseName}}"
@@ -12,7 +12,7 @@
 
 	<!--Dynamic Markup Separator-->
 
-	{{#if nextPost !== null}}
+	{{#if nextPost}}
 	<a
 		class="btn btn-info text-uppercase m-1"
 		href="/posts/{{nextPost.fileBaseName}}"

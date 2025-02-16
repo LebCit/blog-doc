@@ -51,14 +51,14 @@
 </style>
 
 <nav class="post-navigation" aria-label="Post navigation">
-	{{#if prevPost != null}}
+	{{#if prevPost}}
 	<a href="/posts/{{prevPost.fileBaseName}}" class="prev-post" rel="prev" aria-label="Go to the previous post">
 		Previous: {{prevPost.title}}
 	</a>
 	{{/if}}
 
 	<!--Dynamic Markup Separator-->
-	{{#if nextPost != null}}
+	{{#if nextPost}}
 	<a href="/posts/{{nextPost.fileBaseName}}" class="prev-post" rel="prev" aria-label="Go to the previous post">
 		Next: {{nextPost.title}}
 	</a>
