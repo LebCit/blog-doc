@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-	{{include("themes/admin/components/head.html")}}
+	{{#include("themes/admin/components/head.html")}}
 	<body data-sm="column">
-		{{include("themes/admin/components/header.html")}}
+		{{#include("themes/admin/components/header.html")}}
 
 		<main data-sm="column childPad" data-lg="2column">
 			<mobile-menu-trigger data-sm="pad" data-lg="hide">
@@ -10,9 +10,9 @@
 				<span>➤</span>
 			</mobile-menu-trigger>
 
-			<aside>{{include("themes/admin/components/menu.html")}}</aside>
+			<aside>{{#include("themes/admin/components/menu.html")}}</aside>
 
-			<work-area>{{include("themes/admin/components/work-area-ui.html")}}</work-area>
+			<work-area>{{#include("themes/admin/components/work-area-ui.html")}}</work-area>
 		</main>
 
 		<footer data-sm="column pad gap" data-lg="2column noPad noGap">

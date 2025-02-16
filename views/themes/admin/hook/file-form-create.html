@@ -9,7 +9,7 @@
 		<input type="text" name="file[description]" id="file-description" placeholder="Describe content here" />
 	</div>
 
-	{{include("themes/admin/hook/modals/images-modal.html")}}
+	{{#include("themes/admin/hook/modals/images-modal.html")}}
 	<button type="button" class="bd-button-light" id="file-image">Add an Image</button>
 	<input type="hidden" name="file[image]" id="file-image-hidden-input" />
 
@@ -43,7 +43,7 @@
 		</div>
 	</fieldset>
 
-	{{include("themes/admin/hook/sme.html")}}
+	{{#include("themes/admin/hook/sme.html")}}
 
 	<!-- Dynamic markup separator -->
 	{{#if href == "/bd-admin/add/new-page"}}
@@ -53,7 +53,7 @@
 	{{/if}}
 </form>
 
-{{include("themes/admin/hook/modals/validation-error-modal.html")}}
+{{#include("themes/admin/hook/modals/validation-error-modal.html")}}
 
 <script type="module">
 	import { openModal } from "../../../../static/admin/scripts/openModal.js"

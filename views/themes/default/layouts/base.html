@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-	{{include("themes/default/components/head.html")}}
+	{{#include("themes/default/components/head.html")}}
 	<body>
 		<div id="layout">
-			{{include("themes/default/components/menu.html")}}
+			{{#include("themes/default/components/menu.html")}}
 
 			<div id="main">
-				{{include("themes/default/components/header.html")}}
+				{{#include("themes/default/components/header.html")}}
 
 				<div class="content">
 					{{#if mainRoute || archiveRoute || tagRoute}}
 					<!-- Start Post(s) Listing -->
-					{{include("themes/default/layouts/index.html")}}
+					{{#include("themes/default/layouts/index.html")}}
 					<!-- End Post(s) Listing -->
 					{{#elseif mdRoute}}
 					<!-- Start Markdown file content -->
-					{{include("themes/default/layouts/markdown-files-template.html")}}
+					{{#include("themes/default/layouts/markdown-files-template.html")}}
 					<!-- End Markdown file content -->
 					{{#elseif tagsRoute}}
 					<!-- Start list of tags with count -->
-					{{include("themes/default/layouts/count-posts-by-tag.html")}}
+					{{#include("themes/default/layouts/count-posts-by-tag.html")}}
 					<!-- End list of tags with count -->
 					{{#elseif searchRoute}}
 					<!-- Start search page content -->
-					{{include("themes/default/layouts/search.html")}}
+					{{#include("themes/default/layouts/search.html")}}
 					<!-- End search page content -->
 					{{#elseif errorRoute}}
 					<!-- Start error route content -->
 					<img src="{{imageSrc}}" alt="{{imageAlt}}" />
-					{{include("themes/default/components/back-to-home.html")}}
+					{{#include("themes/default/components/back-to-home.html")}}
 					<!-- End error route content -->
 					{{/if}}
 				</div>
 			</div>
 		</div>
 		<!--Start footer-->
-		{{include("themes/default/components/footer.html")}}
+		{{#include("themes/default/components/footer.html")}}
 		<!--End footer-->
 	</body>
 </html>

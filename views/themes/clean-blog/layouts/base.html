@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-	{{include("themes/clean-blog/components/head.html")}}
+	{{#include("themes/clean-blog/components/head.html")}}
 
 	<body>
 		<!-- Navigation -->
-		{{include("themes/clean-blog/components/menu.html")}}
+		{{#include("themes/clean-blog/components/menu.html")}}
 
 		<!-- Header -->
-		{{include("themes/clean-blog/components/header.html")}}
+		{{#include("themes/clean-blog/components/header.html")}}
 
 		<!-- Main Content -->
 		{{#if mainRoute || archiveRoute || tagRoute}}
 		<!-- Start Post(s) Listing -->
-		{{include("themes/clean-blog/layouts/index.html")}}
+		{{#include("themes/clean-blog/layouts/index.html")}}
 		<!-- End Post(s) Listing -->
 		{{#elseif mdRoute}}
 		<!-- Start Markdown file content -->
-		{{include("themes/clean-blog/layouts/markdown-files-template.html")}}
+		{{#include("themes/clean-blog/layouts/markdown-files-template.html")}}
 		<!-- End Markdown file content -->
 		{{#elseif tagsRoute}}
 		<!-- Start list of tags with count -->
-		{{include("themes/clean-blog/layouts/count-posts-by-tag.html")}}
+		{{#include("themes/clean-blog/layouts/count-posts-by-tag.html")}}
 		<!-- End list of tags with count -->
 		{{#elseif searchRoute}}
 		<!-- Start search page content -->
-		{{include("themes/clean-blog/layouts/search.html")}}
+		{{#include("themes/clean-blog/layouts/search.html")}}
 		<!-- End search page content -->
 		{{#elseif errorRoute}}
 		<!-- Start error route content -->
-		{{include("themes/clean-blog/components/back-to-home.html")}}
+		{{#include("themes/clean-blog/components/back-to-home.html")}}
 		<!-- End error route content -->
 		{{/if}}
 
 		<!-- Footer -->
-		{{include("themes/clean-blog/components/footer.html")}}
+		{{#include("themes/clean-blog/components/footer.html")}}
 	</body>
 </html>

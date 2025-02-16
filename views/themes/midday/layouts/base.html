@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-	{{include("themes/midday/components/head.html")}}
+	{{#include("themes/midday/components/head.html")}}
 
 	<body>
 		<!--Start page-->
@@ -8,11 +8,11 @@
 			<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
 
 			<!--Start menu-->
-			{{include("themes/midday/components/menu.html")}}
+			{{#include("themes/midday/components/menu.html")}}
 			<!--End menu-->
 
 			<!--Start masthead-->
-			{{include("themes/midday/components/masthead.html")}}
+			{{#include("themes/midday/components/masthead.html")}}
 			<!--End masthead-->
 
 			<!--Start content-->
@@ -20,35 +20,35 @@
 				{{#if mainRoute || archiveRoute || tagRoute}}
 				<main class="site-main">
 					<!-- Start Post(s) Listing -->
-					{{include("themes/midday/layouts/index.html")}}
+					{{#include("themes/midday/layouts/index.html")}}
 					<!-- End Post(s) Listing -->
 				</main>
 				{{#elseif mdRoute}}
 				<!-- MARKDOWN ROUTE -->
 				<main class="single-post">
 					<!-- Start Markdown file content -->
-					{{include("themes/midday/layouts/markdown-files-template.html")}}
+					{{#include("themes/midday/layouts/markdown-files-template.html")}}
 					<!-- End Markdown file content -->
 				</main>
 				{{#elseif tagsRoute}}
 				<!-- TAGS ROUTE -->
 				<main class="single-post">
 					<!-- Start Tag(s) Listing -->
-					{{include("themes/midday/layouts/count-posts-by-tag.html")}}
+					{{#include("themes/midday/layouts/count-posts-by-tag.html")}}
 					<!-- End Tag(s) Listing -->
 				</main>
 				{{#elseif searchRoute}}
 				<!-- SEARCH ROUTE -->
 				<main class="site-main">
 					<!--Start search-->
-					{{include("themes/midday/layouts/search.html")}}
+					{{#include("themes/midday/layouts/search.html")}}
 					<!--End search-->
 				</main>
 				{{#else}}
 				<!-- ERROR ROUTE -->
 				<main class="single-post">
 					<!--Start error page-->
-					{{include("themes/midday/layouts/error.html")}}
+					{{#include("themes/midday/layouts/error.html")}}
 					<!--End error page-->
 				</main>
 				{{/if}}
@@ -56,7 +56,7 @@
 			<!--End content-->
 
 			<!--Start footer-->
-			{{include("themes/midday/components/footer.html")}}
+			{{#include("themes/midday/components/footer.html")}}
 			<!--End footer-->
 		</div>
 		<!--End page-->

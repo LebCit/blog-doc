@@ -2,20 +2,20 @@
 <article id="main" class="mb-4">
 	<div class="container px-4 px-lg-5">
 		<div class="row gx-4 gx-lg-5 justify-content-center">
-			{{include("themes/clean-blog/layouts/markdown-files-template-editable.html")}}
+			{{#include("themes/clean-blog/layouts/markdown-files-template-editable.html")}}
 			<div class="col-md-10 col-lg-8 col-xl-7">{{html_content}}</div>
 		</div>
 	</div>
 
 	<!--Start posts pagination-->
-	{{include("themes/clean-blog/components/postsPagination.html")}}
+	{{#include("themes/clean-blog/components/postsPagination.html")}}
 	<!--End posts pagination-->
 </article>
 {{#else}}
 <main id="main" class="mb-4">
 	<div class="container px-4 px-lg-5">
 		<div class="row gx-4 gx-lg-5 justify-content-center">
-			{{include("themes/clean-blog/layouts/markdown-files-template-editable.html")}}
+			{{#include("themes/clean-blog/layouts/markdown-files-template-editable.html")}}
 			<div class="col-md-10 col-lg-8 col-xl-7">{{html_content}}</div>
 		</div>
 	</div>

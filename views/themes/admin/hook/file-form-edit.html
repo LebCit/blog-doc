@@ -36,7 +36,7 @@
 		{{/if}}
 	</div>
 
-	{{include("themes/admin/hook/modals/images-modal.html")}}
+	{{#include("themes/admin/hook/modals/images-modal.html")}}
 	<button type="button" class="bd-button-light" id="file-image">Add an Image</button>
 
 	{{#if file.frontmatter.featuredImage != undefined}}
@@ -89,7 +89,7 @@
 		</div>
 	</fieldset>
 
-	{{include("themes/admin/hook/sme.html")}}
+	{{#include("themes/admin/hook/sme.html")}}
 
 	<!-- Dynamic markup separator -->
 	{{#if file.fileDir == "pages"}}

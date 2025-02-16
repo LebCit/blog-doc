@@ -14,7 +14,7 @@
 			<time class="postList-date" datetime="{{data.publish_date}}">{{data.publish_date}}</time>
 		</span>
 
-		{{include("themes/midday/layouts/markdown-files-template-tags.html")}}
+		{{#include("themes/midday/layouts/markdown-files-template-tags.html")}}
 	</p>
 	{{/if}}
 
@@ -77,6 +77,6 @@
 
 {{#if data.publish_date}}
 <!-- Start posts pagination -->
-{{include("themes/midday/components/postsPagination.html")}}
+{{#include("themes/midday/components/postsPagination.html")}}
 <!-- End posts pagination -->
 {{/if}}
